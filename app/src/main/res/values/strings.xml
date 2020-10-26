@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Konzentrationstest</string>
+    <string-array name="difficulty_items">
+        <item>Easy (5s)</item>
+        <item>Moderate (3s)</item>
+        <item>Hard (1s)</item>
+    </string-array>
+    <string-array name="module_items">
+        <item>Rechnen</item>
+        <item>Farben</item>
+        <item>Sprachen</item>
+    </string-array>
+
+</resources>
