@@ -46,9 +46,17 @@ public class Page2 extends AppCompatActivity implements AdapterView.OnItemSelect
     }
 
 
-    public void backToStartMenu() {
+    public void backToStartMenu(View view) {
         Intent myIntent = new Intent(Page2.this, MainActivity.class);
         Page2.this.startActivity(myIntent);
+    }
+
+    public void nextPage(View view) {
+        //Intent myIntent = new Intent(Page2.this, MainActivity.class);
+        //Page2.this.startActivity(myIntent);
+
+        Intent myIntent2 = new Intent(Page2.this, Rechenaufgaben.class);
+        Page2.this.startActivity(myIntent2);
     }
     
     // zu Sprachen: Sowas wie englisch = deutsch, also ob ein englisches Wort im deutschen auch so heißt, zB car = auto, house = haus, oder ähnliches. Irgendwas einfaches mit verwirrenden Lösungen
