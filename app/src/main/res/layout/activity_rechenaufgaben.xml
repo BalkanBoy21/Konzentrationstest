@@ -5,14 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gainsboro"
-    tools:context=".Rechenaufgaben">
+    tools:context=".Aufgabe_Rechnen">
 
     <TextView
         android:id="@+id/aufgabenFeld"
-        android:layout_width="582dp"
-        android:layout_height="127dp"
-        android:text="Default Wert"
+        android:layout_width="391dp"
+        android:layout_height="120dp"
+        android:text="Aufgabenfeld"
         android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,26 +26,43 @@
         android:id="@+id/unwahr"
         android:layout_width="173dp"
         android:layout_height="167dp"
+        android:layout_marginBottom="68dp"
         android:onClick="check"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.102"
+        app:layout_constraintHorizontal_bias="0.067"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.878"
+        app:layout_constraintTop_toBottomOf="@+id/countDownBar"
+        app:layout_constraintVertical_bias="0.997"
         app:srcCompat="@drawable/thumbs_down" />
 
     <ImageButton
         android:id="@+id/wahr"
         android:layout_width="173dp"
         android:layout_height="167dp"
+        android:layout_marginBottom="68dp"
         android:onClick="check"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.892"
+        app:layout_constraintHorizontal_bias="0.932"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.877"
+        app:layout_constraintVertical_bias="0.997"
         app:srcCompat="@drawable/thumbs_up" />
+
+    <ProgressBar
+        android:id="@+id/countDownBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:max="10"
+        android:layout_width="330dp"
+        android:layout_height="44dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginRight="31dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.046" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
