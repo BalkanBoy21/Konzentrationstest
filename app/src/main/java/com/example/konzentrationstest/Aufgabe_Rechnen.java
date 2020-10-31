@@ -23,7 +23,7 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
     int [] summand1 = new int[100 + quadratzahlen.length];     // vielleicht besser new int[100 + quadratzahlen.length] und dann irgendwie verteilen, sind viel zu viele Variablen
     int [] summand2 = new int[summand1.length];
     int [] summen = new int[summand1.length];
-    static int punkte = 0;
+    int punkte = 0;
     static int nth_activity = 0;
 
     String operator = "+";
