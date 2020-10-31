@@ -90,7 +90,7 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
         builder.setTitle("Falsche Antwort");
         builder.setMessage("Ins Startmenü zurück oder eine neue Runde starten?");
         // add the buttons
-        builder.setPositiveButton("Continue", (DialogInterface dialog, int which) -> punkte = 0);
+        builder.setPositiveButton("Continue", (DialogInterface dialog, int which) -> this.punkte = 0);
         builder.setNegativeButton("Exit", (DialogInterface dialog, int which) -> {
                 Intent myIntent = new Intent(Aufgabe_Rechnen.this, MainActivity.class);
                 Aufgabe_Rechnen.this.startActivity(myIntent);
