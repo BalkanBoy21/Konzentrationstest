@@ -62,9 +62,13 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
         textFeld = findViewById(R.id.aufgabenFeld);
         timer = findViewById(R.id.countDownBar);
 
+        // vielleicht überflüssig
         int a = 13 + (int) (Math.random() * 12);            // [13, 24]
         int b = 5 + (int) (Math.random() * 28);             // [5, 32]
         int c = (a + b - 3) + (int) (Math.random() * 3);    // [a+b-3; a+b+2]  -> spaeter nach belieben Aendern
+        summand1[0] = a;
+        summand2[0] = b;
+        summen[0] = c;
         String s = a + " " + operator + " " + b + " = " + c;
         textFeld.setText(s); // default für den ersten Wert
 
