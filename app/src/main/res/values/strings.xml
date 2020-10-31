@@ -9,6 +9,7 @@
         <item>Rechnen</item>
         <item>Farben</item>
         <item>Sprachen</item>
+        <item>Formen</item>
     </string-array>
-
+    <string name="sqr_root">&#8730;</string>
 </resources>
