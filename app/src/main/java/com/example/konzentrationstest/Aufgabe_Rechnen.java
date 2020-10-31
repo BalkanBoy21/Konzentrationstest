@@ -187,8 +187,6 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
                 Log.d("---", "Deine Antwort ist nicht korrekt");
                 showExitContinueWindow();
             }
-        } else {
-            Log.d("---", "Irgendwas stimmt hier nicht. Irgendein anderer Button muss gedrückt worden sein.");
         }
 
     }

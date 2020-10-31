@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class Page2 extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     public static Spinner diff;
+    public Spinner mod;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,7 @@ public class Page2 extends AppCompatActivity implements AdapterView.OnItemSelect
         diff.setAdapter(adapter);
         diff.setOnItemSelectedListener(this);
 
-        Spinner mod = findViewById(R.id.modules);
+        mod = findViewById(R.id.modules);
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
                 R.array.module_items, android.R.layout.simple_spinner_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -46,6 +47,10 @@ public class Page2 extends AppCompatActivity implements AdapterView.OnItemSelect
     public void onNothingSelected(AdapterView<?> parent) {
     }
 
+    public Spinner getDiff() {
+        return this.diff;
+    }
+
 
     public void backToStartMenu(View view) {
         Intent myIntent = new Intent(Page2.this, MainActivity.class);
@@ -56,7 +61,15 @@ public class Page2 extends AppCompatActivity implements AdapterView.OnItemSelect
         //Intent myIntent = new Intent(Page2.this, MainActivity.class);
         //Page2.this.startActivity(myIntent);
 
-        Intent myIntent2 = new Intent(Page2.this, Aufgabe_Rechnen.class);
+        Class nextAct = null;
+        switch (mod.getSelectedItem().toString()) {
+            case "Rechnen": nextAct = Aufgabe_Rechnen.class; break;
+            case "Farben": nextAct = Aufgabe_Farben.class; break;
+            case "Sprachen": nextAct = Aufgabe_Uebersetzen.class; break;
+            case "Formen": nextAct = Aufgabe_Formen.class; break;
+        }
+
+        Intent myIntent2 = new Intent(Page2.this, nextAct);
         Page2.this.startActivity(myIntent2);
 
     }

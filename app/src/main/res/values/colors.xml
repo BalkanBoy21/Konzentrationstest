@@ -5,7 +5,35 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
+    <color name="Grün">#008000</color>
+    <color name="Gelb">#FFFF00</color>
+    <color name="Blau">#0000FF</color>
+    <color name="Rot">#800000</color>
+    <color name="Türkis">#3f888f</color>
+    <color name="Orange">#FFA500</color>
+    <color name="Braun">#A52A2A</color>
+    <color name="Rosa">#FFC0CB</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
     <color name="gainsboro">#dcdcdc</color>
+
+    <string-array name="colorTexts">
+        <item>Grün</item>
+
+    </string-array>
+
+    <string-array name="xxx">
+        <item>Smartphone</item>
+    </string-array>
+
+    <string-array name="colors">
+        <item>@color/Grün</item>
+        <item>@color/Gelb</item>
+        <item>@color/Blau</item>
+        <item>@color/Rot</item>
+        <item>@color/Türkis</item>
+        <item>@color/Orange</item>
+        <item>@color/Braun</item>
+        <item>@color/Rosa</item>
+    </string-array>
 </resources>

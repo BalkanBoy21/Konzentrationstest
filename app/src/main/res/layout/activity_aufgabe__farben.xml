@@ -4,6 +4,68 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".Aufgabe_Farben">
+
+    <ImageButton
+        android:id="@+id/unwahr2"
+        android:layout_width="173dp"
+        android:layout_height="167dp"
+        android:layout_marginBottom="68dp"
+        android:onClick="check"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.067"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/countDownBar"
+        app:layout_constraintVertical_bias="0.997"
+        app:srcCompat="@drawable/thumbs_down" />
+
+    <ImageButton
+        android:id="@+id/wahr2"
+        android:layout_width="173dp"
+        android:layout_height="167dp"
+        android:layout_marginBottom="69dp"
+        android:onClick="check"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.932"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textFarbe"
+        app:layout_constraintVertical_bias="0.997"
+        app:srcCompat="@drawable/thumbs_up" />
+
+    <ProgressBar
+        android:id="@+id/countDownBar2"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="330dp"
+        android:layout_height="44dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginRight="31dp"
+        android:max="10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.046" />
+
+    <TextView
+        android:id="@+id/textFarbe"
+        android:layout_width="293dp"
+        android:layout_height="240dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginLeft="46dp"
+        android:layout_marginEnd="46dp"
+        android:layout_marginRight="46dp"
+        android:text="DefaultFarbe"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.312" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

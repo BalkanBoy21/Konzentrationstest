@@ -8,9 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 // wie soll das aussehen? Hat eher weniger mit Konzentration zu tun als vielmehr mit Vokabular, vielleicht zum Schluss machen als Extra
 public class Aufgabe_Uebersetzen extends AppCompatActivity {
 
-    String [] woerter_englisch = {"house", "car", ""};
+    String [][] woerter_englisch = new String[][]{{"house", "car", "keyboard"}, {}, {}};
 
-    String [] woerter_deutsch = {"Haus", "Auto"};
+    String [][] woerter_deutsch = {{"Haus", "Auto", "Tastatur"}, {}, {}};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
