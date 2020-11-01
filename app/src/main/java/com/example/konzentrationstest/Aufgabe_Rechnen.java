@@ -44,7 +44,7 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
 
         // nur fuer alle Wurzeln
         for (int j = 0; j < quadratzahlen.length; j++) {
-            temp_shuffle[j] = (int) (Math.random() * 110);  // random-Index fuer die Wurzel-Zahlen
+            temp_shuffle[j] = (int) (Math.random() * summand1.length);  // random-Index fuer die Wurzel-Zahlen, auf Array summand1 verteilen
             summand1[temp_shuffle[j]] = quadratzahlen[j];
             summand2[temp_shuffle[j]] = 0;        // Merkmal einer Wurzelzahl einfach, dass 2.Summand eine 0 ist (um sie von einfachen Zahlen zu unterscheiden), siehe check Methode
             summen[temp_shuffle[j]] = generiereErgebnis_Wurzel(quadratzahlen[j]);    // bzw. selbst oben einfach eintragen
@@ -72,7 +72,7 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
         String s = a + " " + operator + " " + b + " = " + c;
         textFeld.setText(s); // default für den ersten Wert
 
-        schwierigkeitslevel = String.valueOf(Page2.diff.getSelectedItem()).split(" ")[0];      // gibt entweder Easy, Moderate oder Hard aus
+        schwierigkeitslevel = String.valueOf(MainActivity.diff.getSelectedItem()).split(" ")[0];      // gibt entweder Easy, Moderate oder Hard aus
 
         //timer.setProgress(timer.getMax());      // nur fuer die erste Seite, also den ersten Wert
 
@@ -85,6 +85,8 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
         return 2 * (Arrays.asList(stufen).indexOf(level_index)+1) + 2;  // +1 sehr wichtig, da für Hard ansonsten Wert von 0 angenommen wird
     }
 
+    // Überlegen, eine eigene abstrakte Klasse bzw. ein Interface dafür zu erstellen, da fast in jeder Klasse diese Methode auftaucht
+    // zeigt Pop-Up-Fenster, falls Spoel verloren.
     public void showExitContinueWindow() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Falsche Antwort");
@@ -112,13 +114,14 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
     }
 
     public static int generiereErgebnis_Wurzel(int wert) {
-        return zufallsGenerator((int) (Math.sqrt(wert)), (int) (Math.sqrt(wert)) + (int) (Math.random() * 2));     // Intervall [wurzel(wert); wurzel(wert)+1]     // spaeter verfeinern, sodass die Wahrscheinlichkeit hoeher ist, dass das Ergebnis korrekt ist, zB mit neuer Methode und Modulo
+        // gewichtung gilt fuer ersten Parameterwert
+        return zufallsGenerator((int) (Math.sqrt(wert)), (int) (Math.sqrt(wert)) + (int) (Math.random() * 2), 60);     // Intervall [wurzel(wert); wurzel(wert)+1]     // spaeter verfeinern, sodass die Wahrscheinlichkeit hoeher ist, dass das Ergebnis korrekt ist, zB mit neuer Methode und Modulo
     }
 
-    // Wahrscheinlichkeit, dass wert1 ausgewaehlt wird, soll 70% sein, und fuer wert2 30%
-    public static int zufallsGenerator(int wert1, int wert2) {
+    // Wahrscheinlichkeit, dass wert1 ausgewaehlt wird, soll gewichtung % sein, und fuer wert2 dann 1 - gewichtung %
+    public static int zufallsGenerator(int wert1, int wert2, int gewichtung) {
         int random = (int) (Math.random() * 100);
-        if (random < 70) {
+        if (random < gewichtung) {
             return wert1;
         }
         return wert2;
@@ -132,11 +135,11 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
         ImageButton th_up = findViewById(R.id.wahr);
         textFeld = findViewById(R.id.aufgabenFeld);
 
-        boolean korrektesErgebnis;
+        boolean ergebnisIstRichtig;
         if (summand2[nth_activity] == 0) {  // Quadrat
-            korrektesErgebnis = Math.sqrt(summand1[nth_activity]) == summen[nth_activity];
+            ergebnisIstRichtig = Math.sqrt(summand1[nth_activity]) == summen[nth_activity];
         } else {        // Summe
-            korrektesErgebnis = summand1[nth_activity] + summand2[nth_activity] == summen[nth_activity];        // allein deshalb lieber andere Möglichkeit finden um Quadratzahlen einzubringen. Am besten in einem einzigen Array
+            ergebnisIstRichtig = summand1[nth_activity] + summand2[nth_activity] == summen[nth_activity];        // allein deshalb lieber andere Möglichkeit finden um Quadratzahlen einzubringen. Am besten in einem einzigen Array
         }
         int sek = level_in_sekunden(schwierigkeitslevel);
         int mil = sek * 1000;
@@ -147,46 +150,27 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
 
         String s;
 
-        if (view.getId() == R.id.unwahr) {
-            if (!korrektesErgebnis) {
-                Log.d("---", "Deine Antwort ist korrekt");
-                ++punkte;
+        if (view.getId() == R.id.unwahr && ergebnisIstRichtig) {        // wenn auf Falsch geklickt wird, das Ergebnis aber richtig ist
+            Log.d("---", "Deine Antwort ist nicht korrekt");
+            showExitContinueWindow();
+            this.punkte = 0;
+            return;
+        } else if (view.getId() == R.id.wahr && !ergebnisIstRichtig) {  // wenn auf Falsch geklickt wird, das Ergebnis aber falsch ist
+            Log.d("---", "Deine Antwort ist nicht korrekt");
+            showExitContinueWindow();
+            this.punkte = 0;
+            return;
+        }
 
-                // fuer die naechste Activity
-                ++nth_activity;     // spaeter umbenennen
-                if (summand2[nth_activity] != 0) {  // gib Summe aus
-                    s = summand1[nth_activity] + " " + operator + " " + summand2[nth_activity] + " = " + summen[nth_activity];
-                    textFeld.setText(s);
-                } else if (summand2[nth_activity] == 0) {   // gib Text aus
-                    //textFeld.setText(getResources().getString(R.string.sqr_root));
-                    textFeld.setText(Html.fromHtml("&#x221a;" + summand1[nth_activity] + " = " + summen[nth_activity]));
-                }
+        ++punkte;
+        ++nth_activity;
 
-                // Code doppelt und drei-fach, Möglichkeit überlegen nicht nochmal schreiben zu müssen
-
-            } else {
-                Log.d("---", "Deine Antwort ist nicht korrekt");
-                // Pop Up Fenster mit Nachricht, um ins Menue zu gelangen
-                showExitContinueWindow();
-            }
-        } else if (view.getId() == R.id.wahr) {
-            if (korrektesErgebnis) {
-                ++punkte;
-                ++nth_activity;
-
-                if (summand2[nth_activity] != 0) {  // gib Summe aus
-                    s = summand1[nth_activity] + " " + operator + " " + summand2[nth_activity] + " = " + summen[nth_activity];
-                    textFeld.setText(s);
-                } else if (summand2[nth_activity] == 0) {   // gib Text aus
-                    //textFeld.setText(getResources().getString(R.string.sqr_root));
-                    textFeld.setText(Html.fromHtml("&#x221a;" + summand1[nth_activity] + " = " + summen[nth_activity]));
-                }
-                // Code doppelt und drei-fach, Möglichkeit überlegen nicht nochmal schreiben zu müssen
-
-            } else {
-                Log.d("---", "Deine Antwort ist nicht korrekt");
-                showExitContinueWindow();
-            }
+        if (summand2[nth_activity] != 0) {  // gib Summe aus
+            s = summand1[nth_activity] + " " + operator + " " + summand2[nth_activity] + " = " + summen[nth_activity];
+            textFeld.setText(s);
+        } else if (summand2[nth_activity] == 0) {   // gib Text aus
+            //textFeld.setText(getResources().getString(R.string.sqr_root));
+            textFeld.setText(Html.fromHtml("&#x221a;" + summand1[nth_activity] + " = " + summen[nth_activity]));
         }
 
     }

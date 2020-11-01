@@ -22,12 +22,6 @@ public class Page2 extends AppCompatActivity implements AdapterView.OnItemSelect
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page2);
 
-        diff = findViewById(R.id.difficulties);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.difficulty_items, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        diff.setAdapter(adapter);
-        diff.setOnItemSelectedListener(this);
 
         mod = findViewById(R.id.modules);
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
