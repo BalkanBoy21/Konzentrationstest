@@ -2,6 +2,7 @@ package com.example.konzentrationstest;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -26,6 +27,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         diff.setAdapter(adapter);
         diff.setOnItemSelectedListener(this);
+
+        Log.d("---",this.getWindow().getDecorView().getHeight() + "");
+        Log.d("---",this.getWindow().getDecorView().getWidth() + "");
+
     }
 
     public void btnOnClick(View view) {

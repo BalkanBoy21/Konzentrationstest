@@ -7,40 +7,64 @@
     android:background="@color/gainsboro"
     tools:context=".Page2">
 
-    <Spinner
-        android:id="@+id/modules"
-        android:layout_width="170dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="120dp"
-        android:layout_marginRight="120dp"
-        android:layout_marginBottom="470dp"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
+    <Button
+        android:id="@+id/button_rechnen"
+        android:layout_width="408dp"
+        android:layout_height="183dp"
+        android:onClick="nextPage"
+        android:text="Rechnen"
+        android:textSize="40dp"
+        android:textAlignment="textStart"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="311dp"
+        android:id="@+id/button_farbe"
+        android:layout_width="408dp"
+        android:layout_height="183dp"
         android:onClick="nextPage"
-        android:text="Start"
+        android:text="Farben"
+        android:textSize="40dp"
+        android:textAlignment="textEnd"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
- 
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.333" />
+
     <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="33dp"
-        android:layout_marginRight="33dp"
-        android:layout_marginBottom="69dp"
-        android:onClick="backToStartMenu"
-        android:text="Back"
+        android:id="@+id/button_formen"
+        android:layout_width="408dp"
+        android:layout_height="183dp"
+        android:onClick="nextPage"
+        android:text="Formen"
+        android:textSize="40dp"
+        android:textAlignment="textStart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/modules" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.667" />
+
+    <Button
+        android:id="@+id/button_sprachen"
+        android:layout_width="408dp"
+        android:layout_height="183dp"
+        android:onClick="nextPage"
+        android:text="Sprachen"
+        android:textSize="40dp"
+        android:textAlignment="textEnd"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
