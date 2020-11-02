@@ -84,7 +84,7 @@ public class Page2 extends AppCompatActivity implements AdapterView.OnItemSelect
             case R.id.button_rechnen: nextAct = Aufgabe_Rechnen.class; break;
             case R.id.button_farbe: nextAct = Aufgabe_Farben.class; break;
             case R.id.button_formen: nextAct = Aufgabe_Formen.class; break;
-            case R.id.button_sprachen: nextAct = Aufgabe_Uebersetzen.class; break;
+            case R.id.button_sprachen: nextAct = Aufgabe_Sprachen.class; break;
         }
 
         Intent myIntent2 = new Intent(Page2.this, nextAct);

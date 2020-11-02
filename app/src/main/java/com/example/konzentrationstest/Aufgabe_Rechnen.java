@@ -89,14 +89,17 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
     // zeigt Pop-Up-Fenster, falls Spoel verloren.
     public void showExitContinueWindow() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Falsche Antwort");
-        builder.setMessage("Ins Startmenü zurück oder eine neue Runde starten?");
+//        builder.setTitle("Falsche Antwort");
+        builder.setTitle("\t\t\t\t\t\t\t\tErreichte Punktzahl: " + this.punkte);
+
+        // unbedingt noch sowas wie durchschnittliche Zeit pro Aufgabe im Format (Sekunden, Hundertstel-Millisekunden), z.B. 1,74 Sekunden
+        builder.setMessage("\t\t\t\t\t\t\t\tDeine Antwort ist falsch.\n\t\t\t\t\t\t\t\tBeenden oder fortsetzen?");
         // add the buttons
-        builder.setPositiveButton("Continue", (DialogInterface dialog, int which) -> this.punkte = 0);
-        builder.setNegativeButton("Exit", (DialogInterface dialog, int which) -> {
+        builder.setNegativeButton("Beenden", (DialogInterface dialog, int which) -> {
                 Intent myIntent = new Intent(Aufgabe_Rechnen.this, MainActivity.class);
                 Aufgabe_Rechnen.this.startActivity(myIntent);
             });
+        builder.setPositiveButton("Fortsetzen", (DialogInterface dialog, int which) -> this.punkte = 0);
 
         // create and show the alert dialog
         AlertDialog dialog = builder.create();
@@ -127,9 +130,15 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
         return wert2;
     }
 
+    int temp = 0;
     // besser nur eine Methode statt 2, und dann zwischen 2 Fällen unterscheiden
     public void check(View view) {
-        z.setMillisec(10000);       // neu auf 10000 setzen, wie oben bei Variable m
+        if (z.getCountDownTimer() != null) {        // damit erste Seite übersprungen wird, da hier die Zeit noch nicht läuft.
+            z.getCountDownTimer().onFinish();
+            z = new Zeit(timer, 10000);     // neues Objekt fuer naechste Seite
+            z.running = true;
+        }
+        //z.setMillisec(10000);       // neu auf 10000 setzen, wie oben bei Variable m
 
         ImageButton th_down = findViewById(R.id.unwahr);
         ImageButton th_up = findViewById(R.id.wahr);
@@ -141,24 +150,14 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
         } else {        // Summe
             ergebnisIstRichtig = summand1[nth_activity] + summand2[nth_activity] == summen[nth_activity];        // allein deshalb lieber andere Möglichkeit finden um Quadratzahlen einzubringen. Am besten in einem einzigen Array
         }
-        int sek = level_in_sekunden(schwierigkeitslevel);
-        int mil = sek * 1000;
-
-        z.setMillisec(mil);
-        timer.setProgress(timer.getMax());
-        z.run();
-
-        String s;
 
         if (view.getId() == R.id.unwahr && ergebnisIstRichtig) {        // wenn auf Falsch geklickt wird, das Ergebnis aber richtig ist
             Log.d("---", "Deine Antwort ist nicht korrekt");
             showExitContinueWindow();
-            this.punkte = 0;
             return;
         } else if (view.getId() == R.id.wahr && !ergebnisIstRichtig) {  // wenn auf Falsch geklickt wird, das Ergebnis aber falsch ist
             Log.d("---", "Deine Antwort ist nicht korrekt");
             showExitContinueWindow();
-            this.punkte = 0;
             return;
         }
 
@@ -166,12 +165,20 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
         ++nth_activity;
 
         if (summand2[nth_activity] != 0) {  // gib Summe aus
-            s = summand1[nth_activity] + " " + operator + " " + summand2[nth_activity] + " = " + summen[nth_activity];
+            String s = summand1[nth_activity] + " " + operator + " " + summand2[nth_activity] + " = " + summen[nth_activity];
             textFeld.setText(s);
         } else if (summand2[nth_activity] == 0) {   // gib Text aus
             //textFeld.setText(getResources().getString(R.string.sqr_root));
             textFeld.setText(Html.fromHtml("&#x221a;" + summand1[nth_activity] + " = " + summen[nth_activity]));
         }
+
+        //int sek = level_in_sekunden(schwierigkeitslevel);
+        //int mil = sek * 1000;
+        //z.setMillisec(mil);
+
+        //timer.setProgress(timer.getMax());
+
+        z.run();
 
     }
 

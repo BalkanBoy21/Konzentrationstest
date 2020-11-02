@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Log.d("---",this.getWindow().getDecorView().getHeight() + "");
         Log.d("---",this.getWindow().getDecorView().getWidth() + "");
 
+        easy.setEnabled(false);
+
     }
 
     public void btnOnClick(View view) {
