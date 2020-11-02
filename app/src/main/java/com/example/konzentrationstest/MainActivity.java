@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     static Spinner diff;
+    Button easy, moderate, hard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +23,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
 
         diff = findViewById(R.id.difficulties);
+        easy = findViewById(R.id.easy);
+        moderate = findViewById(R.id.moderate);
+        hard = findViewById(R.id.hard);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.difficulty_items, android.R.layout.simple_spinner_item);
@@ -38,6 +43,31 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
 
+    }
+
+    public void terminateDfficulty(View view) {
+        if (view.getId() == R.id.easy) {
+            moderate.setEnabled(true);
+            moderate.setBackgroundResource(android.R.drawable.btn_default);
+            hard.setEnabled(true);
+            hard.setBackgroundResource(android.R.drawable.btn_default);
+            easy.setEnabled(false);
+            easy.setBackgroundResource(R.color.Rot);
+        } else if (view.getId() == R.id.moderate) {
+            easy.setEnabled(true);
+            easy.setBackgroundResource(android.R.drawable.btn_default);
+            hard.setEnabled(true);
+            hard.setBackgroundResource(android.R.drawable.btn_default);
+            moderate.setEnabled(false);
+            moderate.setBackgroundResource(R.color.Rot);
+        } else if (view.getId() == R.id.hard) {
+            easy.setEnabled(true);
+            easy.setBackgroundResource(android.R.drawable.btn_default);
+            moderate.setEnabled(true);
+            moderate.setBackgroundResource(android.R.drawable.btn_default);
+            hard.setEnabled(false);
+            hard.setBackgroundResource(R.color.Rot);
+        }
     }
 
     @Override
