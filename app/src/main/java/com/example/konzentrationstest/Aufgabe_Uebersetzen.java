@@ -6,7 +6,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 // wie soll das aussehen? Hat eher weniger mit Konzentration zu tun als vielmehr mit Vokabular, vielleicht zum Schluss machen als Extra
-public class Aufgabe_Sprachen extends AppCompatActivity {
+public class Aufgabe_Uebersetzen extends AppCompatActivity {
 
 //    String [][] woerter_englisch = new String[][]{{"house", "car", "keyboard"}, {}, {}};
 

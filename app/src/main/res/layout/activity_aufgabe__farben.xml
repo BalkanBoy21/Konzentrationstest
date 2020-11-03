@@ -52,20 +52,20 @@
 
     <TextView
         android:id="@+id/textFarbe"
-        android:layout_width="293dp"
-        android:layout_height="240dp"
+        android:layout_width="365dp"
+        android:layout_height="97dp"
         android:layout_marginStart="46dp"
         android:layout_marginLeft="46dp"
         android:layout_marginEnd="46dp"
         android:layout_marginRight="46dp"
-        android:text="DefaultFarbe"
+        android:text="Default"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="50dp"
+        android:textSize="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.312" />
+        app:layout_constraintVertical_bias="0.334" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

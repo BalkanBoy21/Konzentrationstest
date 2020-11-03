@@ -6,4 +6,56 @@
     android:layout_height="match_parent"
     tools:context=".Aufgabe_Formen">
 
+    <ImageButton
+        android:id="@+id/wahr3"
+        android:layout_width="173dp"
+        android:layout_height="167dp"
+        android:layout_marginBottom="68dp"
+        android:onClick="check"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.932"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.997"
+        app:srcCompat="@drawable/thumbs_up" />
+
+    <ImageButton
+        android:id="@+id/unwahr3"
+        android:layout_width="173dp"
+        android:layout_height="167dp"
+        android:layout_marginBottom="68dp"
+        android:onClick="check"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.067"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/countDownBar"
+        app:layout_constraintVertical_bias="0.997"
+        app:srcCompat="@drawable/thumbs_down" />
+
+    <ImageView
+        android:id="@+id/formSymbol"
+        android:layout_width="366dp"
+        android:layout_height="350dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.12"
+        />
+
+    <TextView
+        android:id="@+id/formText"
+        android:layout_width="152dp"
+        android:layout_height="51dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textSize="35dp"
+        app:layout_constraintBottom_toBottomOf="@+id/formSymbol"
+        app:layout_constraintEnd_toEndOf="@+id/formSymbol"
+        app:layout_constraintStart_toStartOf="@+id/formSymbol"
+        app:layout_constraintTop_toTopOf="@+id/formSymbol"
+        app:layout_constraintVertical_bias="0.468" />
 </androidx.constraintlayout.widget.ConstraintLayout>

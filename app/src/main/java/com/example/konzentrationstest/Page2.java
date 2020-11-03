@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 // Settings for playing the game
 public class Page2 extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    public static Spinner diff;
     public Spinner mod;
     private Button b1, b2, b3, b4;
 
@@ -22,18 +21,11 @@ public class Page2 extends AppCompatActivity implements AdapterView.OnItemSelect
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page2);
-/*
-        mod = findViewById(R.id.modules);
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
-                R.array.module_items, android.R.layout.simple_spinner_item);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mod.setAdapter(adapter2);
-        mod.setOnItemSelectedListener(this);
-*/
+
         b1 = findViewById(R.id.button_rechnen);
         b2 = findViewById(R.id.button_farbe);
         b3 = findViewById(R.id.button_formen);
-        b4 = findViewById(R.id.button_sprachen);
+        b4 = findViewById(R.id.button_uebersetzen);
 
         b1.setBackgroundColor(getResources().getColor(R.color.gainsboro));
         b2.setBackgroundColor(getResources().getColor(R.color.Braun));
@@ -57,9 +49,6 @@ public class Page2 extends AppCompatActivity implements AdapterView.OnItemSelect
     public void onNothingSelected(AdapterView<?> parent) {
     }
 
-    public Spinner getDiff() {
-        return this.diff;
-    }
 
 
     public void backToStartMenu(View view) {
@@ -84,7 +73,7 @@ public class Page2 extends AppCompatActivity implements AdapterView.OnItemSelect
             case R.id.button_rechnen: nextAct = Aufgabe_Rechnen.class; break;
             case R.id.button_farbe: nextAct = Aufgabe_Farben.class; break;
             case R.id.button_formen: nextAct = Aufgabe_Formen.class; break;
-            case R.id.button_sprachen: nextAct = Aufgabe_Sprachen.class; break;
+            case R.id.button_uebersetzen: nextAct = Aufgabe_Uebersetzen.class; break;
         }
 
         Intent myIntent2 = new Intent(Page2.this, nextAct);

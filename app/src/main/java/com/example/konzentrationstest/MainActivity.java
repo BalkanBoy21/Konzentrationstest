@@ -7,14 +7,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    static Spinner diff;
     Button easy, moderate, hard;
 
     @Override
@@ -22,7 +20,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        diff = findViewById(R.id.difficulties);
         easy = findViewById(R.id.easy);
         moderate = findViewById(R.id.moderate);
         hard = findViewById(R.id.hard);
@@ -30,8 +27,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.difficulty_items, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        diff.setAdapter(adapter);
-        diff.setOnItemSelectedListener(this);
 
         Log.d("---",this.getWindow().getDecorView().getHeight() + "");
         Log.d("---",this.getWindow().getDecorView().getWidth() + "");
@@ -86,10 +81,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         //ImageView sound = findViewById(R.id.sound_icon);
 
 
-    }
-
-    public Spinner getDiff() {
-        return diff;
     }
 
     public void goToPage2(View view) {

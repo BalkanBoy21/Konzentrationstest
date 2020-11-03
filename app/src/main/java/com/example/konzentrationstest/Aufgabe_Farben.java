@@ -1,13 +1,10 @@
 package com.example.konzentrationstest;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.lang.reflect.Field;
@@ -55,6 +52,7 @@ public class Aufgabe_Farben extends AppCompatActivity {
 
     }
 
+    int randomFarbe = 0;    // dummy
     public void check(View view) {
         String currentText = farbText.getText().toString();
         int currentColor = farbText.getCurrentTextColor();
@@ -78,51 +76,35 @@ public class Aufgabe_Farben extends AppCompatActivity {
         }
 
         if (view.getId() == R.id.unwahr2 && ergebnisIstRichtig) {   // wenn auf Falsch geklickt wird, das Ergebnis aber richtig ist
-            showExitContinueWindow();
+            PopUpFenster pop = new PopUpFenster(this, punkte);
+            pop.showExitContinueWindow();
         } else if (view.getId() == R.id.wahr2 && !ergebnisIstRichtig) { // wenn auf Richtig geklickt wird, das Ergebnis aber falsch ist
-            showExitContinueWindow();
+            PopUpFenster pop = new PopUpFenster(this, punkte);
+            pop.showExitContinueWindow();
         } else {    // Ergebnis ist richtig
-            int randomNumber = (int) (Math.random() * farben.length);
-            String randomText = "";
-            int randomFarbe = 0;    // dummy
-            // Implementierung, sodass nur die benachbarten Farben ausgewählt werden können um die Häufigkeit zu erhöhen
+            int randomNumber;
+            String randomText;
 
-            if ((randomNumber >= 1) && (randomNumber <= farben.length-2)) { // fuer alle Zahlen bis auf die aeußersten des Arrays
+            // Implementierung, sodass nur die benachbarten Farben ausgewählt werden können um die Häufigkeit zu erhöhen
+            do {
+                randomNumber = (int) (Math.random() * farben.length);
                 randomText = farben[randomNumber];
-                randomFarbe = farbCodes[(randomNumber-1) + (int) (Math.random() * 3)];
-            } else if (randomNumber == 0) {
-                int[] random_array = new int[] {farben.length-1, 0, 1};
-                randomText = farben[randomNumber];
-                randomFarbe = farbCodes[random_array[(int) (Math.random() * random_array.length)]];
-            } else if (randomNumber == farben.length-1) {
-                int[] random_array = new int[]{farben.length - 2, farben.length - 1, 0};
-                randomText = farben[randomNumber];
-                randomFarbe = farbCodes[random_array[(int) (Math.random() * random_array.length)]];
-            }
+                if (randomNumber == 0) {
+                    int[] random_array = new int[]{farben.length - 1, 0, 1};
+                    randomFarbe = farbCodes[random_array[(int) (Math.random() * random_array.length)]];
+                } else if (randomNumber == farben.length - 1) {
+                    int[] random_array = new int[]{farben.length - 2, farben.length - 1, 0};
+                    randomFarbe = farbCodes[random_array[(int) (Math.random() * random_array.length)]];
+                } else {    // fuer alle Zahlen bis auf die aeußersten des Arrays
+                    randomFarbe = farbCodes[(randomNumber - 1) + (int) (Math.random() * 3)];
+                }
+            } while (farben[randomNumber].equals(currentText) || (randomFarbe == currentColor));      // nach jedem Klick eine andere Farbe und ein anderer Text
+
 
             farbText.setText(randomText);
             farbText.setTextColor(randomFarbe);
             //farbText.setBackgroundColor(randomFarbe);
         }
     }
-
-    // Überlegen, eine eigene abstrakte Klasse bzw. ein Interface dafür zu erstellen, da fast in jeder Klasse diese Methode auftaucht
-    // zeigt Pop-Up-Fenster, falls Spoel verloren.
-    public void showExitContinueWindow() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Falsche Antwort");
-        builder.setMessage("Ins Startmenü zurück oder eine neue Runde starten?");
-        // add the buttons
-        builder.setPositiveButton("Continue", (DialogInterface dialog, int which) -> this.punkte = 0);
-        builder.setNegativeButton("Exit", (DialogInterface dialog, int which) -> {
-            Intent myIntent = new Intent(Aufgabe_Farben.this, MainActivity.class);
-            Aufgabe_Farben.this.startActivity(myIntent);
-        });
-
-        // create and show the alert dialog
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
-
 
 }

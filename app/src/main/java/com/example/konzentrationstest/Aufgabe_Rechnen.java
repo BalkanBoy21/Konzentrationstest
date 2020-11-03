@@ -1,7 +1,5 @@
 package com.example.konzentrationstest;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -10,7 +8,6 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Arrays;
@@ -31,8 +28,8 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
 
     private ProgressBar timer;
     private TextView textFeld;
-    private String schwierigkeitslevel;
 
+    PopUpFenster pop;
     private Zeit z;
 
     @Override
@@ -72,7 +69,7 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
         String s = a + " " + operator + " " + b + " = " + c;
         textFeld.setText(s); // default für den ersten Wert
 
-        schwierigkeitslevel = String.valueOf(MainActivity.diff.getSelectedItem()).split(" ")[0];      // gibt entweder Easy, Moderate oder Hard aus
+        //schwierigkeitslevel = String.valueOf(MainActivity.diff.getSelectedItem()).split(" ")[0];      // gibt entweder Easy, Moderate oder Hard aus
 
         //timer.setProgress(timer.getMax());      // nur fuer die erste Seite, also den ersten Wert
 
@@ -83,27 +80,6 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
     // Index der Stufe * 2 + 1 (= 2n+1), um die Anzahl an Sekunden für den jeweiligen Schwierigkeitsgrad zu ermitteln. Reicht als Anfangsalgorithmus
     public int level_in_sekunden(String level_index) {
         return 2 * (Arrays.asList(stufen).indexOf(level_index)+1) + 2;  // +1 sehr wichtig, da für Hard ansonsten Wert von 0 angenommen wird
-    }
-
-    // Überlegen, eine eigene abstrakte Klasse bzw. ein Interface dafür zu erstellen, da fast in jeder Klasse diese Methode auftaucht
-    // zeigt Pop-Up-Fenster, falls Spoel verloren.
-    public void showExitContinueWindow() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setTitle("Falsche Antwort");
-        builder.setTitle("\t\t\t\t\t\t\t\tErreichte Punktzahl: " + this.punkte);
-
-        // unbedingt noch sowas wie durchschnittliche Zeit pro Aufgabe im Format (Sekunden, Hundertstel-Millisekunden), z.B. 1,74 Sekunden
-        builder.setMessage("\t\t\t\t\t\t\t\tDeine Antwort ist falsch.\n\t\t\t\t\t\t\t\tBeenden oder fortsetzen?");
-        // add the buttons
-        builder.setNegativeButton("Beenden", (DialogInterface dialog, int which) -> {
-                Intent myIntent = new Intent(Aufgabe_Rechnen.this, MainActivity.class);
-                Aufgabe_Rechnen.this.startActivity(myIntent);
-            });
-        builder.setPositiveButton("Fortsetzen", (DialogInterface dialog, int which) -> this.punkte = 0);
-
-        // create and show the alert dialog
-        AlertDialog dialog = builder.create();
-        dialog.show();
     }
 
     public ProgressBar getTimer() {
@@ -130,7 +106,6 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
         return wert2;
     }
 
-    int temp = 0;
     // besser nur eine Methode statt 2, und dann zwischen 2 Fällen unterscheiden
     public void check(View view) {
         if (z.getCountDownTimer() != null) {        // damit erste Seite übersprungen wird, da hier die Zeit noch nicht läuft.
@@ -153,11 +128,15 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
 
         if (view.getId() == R.id.unwahr && ergebnisIstRichtig) {        // wenn auf Falsch geklickt wird, das Ergebnis aber richtig ist
             Log.d("---", "Deine Antwort ist nicht korrekt");
-            showExitContinueWindow();
+            pop = new PopUpFenster(this, punkte);
+            pop.showExitContinueWindow();
+            punkte = 0;
             return;
         } else if (view.getId() == R.id.wahr && !ergebnisIstRichtig) {  // wenn auf Falsch geklickt wird, das Ergebnis aber falsch ist
             Log.d("---", "Deine Antwort ist nicht korrekt");
-            showExitContinueWindow();
+            pop = new PopUpFenster(this, punkte);
+            pop.showExitContinueWindow();
+            punkte = 0;
             return;
         }
 

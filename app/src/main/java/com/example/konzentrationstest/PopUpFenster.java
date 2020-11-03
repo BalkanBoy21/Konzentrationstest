@@ -1,21 +1,34 @@
 package com.example.konzentrationstest;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
-abstract public class PopUpFenster {
-    public static void showExitContinueWindow(Class <?> c) {
-        //AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        AlertDialog.Builder builder = new AlertDialog.Builder(null);
-        builder.setTitle("Falsche Antwort");
-        builder.setMessage("Ins Startmenü zurück oder eine neue Runde starten?");
+public class PopUpFenster {
+
+    PopUpFenster p;
+    int punkte;
+    Object obj;
+
+    public PopUpFenster(Object obj, int punkte) {
+        this.obj = obj;
+        this.punkte = punkte;
+    }
+
+    public void showExitContinueWindow() {
+        AlertDialog.Builder builder = new AlertDialog.Builder((AppCompatActivity) obj);
+            builder.setTitle("\t\t\t\t\t\t\t\tErreichte Punktzahl: " + punkte);
+
+        // unbedingt noch sowas wie durchschnittliche Zeit pro Aufgabe im Format (Sekunden, Hundertstel-Millisekunden), z.B. 1,74 Sekunden
+            builder.setMessage("\t\t\t\t\t\t\t\tDeine Antwort ist falsch.\n\t\t\t\t\t\t\t\tBeenden oder fortsetzen?");
         // add the buttons
-        //builder.setPositiveButton("Continue", (DialogInterface dialog, int which) -> this.punkte = 0);
-        builder.setNegativeButton("Exit", (DialogInterface dialog, int which) -> {
-        //    Intent myIntent = new Intent(Aufgabe_Rechnen.this, MainActivity.class);
-       //     Aufgabe_Rechnen.this.startActivity(myIntent);
+            builder.setNegativeButton("Beenden", (DialogInterface dialog, int which) -> {
+            Intent myIntent = new Intent((AppCompatActivity) obj, MainActivity.class);
+                ((AppCompatActivity) obj).startActivity(myIntent);
         });
+            builder.setPositiveButton("Fortsetzen", (DialogInterface dialog, int which) -> {});
 
         // create and show the alert dialog
         AlertDialog dialog = builder.create();
