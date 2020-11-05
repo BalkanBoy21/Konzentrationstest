@@ -32,6 +32,7 @@ public class PopUpFenster {
 
         // create and show the alert dialog
         AlertDialog dialog = builder.create();
+        dialog.setCancelable(false);    // sorgt dafür, dass entweder Beenden oder Fortsetzen gedrückt werden muss
         dialog.show();
     }
 }

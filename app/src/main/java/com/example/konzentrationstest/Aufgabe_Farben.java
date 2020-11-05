@@ -78,10 +78,15 @@ public class Aufgabe_Farben extends AppCompatActivity {
         if (view.getId() == R.id.unwahr2 && ergebnisIstRichtig) {   // wenn auf Falsch geklickt wird, das Ergebnis aber richtig ist
             PopUpFenster pop = new PopUpFenster(this, punkte);
             pop.showExitContinueWindow();
+            punkte = 0;
+            return;
         } else if (view.getId() == R.id.wahr2 && !ergebnisIstRichtig) { // wenn auf Richtig geklickt wird, das Ergebnis aber falsch ist
             PopUpFenster pop = new PopUpFenster(this, punkte);
             pop.showExitContinueWindow();
+            punkte = 0;
+            return;
         } else {    // Ergebnis ist richtig
+            ++punkte;
             int randomNumber;
             String randomText;
 
@@ -99,7 +104,6 @@ public class Aufgabe_Farben extends AppCompatActivity {
                     randomFarbe = farbCodes[(randomNumber - 1) + (int) (Math.random() * 3)];
                 }
             } while (farben[randomNumber].equals(currentText) || (randomFarbe == currentColor));      // nach jedem Klick eine andere Farbe und ein anderer Text
-
 
             farbText.setText(randomText);
             farbText.setTextColor(randomFarbe);

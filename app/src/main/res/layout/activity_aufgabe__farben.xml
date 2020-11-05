@@ -8,32 +8,30 @@
     tools:context=".Aufgabe_Farben">
 
     <ImageButton
-        android:id="@+id/unwahr2"
-        android:layout_width="173dp"
-        android:layout_height="167dp"
-        android:layout_marginBottom="68dp"
+        android:id="@+id/wahr2"
+        android:layout_width="190dp"
+        android:layout_height="195dp"
         android:onClick="check"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.067"
+        app:layout_constraintHorizontal_bias="0.976"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/countDownBar"
-        app:layout_constraintVertical_bias="0.997"
-        app:srcCompat="@drawable/thumbs_down" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/thumbs_up" />
 
     <ImageButton
-        android:id="@+id/wahr2"
-        android:layout_width="173dp"
-        android:layout_height="167dp"
-        android:layout_marginBottom="69dp"
+        android:id="@+id/unwahr2"
+        android:layout_width="190dp"
+        android:layout_height="195dp"
         android:onClick="check"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.932"
+        app:layout_constraintHorizontal_bias="0.014"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textFarbe"
-        app:layout_constraintVertical_bias="0.997"
-        app:srcCompat="@drawable/thumbs_up" />
+        app:layout_constraintTop_toBottomOf="@+id/countDownBar"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/thumbs_down" />
 
     <ProgressBar
         android:id="@+id/countDownBar2"
@@ -52,8 +50,8 @@
 
     <TextView
         android:id="@+id/textFarbe"
-        android:layout_width="365dp"
-        android:layout_height="97dp"
+        android:layout_width="350dp"
+        android:layout_height="121dp"
         android:layout_marginStart="46dp"
         android:layout_marginLeft="46dp"
         android:layout_marginEnd="46dp"
@@ -61,7 +59,7 @@
         android:text="Default"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="70dp"
+        android:textSize="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

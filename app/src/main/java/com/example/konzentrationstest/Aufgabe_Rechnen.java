@@ -23,8 +23,9 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
     int punkte = 0;
     static int nth_activity = 0;
 
+    //String[] operator = {"+", "-", "root"};         // hier weitermachen
     String operator = "+";
-    String [] stufen = {"Hard", "Moderate", "Easy"};
+    String[] stufen = {"Hard", "Moderate", "Easy"};
 
     private ProgressBar timer;
     private TextView textFeld;
@@ -120,19 +121,21 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
         textFeld = findViewById(R.id.aufgabenFeld);
 
         boolean ergebnisIstRichtig;
+
+        // Folgender Kommentar ergänzt die Minus-Aufgaben, das ist nur der Anfang. Erst ganz zum Schluss machen, wenn alles andere wichtige erledigt ist
+        /*
+        String currentOperator = operator[(int) (Math.random() * operator.length)];
+        if (currentOperator.equals("-")) {
+            ergebnisIstRichtig = summand1[nth_activity] - summand2[nth_activity] == summen[nth_activity];
+        }*/
+
         if (summand2[nth_activity] == 0) {  // Quadrat
             ergebnisIstRichtig = Math.sqrt(summand1[nth_activity]) == summen[nth_activity];
         } else {        // Summe
-            ergebnisIstRichtig = summand1[nth_activity] + summand2[nth_activity] == summen[nth_activity];        // allein deshalb lieber andere Möglichkeit finden um Quadratzahlen einzubringen. Am besten in einem einzigen Array
+            ergebnisIstRichtig = summand1[nth_activity] + summand2[nth_activity] == summen[nth_activity];
         }
 
-        if (view.getId() == R.id.unwahr && ergebnisIstRichtig) {        // wenn auf Falsch geklickt wird, das Ergebnis aber richtig ist
-            Log.d("---", "Deine Antwort ist nicht korrekt");
-            pop = new PopUpFenster(this, punkte);
-            pop.showExitContinueWindow();
-            punkte = 0;
-            return;
-        } else if (view.getId() == R.id.wahr && !ergebnisIstRichtig) {  // wenn auf Falsch geklickt wird, das Ergebnis aber falsch ist
+        if ((view.getId() == R.id.unwahr && ergebnisIstRichtig) || (view.getId() == R.id.wahr && !ergebnisIstRichtig)) {        // falsche Antwort wurde eingetippt
             Log.d("---", "Deine Antwort ist nicht korrekt");
             pop = new PopUpFenster(this, punkte);
             pop.showExitContinueWindow();
