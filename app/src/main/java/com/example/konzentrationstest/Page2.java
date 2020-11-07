@@ -27,15 +27,15 @@ public class Page2 extends AppCompatActivity implements AdapterView.OnItemSelect
         b3 = findViewById(R.id.button_formen);
         b4 = findViewById(R.id.button_uebersetzen);
 
-        b1.setBackgroundColor(getResources().getColor(R.color.gainsboro));
-        b2.setBackgroundColor(getResources().getColor(R.color.Braun));
-        b3.setBackgroundColor(getResources().getColor(R.color.gainsboro));
-        b4.setBackgroundColor(getResources().getColor(R.color.Braun));
+        b1.setBackgroundColor(getResources().getColor(R.color.palegreen));
+        b2.setBackgroundColor(getResources().getColor(R.color.lightgreen));
+        b3.setBackgroundColor(getResources().getColor(R.color.mediumspringgreen));
+        b4.setBackgroundColor(getResources().getColor(R.color.springgreen));
 
-        b1.setTextColor(getResources().getColor(R.color.Braun));
-        b2.setTextColor(getResources().getColor(R.color.gainsboro));
-        b3.setTextColor(getResources().getColor(R.color.Braun));
-        b4.setTextColor(getResources().getColor(R.color.gainsboro));
+        b1.setTextColor(getResources().getColor(R.color.crimson));
+        b2.setTextColor(getResources().getColor(R.color.crimson));
+        b3.setTextColor(getResources().getColor(R.color.crimson));
+        b4.setTextColor(getResources().getColor(R.color.crimson));
 
     }
 

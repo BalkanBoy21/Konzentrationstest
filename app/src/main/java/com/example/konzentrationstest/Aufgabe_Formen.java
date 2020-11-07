@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,14 +24,19 @@ public class Aufgabe_Formen extends AppCompatActivity {
 
     int punkte = 0;
     int randomSymbol;
+    Zeit z;
+    ProgressBar timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getSupportActionBar().hide(); // hide the title bar
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aufgabe__formen);
 
         textView = findViewById(R.id.formText);
         form = findViewById(R.id.formSymbol);
+        timer = findViewById(R.id.countDownBar3);
 
         // fuer die erste Seite
         randomSymbol = (int) (Math.random() * symbolDateien.length);
@@ -41,34 +47,38 @@ public class Aufgabe_Formen extends AppCompatActivity {
             textView.setY(20.0f);
         } else if (symbolDateien[randomSymbol] == R.drawable.quadrat) {
             textView.setX(5.0f);
-            textView.setY(20.0f);
+            textView.setY(22.0f);
         } else if (symbolDateien[randomSymbol] == R.drawable.stern) {
             textView.setX(5.0f);
-            textView.setY(20.0f);
+            textView.setY(10.0f);
         } else if (symbolDateien[randomSymbol] == R.drawable.herz) {
             textView.setX(5.0f);
-            textView.setY(20.0f);
+            textView.setY(0.0f);
         } /*else if (symbolDateien[randomSymbol] == R.drawable.rechteck) {        // Entfernen, da jedes Rechteck auch ein Quadrat ist.
             textView.setX(5.0f);
             textView.setY(20.f);
         }*/
 
         textView.setText(formenText[(int) (Math.random() * formenText.length)]);
+
+        int m = 10000;  // dummy, fuer den Anfang
+        z = new Zeit(timer, m);
     }
 
     public void setSymbolPosition (TextView view, int symbolCode) {
         if (symbolCode == R.drawable.kreis) {
             view.setX(330.0f);
-            view.setY(510.0f);
+            view.setY(708.0f);
         } else if (symbolCode == R.drawable.quadrat) {
             view.setX(330.0f);
-            view.setY(510.0f);
+            view.setY(709.0f);
         } else if (symbolCode == R.drawable.stern) {
             view.setX(330.0f);
-            view.setY(476.0f);
+            view.setY(705.0f);
+            textView.setTextSize(30.0f);
         } else if (symbolCode == R.drawable.herz) {
             view.setX(330.0f);
-            view.setY(480.0f);
+            view.setY(660.0f);
         }
 
     }

@@ -35,6 +35,8 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getSupportActionBar().hide(); // hide the title bar
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rechenaufgaben);
 

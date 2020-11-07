@@ -2,11 +2,11 @@ package com.example.konzentrationstest;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     Button easy, moderate, hard;
+    ImageView icon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +29,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 R.array.difficulty_items, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        Log.d("---",this.getWindow().getDecorView().getHeight() + "");
-        Log.d("---",this.getWindow().getDecorView().getWidth() + "");
-
+        icon = findViewById(R.id.finalAppIcon);
+        //icon.setImageResource(null);
+        // Schwierigkeitsgrad "easy" als default-Wert
         easy.setEnabled(false);
 
     }

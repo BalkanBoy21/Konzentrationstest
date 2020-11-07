@@ -2,6 +2,7 @@ package com.example.konzentrationstest;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,10 +17,19 @@ public class Aufgabe_Uebersetzen extends AppCompatActivity {
 
     String [] woerter_deutsch = new String [] {"Haus", "Auto", "Tastatur"};
 
+    Zeit z;
+    ProgressBar timer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getSupportActionBar().hide(); // hide the title bar
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aufgabe__uebersetzen);
+
+        timer = findViewById(R.id.countDownBar4);
+
+        int m = 10000;
+        z = new Zeit(timer, m);
     }
 
     public void check(View view) {

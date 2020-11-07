@@ -7,6 +7,21 @@
     android:background="@color/gainsboro"
     tools:context=".Aufgabe_Formen">
 
+    <ProgressBar
+        android:id="@+id/countDownBar3"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="330dp"
+        android:layout_height="44dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginRight="31dp"
+        android:max="10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.046" />
+
     <ImageButton
         android:id="@+id/wahr3"
         android:layout_width="190dp"
@@ -42,8 +57,7 @@
         app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.12"
-        />
+        app:layout_constraintVertical_bias="0.309" />
 
     <TextView
         android:id="@+id/formText"
