@@ -38,7 +38,7 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
         getSupportActionBar().hide(); // hide the title bar
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rechenaufgaben);
+        setContentView(R.layout.activity_aufgabe_rechnen);
 
         int [] temp_shuffle = new int[quadratzahlen.length];      // dient als Index nur fuer die Wurzel-Zahlen
 

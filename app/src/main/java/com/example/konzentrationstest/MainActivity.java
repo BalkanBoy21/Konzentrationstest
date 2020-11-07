@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 R.array.difficulty_items, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        icon = findViewById(R.id.finalAppIcon);
+        //icon = findViewById(R.id.finalAppIcon);
         //icon.setImageResource(null);
         // Schwierigkeitsgrad "easy" als default-Wert
         easy.setEnabled(false);
