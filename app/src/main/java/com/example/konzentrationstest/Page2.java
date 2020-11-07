@@ -19,6 +19,8 @@ public class Page2 extends AppCompatActivity implements AdapterView.OnItemSelect
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getSupportActionBar().hide(); // hide the title bar
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page2);
 
@@ -32,10 +34,10 @@ public class Page2 extends AppCompatActivity implements AdapterView.OnItemSelect
         b3.setBackgroundColor(getResources().getColor(R.color.mediumspringgreen));
         b4.setBackgroundColor(getResources().getColor(R.color.springgreen));
 
-        b1.setTextColor(getResources().getColor(R.color.crimson));
-        b2.setTextColor(getResources().getColor(R.color.crimson));
-        b3.setTextColor(getResources().getColor(R.color.crimson));
-        b4.setTextColor(getResources().getColor(R.color.crimson));
+        b1.setTextColor(getResources().getColor(R.color.white));
+        b2.setTextColor(getResources().getColor(R.color.white));
+        b3.setTextColor(getResources().getColor(R.color.white));
+        b4.setTextColor(getResources().getColor(R.color.white));
 
     }
 

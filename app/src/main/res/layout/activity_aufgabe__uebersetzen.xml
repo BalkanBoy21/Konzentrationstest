@@ -7,6 +7,32 @@
     android:background="@color/mediumseagreen"
     tools:context=".Aufgabe_Uebersetzen">
 
+    <ImageButton
+        android:id="@+id/wahr4"
+        android:layout_width="190dp"
+        android:layout_height="195dp"
+        android:onClick="check"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.976"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/thumbs_up" />
+
+    <ImageButton
+        android:id="@+id/unwahr4"
+        android:layout_width="190dp"
+        android:layout_height="195dp"
+        android:onClick="check"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.014"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/countDownBar"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/thumbs_down" />
+
     <ProgressBar
         android:id="@+id/countDownBar4"
         style="?android:attr/progressBarStyleHorizontal"

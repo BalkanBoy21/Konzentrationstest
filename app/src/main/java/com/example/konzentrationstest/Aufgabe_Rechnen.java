@@ -17,7 +17,7 @@ import java.util.Arrays;
 public class Aufgabe_Rechnen extends AppCompatActivity {
 
     int [] quadratzahlen = {1, 4, 9, 16, 25, 36, 49, 64, 81, 100};
-    int [] summand1 = new int[100 + quadratzahlen.length];     // vielleicht besser new int[100 + quadratzahlen.length] und dann irgendwie verteilen, sind viel zu viele Variablen
+    int [] summand1 = new int[10000 + quadratzahlen.length];     // vielleicht besser new int[100 + quadratzahlen.length] und dann irgendwie verteilen, sind viel zu viele Variablen
     int [] summand2 = new int[summand1.length];
     int [] summen = new int[summand1.length];
     int punkte = 0;
@@ -44,7 +44,7 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
 
         // nur fuer alle Wurzeln
         for (int j = 0; j < quadratzahlen.length; j++) {
-            temp_shuffle[j] = (int) (Math.random() * summand1.length);  // random-Index fuer die Wurzel-Zahlen, auf Array summand1 verteilen
+            temp_shuffle[j] = (int) (Math.random() * 110);  // random-Index fuer die Wurzel-Zahlen, auf Array summand1 verteilen
             summand1[temp_shuffle[j]] = quadratzahlen[j];
             summand2[temp_shuffle[j]] = 0;        // Merkmal einer Wurzelzahl einfach, dass 2.Summand eine 0 ist (um sie von einfachen Zahlen zu unterscheiden), siehe check Methode
             summen[temp_shuffle[j]] = generiereErgebnis_Wurzel(quadratzahlen[j]);    // bzw. selbst oben einfach eintragen

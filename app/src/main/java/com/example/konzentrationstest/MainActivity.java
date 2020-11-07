@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getSupportActionBar().hide(); // hide the title bar
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 

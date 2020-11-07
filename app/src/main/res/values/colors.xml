@@ -28,6 +28,7 @@
     <color name="springgreen">#00FF7F</color>
     <color name="lightred">#ff4040</color>
     <color name="orangered">#FF4500</color>
+    <color name="whitered">#ff726f</color>
 
     <string-array name="colors">
         <item>@color/yellowgreen</item>
@@ -50,5 +51,6 @@
         <item>@color/limegreen</item>
         <item>@color/lightred</item>
         <item>@color/orangered</item>
+        <item>@color/whitered</item>
     </string-array>
 </resources>

@@ -10,6 +10,7 @@ public class Zeit {
     private ProgressBar counter;
     CountDownTimer countDownTimer;
     boolean running = true;
+//    Timer countdownTimer = new Timer();
 
 
     public Zeit (ProgressBar counter, int millisec) {
