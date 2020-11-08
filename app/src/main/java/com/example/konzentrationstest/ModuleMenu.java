@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 // Settings for playing the game
-public class Page2 extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class ModuleMenu extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     public Spinner mod;
     private Button b1, b2, b3, b4;
@@ -22,7 +22,7 @@ public class Page2 extends AppCompatActivity implements AdapterView.OnItemSelect
         getSupportActionBar().hide(); // hide the title bar
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_page2);
+        setContentView(R.layout.activity_modulemenu);
 
         b1 = findViewById(R.id.button_rechnen);
         b2 = findViewById(R.id.button_farbe);
@@ -54,22 +54,11 @@ public class Page2 extends AppCompatActivity implements AdapterView.OnItemSelect
 
 
     public void backToStartMenu(View view) {
-        Intent myIntent = new Intent(Page2.this, MainActivity.class);
-        Page2.this.startActivity(myIntent);
+        Intent myIntent = new Intent(ModuleMenu.this, MainActivity.class);
+        ModuleMenu.this.startActivity(myIntent);
     }
 
     public void nextPage(View view) {
-        //Intent myIntent = new Intent(Page2.this, MainActivity.class);
-        //Page2.this.startActivity(myIntent);
-/*
-        Class nextAct = null;
-        switch (mod.getSelectedItem().toString()) {
-            case "Rechnen": nextAct = Aufgabe_Rechnen.class; break;
-            case "Farben": nextAct = Aufgabe_Farben.class; break;
-            case "Sprachen": nextAct = Aufgabe_Uebersetzen.class; break;
-            case "Formen": nextAct = Aufgabe_Formen.class; break;
-        }
-*/
         Class nextAct = null;
         switch (view.getId()) {
             case R.id.button_rechnen: nextAct = Aufgabe_Rechnen.class; break;
@@ -78,8 +67,8 @@ public class Page2 extends AppCompatActivity implements AdapterView.OnItemSelect
             case R.id.button_uebersetzen: nextAct = Aufgabe_Uebersetzen.class; break;
         }
 
-        Intent myIntent2 = new Intent(Page2.this, nextAct);
-        Page2.this.startActivity(myIntent2);
+        Intent myIntent = new Intent(ModuleMenu.this, nextAct);
+        ModuleMenu.this.startActivity(myIntent);
 
 
     }

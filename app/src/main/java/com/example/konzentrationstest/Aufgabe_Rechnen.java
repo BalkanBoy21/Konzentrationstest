@@ -77,6 +77,8 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
         summen[0] = c;
         String s = a + " " + operator + " " + b + " = " + c;
         textFeld.setText(s); // default für den ersten Wert
+        nth_activity = 0;       // sehr wichtig, da man ins Menue zurueckgehen kann
+        punkte = 0;
 
         //schwierigkeitslevel = String.valueOf(MainActivity.diff.getSelectedItem()).split(" ")[0];      // gibt entweder Easy, Moderate oder Hard aus
 
@@ -100,7 +102,7 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
 
     // vielleicht nicht nur Plus-, sondern auch Mal Aufgaben oder Wurzel-Aufgaben
     public static int generiereErgebnis(int wert1, int wert2) {
-        int genauigkeitsWert = 3;
+        int genauigkeitsWert = 2;
         return (wert1 + wert2) + (int) (Math.random() * genauigkeitsWert);     // Intervall [wert1+wert2; wert1+wert2+(3-1)], z.B. 8 + 13 -> [21, 23]. Je höher der genauigkeitswert, umso weiter entfernt ist das Ergebnis (spaeter selbst festlegem)
     }
 
@@ -144,21 +146,30 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
         if (summand2[nth_activity] == 0) {  // Quadrat
             ergebnisIstRichtig = Math.sqrt(summand1[nth_activity]) == summen[nth_activity];
         } else {        // Summe
+            Log.d("", "Summand1: " + summand1[nth_activity]);
+            Log.d("", "Summand2: " + summand2[nth_activity]);
+            Log.d("", "Summe: " + summen[nth_activity]);
+            Log.d("", "Nth-Activity: " + nth_activity);
             ergebnisIstRichtig = summand1[nth_activity] + summand2[nth_activity] == summen[nth_activity];
         }
 
-        if ((view.getId() == R.id.unwahr && ergebnisIstRichtig) || (view.getId() == R.id.wahr && !ergebnisIstRichtig)) {        // falsche Antwort wurde eingetippt
+        Log.d("", "Summand1: " + summand1[0]);
+        Log.d("", "Summand2: " + summand2[0]);
+        Log.d("", "Summe: " + summen[0]);
+        if (((view.getId() == R.id.unwahr) && ergebnisIstRichtig) || (((view.getId() == R.id.wahr) && !ergebnisIstRichtig))) {        // falsche Antwort wurde eingetippt
             Log.d("---", "Deine Antwort ist nicht korrekt");
 
             // Managen des HighScores
             TopScore.highscore_rechnen = punkte;
+            boolean neuerHighScore = false;
             if (preferences.getInt(KEY, 0) < TopScore.highscore_rechnen) {
                 preferencesEditor.putInt(KEY, TopScore.highscore_rechnen);
+                neuerHighScore = true;
             }
             preferencesEditor.putInt("key", TopScore.highscore_rechnen);
             preferencesEditor.commit();
 
-            pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0));
+            pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore);
             pop.showExitContinueWindow();
             punkte = 0;
             return;

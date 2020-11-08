@@ -62,6 +62,7 @@ public class Aufgabe_Farben extends AppCompatActivity {
         // Fuer erste Seite
         farbText.setText(farben[(int) (Math.random() * farben.length)]);
         farbText.setTextColor(farbCodes[(int) (Math.random() * farbCodes.length)]);
+        punkte = 0;       // sehr wichtig, da man ins Menue zurueckgehen kann
 
         int m = 10000;
         z = new Zeit(timer, punkte);
@@ -71,7 +72,6 @@ public class Aufgabe_Farben extends AppCompatActivity {
         preferencesEditor = preferences.edit();
     }
 
-    int randomFarbe = 0;    // dummy
     public void check(View view) {
         String currentText = farbText.getText().toString();
         int currentColor = farbText.getCurrentTextColor();
@@ -96,37 +96,41 @@ public class Aufgabe_Farben extends AppCompatActivity {
 
         if ((view.getId() == R.id.unwahr2 && ergebnisIstRichtig) || (view.getId() == R.id.wahr2 && !ergebnisIstRichtig)){   // wenn auf Falsch geklickt wird, das Ergebnis aber richtig ist
             // Managen des HighScores
+            boolean neuerHighScore = false;
             TopScore.highscore_farben = punkte;
             if (preferences.getInt(KEY, 0) < TopScore.highscore_farben) {
                 preferencesEditor.putInt(KEY, TopScore.highscore_farben);
+                neuerHighScore = true;
             }
             preferencesEditor.putInt("key", TopScore.highscore_farben);
             preferencesEditor.commit();
 
-            pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0));
+            pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore);
             pop.showExitContinueWindow();
             punkte = 0;
-            return;
         } else {    // Ergebnis ist richtig
             ++punkte;
             int randomNumber;
             String randomText;
+            int randomFarbe;
 
             // Implementierung, sodass nur die benachbarten Farben ausgewählt werden können um die Häufigkeit zu erhöhen
             do {
                 randomNumber = (int) (Math.random() * farben.length);
-                randomText = farben[randomNumber];
                 if (randomNumber == 0) {
-                    int[] random_array = new int[]{farben.length - 1, 0, 1};
+                    //int[] random_array = new int[]{farben.length - 1, 0, 1};
+                    int [] random_array = new int[]{0, (int) (Math.random() * farben.length)};
                     randomFarbe = farbCodes[random_array[(int) (Math.random() * random_array.length)]];
                 } else if (randomNumber == farben.length - 1) {
-                    int[] random_array = new int[]{farben.length - 2, farben.length - 1, 0};
+                    //int[] random_array = new int[]{farben.length - 2, farben.length - 1, 0};
+                    int [] random_array = new int[]{farben.length-1, (int) (Math.random() * farben.length)};
                     randomFarbe = farbCodes[random_array[(int) (Math.random() * random_array.length)]];
                 } else {    // fuer alle Zahlen bis auf die aeußersten des Arrays
                     randomFarbe = farbCodes[(randomNumber - 1) + (int) (Math.random() * 3)];
                 }
             } while (farben[randomNumber].equals(currentText) || (randomFarbe == currentColor));      // nach jedem Klick eine andere Farbe und ein anderer Text
 
+            randomText = farben[randomNumber];
             farbText.setText(randomText);
             farbText.setTextColor(randomFarbe);
             //farbText.setBackgroundColor(randomFarbe);

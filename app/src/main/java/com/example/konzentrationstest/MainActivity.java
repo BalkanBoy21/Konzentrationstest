@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     public void goToPage2(View view) {
         Log.d("----", "Enabled: " + easy.isEnabled());
-        Intent myIntent = new Intent(MainActivity.this, Page2.class);
+        Intent myIntent = new Intent(MainActivity.this, ModuleMenu.class);
         MainActivity.this.startActivity(myIntent);
     }
 
