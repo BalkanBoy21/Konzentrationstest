@@ -1,8 +1,11 @@
 package com.example.konzentrationstest;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,11 +17,18 @@ public class Aufgabe_Farben extends AppCompatActivity {
 
     private TextView farbText;
     private ImageButton th_down, th_up;
+    private ProgressBar timer;
 
     private String [] farben = {"Grün", "Gelb", "Blau", "Rot", "Orange", "Braun", "Rosa"};
     private int [] farbCodes = new int[farben.length];
 
-    private int punkte = 0;
+    static int punkte = 0;
+    Zeit z;
+
+    SharedPreferences preferences;
+    SharedPreferences.Editor preferencesEditor;
+    final String KEY = "speicherPreferences2";
+    PopUpFenster pop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +37,7 @@ public class Aufgabe_Farben extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aufgabe__farben);
 
+        timer = findViewById(R.id.timer_Farben);
         th_down = findViewById(R.id.unwahr2);
         th_up = findViewById(R.id.wahr2);
         farbText = findViewById(R.id.textFarbe);
@@ -52,6 +63,12 @@ public class Aufgabe_Farben extends AppCompatActivity {
         farbText.setText(farben[(int) (Math.random() * farben.length)]);
         farbText.setTextColor(farbCodes[(int) (Math.random() * farbCodes.length)]);
 
+        int m = 10000;
+        z = new Zeit(timer, punkte);
+
+        //setting preferences
+        this.preferences = this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);
+        preferencesEditor = preferences.edit();
     }
 
     int randomFarbe = 0;    // dummy
@@ -77,13 +94,16 @@ public class Aufgabe_Farben extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        if (view.getId() == R.id.unwahr2 && ergebnisIstRichtig) {   // wenn auf Falsch geklickt wird, das Ergebnis aber richtig ist
-            PopUpFenster pop = new PopUpFenster(this, punkte);
-            pop.showExitContinueWindow();
-            punkte = 0;
-            return;
-        } else if (view.getId() == R.id.wahr2 && !ergebnisIstRichtig) { // wenn auf Richtig geklickt wird, das Ergebnis aber falsch ist
-            PopUpFenster pop = new PopUpFenster(this, punkte);
+        if ((view.getId() == R.id.unwahr2 && ergebnisIstRichtig) || (view.getId() == R.id.wahr2 && !ergebnisIstRichtig)){   // wenn auf Falsch geklickt wird, das Ergebnis aber richtig ist
+            // Managen des HighScores
+            TopScore.highscore_farben = punkte;
+            if (preferences.getInt(KEY, 0) < TopScore.highscore_farben) {
+                preferencesEditor.putInt(KEY, TopScore.highscore_farben);
+            }
+            preferencesEditor.putInt("key", TopScore.highscore_farben);
+            preferencesEditor.commit();
+
+            pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0));
             pop.showExitContinueWindow();
             punkte = 0;
             return;

@@ -1,5 +1,7 @@
 package com.example.konzentrationstest;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -20,7 +22,7 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
     int [] summand1 = new int[10000 + quadratzahlen.length];     // vielleicht besser new int[100 + quadratzahlen.length] und dann irgendwie verteilen, sind viel zu viele Variablen
     int [] summand2 = new int[summand1.length];
     int [] summen = new int[summand1.length];
-    int punkte = 0;
+    static int punkte = 0;
     static int nth_activity = 0;
 
     //String[] operator = {"+", "-", "root"};         // hier weitermachen
@@ -29,6 +31,10 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
 
     private ProgressBar timer;
     private TextView textFeld;
+
+    SharedPreferences preferences;
+    SharedPreferences.Editor preferencesEditor;
+    final String KEY = "speicherPreferences1";
 
     PopUpFenster pop;
     private Zeit z;
@@ -60,7 +66,7 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
         }
 
         textFeld = findViewById(R.id.aufgabenFeld);
-        timer = findViewById(R.id.countDownBar);
+        timer = findViewById(R.id.timer_Rechnen);
 
         // vielleicht überflüssig
         int a = 13 + (int) (Math.random() * 12);            // [13, 24]
@@ -76,8 +82,11 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
 
         //timer.setProgress(timer.getMax());      // nur fuer die erste Seite, also den ersten Wert
 
-        int m = 10000;  // dummy, fuer den Anfang
-        z = new Zeit(timer, m);
+        z = new Zeit(timer, punkte);
+
+        //setting preferences
+        this.preferences = this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);
+        preferencesEditor = preferences.edit();
     }
 
     // Index der Stufe * 2 + 1 (= 2n+1), um die Anzahl an Sekunden für den jeweiligen Schwierigkeitsgrad zu ermitteln. Reicht als Anfangsalgorithmus
@@ -112,8 +121,9 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
     // besser nur eine Methode statt 2, und dann zwischen 2 Fällen unterscheiden
     public void check(View view) {
         if (z.getCountDownTimer() != null) {        // damit erste Seite übersprungen wird, da hier die Zeit noch nicht läuft.
-            z.getCountDownTimer().onFinish();
-            z = new Zeit(timer, 10000);     // neues Objekt fuer naechste Seite
+//            z.getCountDownTimer().onFinish();
+            z.getCountDownTimer().cancel();
+            z = new Zeit(timer, punkte);     // neues Objekt fuer naechste Seite
             z.running = true;
         }
         //z.setMillisec(10000);       // neu auf 10000 setzen, wie oben bei Variable m
@@ -139,7 +149,16 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
 
         if ((view.getId() == R.id.unwahr && ergebnisIstRichtig) || (view.getId() == R.id.wahr && !ergebnisIstRichtig)) {        // falsche Antwort wurde eingetippt
             Log.d("---", "Deine Antwort ist nicht korrekt");
-            pop = new PopUpFenster(this, punkte);
+
+            // Managen des HighScores
+            TopScore.highscore_rechnen = punkte;
+            if (preferences.getInt(KEY, 0) < TopScore.highscore_rechnen) {
+                preferencesEditor.putInt(KEY, TopScore.highscore_rechnen);
+            }
+            preferencesEditor.putInt("key", TopScore.highscore_rechnen);
+            preferencesEditor.commit();
+
+            pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0));
             pop.showExitContinueWindow();
             punkte = 0;
             return;
@@ -162,7 +181,7 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
 
         //timer.setProgress(timer.getMax());
 
-        z.run();
+        //z.run();
 
     }
 

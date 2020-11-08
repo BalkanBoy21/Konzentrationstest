@@ -29,7 +29,7 @@ public class Page2 extends AppCompatActivity implements AdapterView.OnItemSelect
         b3 = findViewById(R.id.button_formen);
         b4 = findViewById(R.id.button_uebersetzen);
 
-        b1.setBackgroundColor(getResources().getColor(R.color.palegreen));
+        b1.setBackgroundColor(getResources().getColor(R.color.limegreen));
         b2.setBackgroundColor(getResources().getColor(R.color.lightgreen));
         b3.setBackgroundColor(getResources().getColor(R.color.mediumspringgreen));
         b4.setBackgroundColor(getResources().getColor(R.color.springgreen));

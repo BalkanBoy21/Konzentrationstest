@@ -2,6 +2,7 @@ package com.example.konzentrationstest;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,7 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    Button easy, moderate, hard;
+    private static Button easy, moderate, hard;
+    private static Button[] btns;
     ImageView icon;
 
     @Override
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         easy = findViewById(R.id.easy);
         moderate = findViewById(R.id.moderate);
         hard = findViewById(R.id.hard);
+        btns = new Button[] {easy, moderate, hard};
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.difficulty_items, android.R.layout.simple_spinner_item);
@@ -37,14 +40,23 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
-    public void btnOnClick(View view) {
-        
-
-
-
+    public static String getCurrentDifficulty() {
+/*        if (!easy.isEnabled()) {
+            return "Easy";
+        } else if (!moderate.isEnabled()) {
+            return "Moderate";
+        } else if (!hard.isEnabled()) {
+            return "Hard";
+        }*/
+        for (Button difficulty: btns) {
+            if (!difficulty.isEnabled()) {
+                return difficulty.getText().toString().split("\\s+")[0];
+            }
+        }
+        return "";
     }
 
-    public void terminateDfficulty(View view) {
+    public static void terminateDfficulty(View view) {
         if (view.getId() == R.id.easy) {
             moderate.setEnabled(true);
             moderate.setBackgroundResource(android.R.drawable.btn_default);
@@ -86,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     public void goToPage2(View view) {
+        Log.d("----", "Enabled: " + easy.isEnabled());
         Intent myIntent = new Intent(MainActivity.this, Page2.class);
         MainActivity.this.startActivity(myIntent);
     }

@@ -6,20 +6,22 @@ import android.content.Intent;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class PopUpFenster {
+public class PopUpFenster extends AppCompatActivity {
 
     PopUpFenster p;
     int punkte;
     Object obj;
+    int highscore;
 
-    public PopUpFenster(Object obj, int punkte) {
+    public PopUpFenster(Object obj, int punkte, int highscore) {
         this.obj = obj;
         this.punkte = punkte;
+        this.highscore = highscore;
     }
 
     public void showExitContinueWindow() {
         AlertDialog.Builder builder = new AlertDialog.Builder((AppCompatActivity) obj);
-            builder.setTitle("\t\t\t\t\t\t\t\tErreichte Punktzahl: " + punkte);
+            builder.setTitle("Erreichte Punktzahl: " + punkte + " (Highscore: " + highscore + ")");
 
         // unbedingt noch sowas wie durchschnittliche Zeit pro Aufgabe im Format (Sekunden, Hundertstel-Millisekunden), z.B. 1,74 Sekunden
             builder.setMessage("\t\t\t\t\t\t\t\tDeine Antwort ist falsch.\n\t\t\t\t\t\t\t\tBeenden oder fortsetzen?");
