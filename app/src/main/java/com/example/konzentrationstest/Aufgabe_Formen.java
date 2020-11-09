@@ -15,9 +15,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Arrays;
 
-// 2 Möglichkeiten, dies zu gestalten.
+// 3 Möglichkeiten, dies zu gestalten.
 // 1.) Formen wie Rechteck, Kreis etc. hinzeichnen und in die Form das Wort schreiben
 // 2.) Identisches Spiel wie Schlag den Raab. 2 Muster sind gegeben, 5 Antwortmöglichkeiten: 2 zeigen die Form und Farbe an, dabei bleibt eins übrig und das muss angeklickt werden
+// 3.) vermutlich beste und einfachste Idee:
+
 public class Aufgabe_Formen extends AppCompatActivity {
 
     String [] formenText = {"Kreis", "Quadrat", "Stern", "Herz", "Dreieck"};
@@ -125,12 +127,14 @@ public class Aufgabe_Formen extends AppCompatActivity {
                 randomSymbol = (int) (Math.random() * symbolDateien.length);
 
                 if (randomSymbol == 0) {
-                    int[] random_array = new int[]{symbolDateien.length - 1, 0, 1};
+                    //int[] random_array = new int[]{symbolDateien.length - 1, 0, 1};
+                    int [] random_array = new int[]{0, (int) (Math.random() * symbolDateien.length)};
                     temp = random_array[(int) (Math.random() * random_array.length)];
                     lastSymbol = symbolDateien[temp];
                     Log.d("----", "RandomsymbolA: " + randomSymbol);
                 } else if (randomSymbol == formenText.length - 1) {
-                    int[] random_array = new int[]{symbolDateien.length - 1, 0, 1};
+                    //int[] random_array = new int[]{symbolDateien.length - 1, 0, 1};
+                    int [] random_array = new int[]{symbolDateien.length - 1, (int) (Math.random() * symbolDateien.length)};
                     temp = random_array[(int) (Math.random() * random_array.length)];
                     lastSymbol = symbolDateien[temp];
                     Log.d("----", "RandomsymbolB: " + randomSymbol);

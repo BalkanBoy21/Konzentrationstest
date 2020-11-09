@@ -7,44 +7,74 @@
     android:background="@color/mediumseagreen"
     tools:context=".Aufgabe_Uebersetzen">
 
-    <ImageButton
-        android:id="@+id/wahr4"
-        android:layout_width="190dp"
-        android:layout_height="195dp"
-        android:onClick="check"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.976"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/thumbs_up" />
+
+<TextView
+    android:id="@+id/colorText"
+    android:layout_width="350dp"
+    android:layout_height="121dp"
+    android:layout_marginStart="46dp"
+    android:layout_marginLeft="46dp"
+    android:layout_marginEnd="46dp"
+    android:layout_marginRight="46dp"
+    android:text="Okaaaaaay"
+    android:textAlignment="center"
+    android:textColor="@color/black"
+    android:textSize="80dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.334" />
+
+<ProgressBar
+    android:id="@+id/timer_Uebersetzen"
+    style="?android:attr/progressBarStyleHorizontal"
+    android:layout_width="330dp"
+    android:layout_height="44dp"
+    android:layout_marginEnd="31dp"
+    android:layout_marginRight="31dp"
+    android:max="10"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.8"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.046" />
 
     <ImageButton
-        android:id="@+id/unwahr4"
-        android:layout_width="190dp"
-        android:layout_height="195dp"
+        android:id="@+id/farbe1"
+        android:layout_width="148dp"
+        android:layout_height="213dp"
+        android:layout_marginTop="536dp"
+        android:foreground="?android:attr/selectableItemBackground"
         android:onClick="check"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.014"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timer_Rechnen"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/thumbs_down" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
 
-    <ProgressBar
-        android:id="@+id/countDownBar4"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="330dp"
-        android:layout_height="44dp"
-        android:layout_marginEnd="31dp"
-        android:layout_marginRight="31dp"
-        android:max="10"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ImageButton
+        android:id="@+id/farbe2"
+        android:layout_width="135dp"
+        android:layout_height="213dp"
+        android:layout_marginTop="536dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:onClick="check"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintHorizontal_bias="0.514"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.046" />
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <ImageButton
+        android:id="@+id/farbe3"
+        android:layout_width="135dp"
+        android:layout_height="213dp"
+        android:layout_marginTop="536dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:onClick="check"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
