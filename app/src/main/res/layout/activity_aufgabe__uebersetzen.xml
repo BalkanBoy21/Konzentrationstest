@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/darkgrey"
+    android:background="@color/gainsboro"
     tools:context=".Aufgabe_Uebersetzen">
 
 
@@ -43,23 +43,25 @@
 
     <ImageButton
         android:id="@+id/farbe1"
-        android:layout_width="148dp"
-        android:layout_height="213dp"
-        android:layout_marginTop="536dp"
+        android:layout_width="135dp"
+        android:layout_height="270dp"
+        android:layout_marginTop="464dp"
         android:foreground="?android:attr/selectableItemBackground"
         android:onClick="check"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageButton
         android:id="@+id/farbe2"
         android:layout_width="135dp"
-        android:layout_height="213dp"
-        android:layout_marginTop="536dp"
+        android:layout_height="270dp"
+        android:layout_marginTop="464dp"
         android:foreground="?android:attr/selectableItemBackground"
         android:onClick="check"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.514"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
@@ -67,8 +69,8 @@
     <ImageButton
         android:id="@+id/farbe3"
         android:layout_width="135dp"
-        android:layout_height="213dp"
-        android:layout_marginTop="536dp"
+        android:layout_height="270dp"
+        android:layout_marginTop="464dp"
         android:foreground="?android:attr/selectableItemBackground"
         android:onClick="check"
         app:layout_constraintEnd_toEndOf="parent"

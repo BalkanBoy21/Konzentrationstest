@@ -2,6 +2,7 @@ package com.example.konzentrationstest;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -18,8 +19,9 @@ public class Aufgabe_Farben extends AppCompatActivity {
     private TextView farbText;
     private ImageButton th_down, th_up;
     private ProgressBar timer;
+    private View ansicht;
 
-    private String [] farben = {"Grün", "Gelb", "Blau", "Rot", "Orange", "Weiß", "Rosa"};
+    private String [] farben = {"Grün", "Gelb", "Blau", "Rot", "Orange", "Weiß", "Pink"};
     private int [] farbCodes = new int[farben.length];
 
     static int punkte = 0;
@@ -41,7 +43,7 @@ public class Aufgabe_Farben extends AppCompatActivity {
         th_down = findViewById(R.id.unwahr2);
         th_up = findViewById(R.id.wahr2);
         farbText = findViewById(R.id.textFarbe);
-        farbText.setTextColor(getResources().getColor(R.color.Grün));
+        ansicht = findViewById(R.id.screen);
 
         // durchsucht alle Farben in colors.xml (und weitere) und filtert alle Farben heraus, die im Array "farben" enthalten sind
         try {
@@ -61,10 +63,11 @@ public class Aufgabe_Farben extends AppCompatActivity {
 
         // Fuer erste Seite
         farbText.setText(farben[(int) (Math.random() * farben.length)]);
-        farbText.setTextColor(farbCodes[(int) (Math.random() * farbCodes.length)]);
+//        farbText.setTextColor(farbCodes[(int) (Math.random() * farbCodes.length)]);
+        ansicht.setBackgroundColor(farbCodes[(int) (Math.random() * farbCodes.length)]);
+
         punkte = 0;       // sehr wichtig, da man ins Menue zurueckgehen kann
 
-        int m = 10000;
         z = new Zeit(timer, punkte);
 
         //setting preferences
@@ -74,14 +77,15 @@ public class Aufgabe_Farben extends AppCompatActivity {
 
     public void check(View view) {
         String currentText = farbText.getText().toString();
-        int currentColor = farbText.getCurrentTextColor();
-
-        // Noch zu erledigen:
-        // dafuer sorgen, dass nicht 2 mal der selbe Farbtext hintereinander ausgewaehlt wird
-
-
+        //int currentColor = farbText.getCurrentTextColor();
+        int currentColor = ((ColorDrawable) ansicht.getBackground()).getColor();
         boolean ergebnisIstRichtig = false;
-
+/*
+        // Folgende Loesung ist viel, viel besser als die untere try-catch-Anweisung (fuer den Fall dass man die TextFarbe mit dem Text vergleichen will):
+        if (farbCodes[Arrays.asList(farben).indexOf(currentText)] == farbText.getCurrentTextColor()) {
+            ergebnisIstRichtig = true;
+        }
+/*
         try {
             Field[] fields = Class.forName(getPackageName() + ".R$color").getDeclaredFields();
             for (Field farbe: fields) {
@@ -93,11 +97,17 @@ public class Aufgabe_Farben extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+*/
+        if (farbCodes[Arrays.asList(farben).indexOf(currentText)] == currentColor) {
+            ergebnisIstRichtig = true;
+        }
 
-        if ((view.getId() == R.id.unwahr2 && ergebnisIstRichtig) || (view.getId() == R.id.wahr2 && !ergebnisIstRichtig)){   // wenn auf Falsch geklickt wird, das Ergebnis aber richtig ist
+        if (((view.getId() == R.id.unwahr2) && ergebnisIstRichtig) || ((view.getId() == R.id.wahr2) && !ergebnisIstRichtig)){   // wenn auf Falsch geklickt wird, das Ergebnis aber richtig ist
             // Managen des HighScores
             boolean neuerHighScore = false;
             TopScore.highscore_farben = punkte;
+
+            // Neuen Highscore setzen
             if (preferences.getInt(KEY, 0) < TopScore.highscore_farben) {
                 preferencesEditor.putInt(KEY, TopScore.highscore_farben);
                 neuerHighScore = true;
@@ -108,11 +118,14 @@ public class Aufgabe_Farben extends AppCompatActivity {
             pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore);
             pop.showExitContinueWindow();
             punkte = 0;
+
         } else {    // Ergebnis ist richtig
             ++punkte;
             int randomNumber;
             String randomText;
             int randomFarbe;
+
+            ansicht.setBackgroundColor(farbCodes[(int) (Math.random() * farbCodes.length)]);
 
             // Implementierung, sodass nur die benachbarten Farben ausgewählt werden können um die Häufigkeit zu erhöhen
             do {
@@ -132,8 +145,8 @@ public class Aufgabe_Farben extends AppCompatActivity {
 
             randomText = farben[randomNumber];
             farbText.setText(randomText);
-            farbText.setTextColor(randomFarbe);
-            //farbText.setBackgroundColor(randomFarbe);
+            //farbText.setTextColor(randomFarbe);
+            ansicht.setBackgroundColor(randomFarbe);
         }
     }
 

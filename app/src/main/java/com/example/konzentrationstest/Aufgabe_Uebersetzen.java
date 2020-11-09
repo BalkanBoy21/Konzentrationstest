@@ -1,3 +1,4 @@
+
 package com.example.konzentrationstest;
 
 import android.content.Context;
@@ -15,6 +16,8 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+
 
 public class Aufgabe_Uebersetzen extends AppCompatActivity {
 
@@ -38,7 +41,8 @@ public class Aufgabe_Uebersetzen extends AppCompatActivity {
 
     private TextView farbText;
 
-    private String[] farben = {"Grün", "Gelb", "Blau", "Rot", "Orange", "Weiß", "Rosa"};
+    private String[] farben = {"Grün", "Gelb", "Blau", "Rot", "Orange", "Pink"};
+
     private int[] farbCodes = new int[farben.length];
 
     ImageButton btn1, btn2, btn3;

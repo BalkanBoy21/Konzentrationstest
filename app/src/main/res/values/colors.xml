@@ -12,7 +12,7 @@
     <color name="Türkis">#7dbfc6</color>
     <color name="Orange">#FFA500</color>
     <color name="Braun">#A52A2A</color>
-    <color name="Rosa">#FFC0CB</color>
+    <color name="Pink">#f1b3eb</color>
     <color name="Weiß">#FFFFFFFF</color>
     <color name="white">#FFFFFFFF</color>
     <color name="black">#FF000000</color>
@@ -49,7 +49,7 @@
         <item>@color/Türkis</item>
         <item>@color/Orange</item>
         <item>@color/Braun</item>
-        <item>@color/Rosa</item>
+        <item>@color/Pink</item>
         <item>@color/limegreen</item>
         <item>@color/lightred</item>
         <item>@color/orangered</item>

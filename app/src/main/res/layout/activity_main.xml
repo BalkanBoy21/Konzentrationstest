@@ -10,20 +10,22 @@
 
     <Button
         android:id="@+id/startBtn"
-        style="@android:style/Widget.Material.Light.Button.Borderless"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="154dp"
         android:layout_height="85dp"
         android:background="@drawable/roundcorner_red"
         android:onClick="goToPage2"
         android:text="Start"
+        android:textColor="#FFFFFF"
         android:textSize="35dp"
         app:backgroundTint="#BD3D3D"
+        app:iconTint="#D1C9C9"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.414"
+        app:layout_constraintVertical_bias="0.447"
         app:rippleColor="#F31717" />
 
     <Button
@@ -74,7 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="112dp"
         android:text="Braining"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/Weiß"
         android:textSize="45dp"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintLeft_toLeftOf="parent"

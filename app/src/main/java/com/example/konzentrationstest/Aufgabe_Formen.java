@@ -55,19 +55,19 @@ public class Aufgabe_Formen extends AppCompatActivity {
 
         // fuer die erste Seite
         randomSymbol = (int) (Math.random() * symbolDateien.length);
-        temp = randomSymbol;        // nur fuer den Uebergang vom ersten zum zweiten Bild
+        temp = randomSymbol;        // sehr wichtig fuer erste If-Anweisung in Methode check (nur fuer den Uebergang vom ersten zum zweiten Bild)
         lastSymbol = symbolDateien[randomSymbol];
 
         textView.setX(5.0f);
-        if (symbolDateien[randomSymbol] == R.drawable.kreis) {
+        if (lastSymbol == R.drawable.kreis) {
             textView.setY(20.0f);
-        } else if (symbolDateien[randomSymbol] == R.drawable.quadrat) {
+        } else if (lastSymbol == R.drawable.quadrat) {
             textView.setY(20.0f);
-        } else if (symbolDateien[randomSymbol] == R.drawable.stern) {
-            textView.setY(10.0f);
-        } else if (symbolDateien[randomSymbol] == R.drawable.herz) {
+        } else if (lastSymbol == R.drawable.stern) {
+            textView.setY(3.0f);
+        } else if (lastSymbol == R.drawable.herz) {
             textView.setY(0.0f);
-        } else if (symbolDateien[randomSymbol] == R.drawable.dreieck) {        // Entfernen, da jedes Rechteck auch ein Quadrat ist.
+        } else if (lastSymbol == R.drawable.dreieck) {        // Entfernen, da jedes Rechteck auch ein Quadrat ist.
             textView.setY(180.0f);
         }
 
@@ -92,14 +92,9 @@ public class Aufgabe_Formen extends AppCompatActivity {
         String currentText = textView.getText().toString();
         int currentSymbol = lastSymbol;
         //int currentSymbol = symbolDateien[randomSymbol];
-        Log.d("----", "Text: " + currentText);
-        Log.d("----", "Symbol: " + currentSymbol);
 
-        // irgendwas mit indexof, am besten, dann benötigt man nicht 10 If-Anweisungen
         int index = Arrays.asList(formenText).indexOf(currentText);
-        Log.d("-----", "Index: " + index);
         if (index == temp) {    // man ueberprueft, ob der Index des Textes mit dem Index der Form uebereinstimmt, Voraussetzung: Array formenText und symbolDateien stimmen in der Reihenfolge ueberein
-            Log.d("---", "Korrekt");
             ergebnisIstRichtig = true;
         }
 
@@ -118,8 +113,7 @@ public class Aufgabe_Formen extends AppCompatActivity {
             pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore);
             pop.showExitContinueWindow();
             punkte = 0;     // besser als in der Methode selbst, da nicht auf "Exit" bzw. Continue geklickt werden muss, die Punktzahl aber trotzdem zurückgesetzt werden soll.
-        } else {
-            // Antwort ist richtig
+        } else { // Antwort ist richtig
             ++punkte;
 
             // damit Symbol und Text nicht 2 Mal hintereinander gleich sind
@@ -130,25 +124,16 @@ public class Aufgabe_Formen extends AppCompatActivity {
                     //int[] random_array = new int[]{symbolDateien.length - 1, 0, 1};
                     int [] random_array = new int[]{0, (int) (Math.random() * symbolDateien.length)};
                     temp = random_array[(int) (Math.random() * random_array.length)];
-                    lastSymbol = symbolDateien[temp];
-                    Log.d("----", "RandomsymbolA: " + randomSymbol);
                 } else if (randomSymbol == formenText.length - 1) {
                     //int[] random_array = new int[]{symbolDateien.length - 1, 0, 1};
                     int [] random_array = new int[]{symbolDateien.length - 1, (int) (Math.random() * symbolDateien.length)};
                     temp = random_array[(int) (Math.random() * random_array.length)];
-                    lastSymbol = symbolDateien[temp];
-                    Log.d("----", "RandomsymbolB: " + randomSymbol);
                 } else {        // Aeußere sind ausgeschlossen
                     temp = (randomSymbol - 1) + (int) (Math.random() * 3);
-                    lastSymbol = symbolDateien[temp];
-                    Log.d("----", "RandomsymbolC: " + randomSymbol);
                 }
+                lastSymbol = symbolDateien[temp];
             } while (formenText[randomSymbol].equals(currentText) || (currentSymbol == lastSymbol));
 
-            if (randomSymbol == 4) {
-                textView.setY(80.0f);
-                Log.d("----", "AAAAA");
-            }
             // fuer Position des Textes im Symbol
             if (lastSymbol == R.drawable.kreis) {
                 setSymbolPosition(textView, R.drawable.kreis);
@@ -159,7 +144,6 @@ public class Aufgabe_Formen extends AppCompatActivity {
             } else if (lastSymbol == R.drawable.herz) {
                 setSymbolPosition(textView, R.drawable.herz);
             } else if (lastSymbol == R.drawable.dreieck) {
-                Log.d("----", "BBBBBBB");
                 setSymbolPosition(textView, R.drawable.dreieck);
             }
 

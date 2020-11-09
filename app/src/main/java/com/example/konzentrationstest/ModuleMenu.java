@@ -48,10 +48,7 @@ public class ModuleMenu extends AppCompatActivity implements AdapterView.OnItemS
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-    }
-
-
+    public void onNothingSelected(AdapterView<?> parent) { }
 
     public void backToStartMenu(View view) {
         Intent myIntent = new Intent(ModuleMenu.this, MainActivity.class);
@@ -61,18 +58,15 @@ public class ModuleMenu extends AppCompatActivity implements AdapterView.OnItemS
     public void nextPage(View view) {
         Class nextAct = null;
         switch (view.getId()) {
-            case R.id.button_rechnen: nextAct = Aufgabe_Rechnen.class; break;
+            //case R.id.button_rechnen: nextAct = Aufgabe_Rechnen.class; break;
             case R.id.button_farbe: nextAct = Aufgabe_Farben.class; break;
             case R.id.button_formen: nextAct = Aufgabe_Formen.class; break;
             case R.id.button_uebersetzen: nextAct = Aufgabe_Uebersetzen.class; break;
+            default: nextAct = Aufgabe_Rechnen.class; break;
         }
 
         Intent myIntent = new Intent(ModuleMenu.this, nextAct);
         ModuleMenu.this.startActivity(myIntent);
-
-
     }
-    
-    // zu Sprachen: Sowas wie englisch = deutsch, also ob ein englisches Wort im deutschen auch so heißt, zB car = auto, house = haus, oder ähnliches. Irgendwas einfaches mit verwirrenden Lösungen
 
 }
