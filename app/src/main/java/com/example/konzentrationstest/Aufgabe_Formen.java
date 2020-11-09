@@ -145,16 +145,21 @@ public class Aufgabe_Formen extends AppCompatActivity {
                 }
             } while (formenText[randomSymbol].equals(currentText) || (currentSymbol == lastSymbol));
 
+            if (randomSymbol == 4) {
+                textView.setY(80.0f);
+                Log.d("----", "AAAAA");
+            }
             // fuer Position des Textes im Symbol
-            if (symbolDateien[randomSymbol] == R.drawable.kreis) {
+            if (lastSymbol == R.drawable.kreis) {
                 setSymbolPosition(textView, R.drawable.kreis);
-            } else if (symbolDateien[randomSymbol] == R.drawable.quadrat) {
+            } else if (lastSymbol == R.drawable.quadrat) {
                 setSymbolPosition(textView, R.drawable.quadrat);
-            } else if (symbolDateien[randomSymbol] == R.drawable.stern) {
+            } else if (lastSymbol == R.drawable.stern) {
                 setSymbolPosition(textView, R.drawable.stern);
-            } else if (symbolDateien[randomSymbol] == R.drawable.herz) {
+            } else if (lastSymbol == R.drawable.herz) {
                 setSymbolPosition(textView, R.drawable.herz);
-            } else if (symbolDateien[randomSymbol] == R.drawable.dreieck) {
+            } else if (lastSymbol == R.drawable.dreieck) {
+                Log.d("----", "BBBBBBB");
                 setSymbolPosition(textView, R.drawable.dreieck);
             }
 
@@ -168,9 +173,9 @@ public class Aufgabe_Formen extends AppCompatActivity {
     public void setSymbolPosition (TextView view, int symbolCode) {
         view.setX(330.0f);
         if (symbolCode == R.drawable.kreis) {
-            view.setY(708.0f);
+            view.setY(720.0f);
         } else if (symbolCode == R.drawable.quadrat) {
-            view.setY(709.0f);
+            view.setY(732.0f);
         } else if (symbolCode == R.drawable.stern) {
             view.setY(708.0f);
         } else if (symbolCode == R.drawable.herz) {

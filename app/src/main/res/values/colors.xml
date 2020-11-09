@@ -13,6 +13,7 @@
     <color name="Orange">#FFA500</color>
     <color name="Braun">#A52A2A</color>
     <color name="Rosa">#FFC0CB</color>
+    <color name="Weiß">#FFFFFFFF</color>
     <color name="white">#FFFFFFFF</color>
     <color name="black">#FF000000</color>
     <color name="gainsboro">#dcdcdc</color>
@@ -54,5 +55,6 @@
         <item>@color/orangered</item>
         <item>@color/whitered</item>
         <item>@color/darkgrey</item>
+        <item>@color/Weiß</item>
     </string-array>
 </resources>

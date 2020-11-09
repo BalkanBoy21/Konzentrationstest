@@ -19,7 +19,7 @@ public class Aufgabe_Farben extends AppCompatActivity {
     private ImageButton th_down, th_up;
     private ProgressBar timer;
 
-    private String [] farben = {"Grün", "Gelb", "Blau", "Rot", "Orange", "Braun", "Rosa"};
+    private String [] farben = {"Grün", "Gelb", "Blau", "Rot", "Orange", "Weiß", "Rosa"};
     private int [] farbCodes = new int[farben.length];
 
     static int punkte = 0;
