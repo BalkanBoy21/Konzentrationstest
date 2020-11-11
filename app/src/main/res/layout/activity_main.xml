@@ -13,7 +13,7 @@
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="154dp"
         android:layout_height="85dp"
-        android:background="@drawable/roundcorner_red"
+        android:background="@drawable/btn_rounded"
         android:onClick="goToPage2"
         android:text="Start"
         android:textColor="#FFFFFF"

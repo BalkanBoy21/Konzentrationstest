@@ -14,6 +14,7 @@
         <activity android:name=".Aufgabe_Farben" />
         <activity android:name=".Aufgabe_Rechnen" />
         <activity android:name=".ModuleMenu" />
+        <activity android:name=".PopUpFenster"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -169,8 +169,8 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
             preferencesEditor.putInt("key", TopScore.highscore_rechnen);
             preferencesEditor.commit();
 
-            pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore);
-            pop.showExitContinueWindow();
+            //pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore);
+            //pop.showExitContinueWindow();
             punkte = 0;
             return;
         }

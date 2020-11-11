@@ -144,8 +144,8 @@ public class Aufgabe_Uebersetzen extends AppCompatActivity {
             preferencesEditor.putInt("key", TopScore.highscore_farben);
             preferencesEditor.commit();
 
-            pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore);
-            pop.showExitContinueWindow();
+            //pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore);
+            //pop.showExitContinueWindow();
             punkte = 0; // Nach jedem Schließen eines Pop-Up-Fensters die Punktzahl zurücksetzen
         } else {
             ++punkte;

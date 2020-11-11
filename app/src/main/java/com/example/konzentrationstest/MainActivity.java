@@ -33,28 +33,39 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 R.array.difficulty_items, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        //icon = findViewById(R.id.finalAppIcon);
-        //icon.setImageResource(null);
         // Schwierigkeitsgrad "easy" als default-Wert
         easy.setEnabled(false);
 
     }
 
     public static String getCurrentDifficulty() {
-/*        if (!easy.isEnabled()) {
-            return "Easy";
-        } else if (!moderate.isEnabled()) {
-            return "Moderate";
-        } else if (!hard.isEnabled()) {
-            return "Hard";
-        }*/
+        return "Easy";
+    }
+    /*
         for (Button difficulty: btns) {
             if (!difficulty.isEnabled()) {
                 return difficulty.getText().toString().split("\\s+")[0];
             }
         }
-        return "";
+        return "Easy";
     }
+/*
+    public static void terminateDfficulty(View view) {
+        easy.setEnabled(true);
+        easy.setBackgroundResource(android.R.drawable.btn_default);
+        moderate.setEnabled(true);
+        moderate.setBackgroundResource(android.R.drawable.btn_default);
+        hard.setEnabled(true);
+        hard.setBackgroundResource(android.R.drawable.btn_default);
+
+        for (Button btn: btns) {
+            if (view.getId() == btn.getId()) {
+                btn.setEnabled(false);
+                btn.setBackgroundResource(R.color.Rot);
+                break;
+            }
+        }
+    }*/
 
     public static void terminateDfficulty(View view) {
         if (view.getId() == R.id.easy) {

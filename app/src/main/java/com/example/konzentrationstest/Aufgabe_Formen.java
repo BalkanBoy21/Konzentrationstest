@@ -112,6 +112,7 @@ public class Aufgabe_Formen extends AppCompatActivity {
 
             pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore);
             pop.showExitContinueWindow();
+
             punkte = 0;     // besser als in der Methode selbst, da nicht auf "Exit" bzw. Continue geklickt werden muss, die Punktzahl aber trotzdem zurückgesetzt werden soll.
         } else { // Antwort ist richtig
             ++punkte;
@@ -153,6 +154,8 @@ public class Aufgabe_Formen extends AppCompatActivity {
         }
 
     }
+
+
 
     public void setSymbolPosition (TextView view, int symbolCode) {
         view.setX(330.0f);
