@@ -3,7 +3,9 @@ package com.example.konzentrationstest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -41,6 +43,9 @@ public class Aufgabe_Farben extends AppCompatActivity {
         setContentView(R.layout.activity_aufgabe__farben);
 
         timer = findViewById(R.id.timer_Farben);
+        timer.getProgressDrawable().setColorFilter(
+                Color.DKGRAY, android.graphics.PorterDuff.Mode.SRC_IN);
+        //timer.setScaleY(4f);
 
         farbText = findViewById(R.id.textFarbe);
 
@@ -49,7 +54,7 @@ public class Aufgabe_Farben extends AppCompatActivity {
         // Setzen der max. Sekundenzahl durch ausgewaehlten Schwierigkeitsgrad
         diff = MainActivity.getCurrentDifficulty();
         milliSec = diff.equals("Easy") ? 3000 : (diff.equals("Moderate") ? 2000 : (diff.equals("Hard") ? 1000 : 5000));       // ziemlich schlechter Code, reicht aber für den Anfang. Lieber den Button erhalten und dann checken ob der entsprechende Button gedrückt wurde
-        timer.setMax(milliSec / 10);
+        timer.setMax(milliSec / ((milliSec / 100) / 3));
 
         // Die erste Timeline sollte aufgefuellt sein
         timer.setProgress(timer.getMax());
@@ -85,15 +90,25 @@ public class Aufgabe_Farben extends AppCompatActivity {
 
     }
 
+    // variable to track event time
+    private long mLastClickTime = 0;
+
     public void check(View view) {
+        // Zeitdifferenz, um zu verhindern, dass 2 Buttons auf einmal geklickt werden
+        int difference = 100;
+        // Preventing multiple clicks, using threshold of 1 second
+        if (SystemClock.elapsedRealtime() - mLastClickTime < difference) {
+            return;
+        }
+        mLastClickTime = SystemClock.elapsedRealtime();
 
         String currentText = farbText.getText().toString();
         int currentColor = farbText.getCurrentTextColor();
         //int currentColor = ((ColorDrawable) ansicht.getBackground()).getColor();
 
         z.running = false;  // alter Zaehler wird gestoppt
-        z = new Zeit(timer, punkte);     // neues Objekt fuer naechste Seite
-        z.laufen();     // neuer Zaehler geht los
+        z = new Zeit(timer, punkte);     // neuer Zaehler wird erstellt
+        z.laufen();     // neuer Zaehler startet
 
         // Jedes Mal den HighScore neu auf falsch setzen, sonst wird jedes Mal angegeben, dass ein neuer HighScore erreicht wurde
         boolean neuerHighScore = false;

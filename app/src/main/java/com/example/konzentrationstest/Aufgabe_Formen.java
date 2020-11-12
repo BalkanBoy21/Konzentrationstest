@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -62,7 +63,7 @@ public class Aufgabe_Formen extends AppCompatActivity {
         // Setzen der max. Sekundenzahl durch ausgewaehlten Schwierigkeitsgrad
         diff = MainActivity.getCurrentDifficulty();
         milliSec = diff.equals("Easy") ? 3000 : (diff.equals("Moderate") ? 2000 : (diff.equals("Hard") ? 1000 : 5000));       // ziemlich schlechter Code, reicht aber für den Anfang. Lieber den Button erhalten und dann checken ob der entsprechende Button gedrückt wurde
-        timer.setMax(milliSec / 10);
+        timer.setMax(milliSec / ((milliSec / 100) / 3));
 
         // Die erste Timeline sollte aufgefuellt sein
         timer.setProgress(timer.getMax());
@@ -83,7 +84,7 @@ public class Aufgabe_Formen extends AppCompatActivity {
         switch (symbol) {
             case R.drawable.kreis: textView.setY(20.0f); break;
             case R.drawable.quadrat: textView.setY(20.0f); break;
-            case R.drawable.stern: textView.setY(3.0f); break;
+            case R.drawable.stern: textView.setY(2.0f); break;
             case R.drawable.herz: textView.setY(0.0f); break;
             case R.drawable.dreieck: textView.setY(180.0f); break;
         }
@@ -95,8 +96,18 @@ public class Aufgabe_Formen extends AppCompatActivity {
 
     }
 
+    // variable to track event time
+    private long mLastClickTime = 0;
 
     public void check (View view) {
+        // Zeitdifferenz, um zu verhindern, dass 2 Buttons auf einmal geklickt werden
+        int difference = 100;
+        // Preventing multiple clicks, using threshold of 1 second
+        if (SystemClock.elapsedRealtime() - mLastClickTime < difference) {
+            return;
+        }
+        mLastClickTime = SystemClock.elapsedRealtime();
+
         String lastText = textView.getText().toString();
         int lastSymbol = symbol;
         //int currentSymbol = symbolDateien[randomSymbol];

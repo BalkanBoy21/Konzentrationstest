@@ -2,6 +2,7 @@ package com.example.konzentrationstest;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -49,7 +50,18 @@ public class ModuleMenu extends AppCompatActivity implements AdapterView.OnItemS
     @Override
     public void onNothingSelected(AdapterView<?> parent) { }
 
+    // variable to track event time
+    private long mLastClickTime = 0;
+
     public void startModule(View view) {
+        // Zeitdifferenz, um zu verhindern, dass 2 Buttons auf einmal geklickt werden
+        int difference = 100;
+        // Preventing multiple clicks, using threshold of 1 second
+        if (SystemClock.elapsedRealtime() - mLastClickTime < difference) {
+            return;
+        }
+        mLastClickTime = SystemClock.elapsedRealtime();
+
         Class nextModule = null;
         int chosenModule = view.getId();
 

@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.text.Html;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -58,7 +59,7 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
         // Setzen der max. Sekundenzahl durch ausgewaehlten Schwierigkeitsgrad
         diff = MainActivity.getCurrentDifficulty();
         milliSec = diff.equals("Easy") ? 3000 : (diff.equals("Moderate") ? 2000 : (diff.equals("Hard") ? 1000 : 5000));       // ziemlich schlechter Code, reicht aber für den Anfang. Lieber den Button erhalten und dann checken ob der entsprechende Button gedrückt wurde
-        timer.setMax(milliSec / 10);
+        timer.setMax(milliSec / ((milliSec / 100) / 3));
 
         // Die erste Timeline sollte aufgefuellt sein
         timer.setProgress(timer.getMax());
@@ -129,8 +130,19 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
         return wert2;
     }
 
+    // variable to track event time
+    private long mLastClickTime = 0;
+
     // besser nur eine Methode statt 2, und dann zwischen 2 Fällen unterscheiden
     public void check(View view) {
+        // Zeitdifferenz, um zu verhindern, dass 2 Buttons auf einmal geklickt werden
+        int difference = 100;
+        // Preventing multiple clicks, using threshold of 1 second
+        if (SystemClock.elapsedRealtime() - mLastClickTime < difference) {
+            return;
+        }
+        mLastClickTime = SystemClock.elapsedRealtime();
+
         boolean neuerHighScore = false;
         boolean antwortIstKorrekt = false;
 

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -124,7 +125,18 @@ public class Aufgabe_Uebersetzen extends AppCompatActivity {
         punkte = 0;
     }
 
+    // variable to track event time
+    private long mLastClickTime = 0;
+
     public void check(View view) {
+        // Zeitdifferenz, um zu verhindern, dass 2 Buttons auf einmal geklickt werden
+        int difference = 100;
+        // Preventing multiple clicks, using threshold of 1 second
+        if (SystemClock.elapsedRealtime() - mLastClickTime < difference) {
+            return;
+        }
+        mLastClickTime = SystemClock.elapsedRealtime();
+
         String lastText = farbText.getText().toString();
         int lastColor = farbText.getCurrentTextColor();
 

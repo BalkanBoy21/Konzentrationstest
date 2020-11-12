@@ -29,8 +29,9 @@ public class Zeit extends AppCompatActivity {
         diff = MainActivity.getCurrentDifficulty();
         milliSec = diff.equals("Easy") ? 3000 : (diff.equals("Moderate") ? 2000 : (diff.equals("Hard") ? 1000 : 5000));       // ziemlich schlechter Code, reicht aber für den Anfang. Lieber den Button erhalten und dann checken ob der entsprechende Button gedrückt wurde
 
+        // Jedes Mal neu resetten, um bei richtiger Antwort die letzte Anzeige der Zeitleiste zu loeschen und die neue Liste wieder voll zu machen
         this.running = true;
-
+        counter.setMax(milliSec / ((milliSec / 100) / 3));
         counter.setProgress(milliSec);
 
         countDownTimer = new CountDownTimer(milliSec, 10) {
@@ -51,7 +52,6 @@ public class Zeit extends AppCompatActivity {
                 // Pop-Up-Fenster erstellen
 //                PopUpFenster pop = new PopUpFenster(Zeit.this, punkte);
 //                pop.showPopUpWindow();
-                Log.d("---", "Done");
 
                 Zeit.this.counter.setProgress(Zeit.this.counter.getMax());
             }

@@ -40,7 +40,7 @@
             android:textAlignment="center"
             android:textColor="@color/Weiß"
             android:textSize="15dp"
-            android:textStyle="bold" />
+            android:textStyle="italic" />
 
         <TextView
             android:id="@+id/anzeigeHighscore"

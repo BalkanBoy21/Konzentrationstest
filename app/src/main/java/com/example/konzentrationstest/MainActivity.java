@@ -2,6 +2,7 @@ package com.example.konzentrationstest;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -44,8 +45,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         return "Easy";
     }
 
+    // variable to track event time
+    private static long mLastClickTime = 0;
+
     // setzt angeklickten Schwierigkeitsgrad auf Zustand "enabled", alle anderen auf "disabled"
     public static void terminateDfficulty(View view) {
+        // Zeitdifferenz, um zu verhindern, dass 2 Buttons auf einmal geklickt werden
+        int difference = 100;
+        // Preventing multiple clicks, using threshold of 1 second
+        if (SystemClock.elapsedRealtime() - mLastClickTime < 100) {
+            return;
+        }
+        mLastClickTime = SystemClock.elapsedRealtime();
+
         easy.setEnabled(true);
         easy.setBackgroundResource(android.R.drawable.btn_default);
         moderate.setEnabled(true);
