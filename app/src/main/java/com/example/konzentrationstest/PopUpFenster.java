@@ -30,8 +30,9 @@ public class PopUpFenster extends AppCompatActivity {
     SharedPreferences preferences;
     SharedPreferences.Editor preferencesEditor;
     private final String KEY;      // fuer jede Klasse anderen, am besten ueber Konstruktor
+    Zeit z;
 
-    public PopUpFenster(Object obj, int punkte, int highscore, boolean neuerHighScore, Dialog epicDialog, SharedPreferences preferences, SharedPreferences.Editor preferencesEditor, String key) {
+    public PopUpFenster(Object obj, int punkte, int highscore, boolean neuerHighScore, Dialog epicDialog, SharedPreferences preferences, SharedPreferences.Editor preferencesEditor, String key, Zeit z) {
         this.obj = obj;
         this.punkte = punkte;
         this.highscore = highscore;
@@ -42,6 +43,8 @@ public class PopUpFenster extends AppCompatActivity {
         this.preferencesEditor = preferencesEditor;
 
         KEY = key;
+
+        this.z = z;
     }
 
     public void showPopUpWindow() {

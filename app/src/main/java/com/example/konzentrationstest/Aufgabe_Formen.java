@@ -87,7 +87,6 @@ public class Aufgabe_Formen extends AppCompatActivity {
 
 
     public void check (View view) {
-
         String lastText = textView.getText().toString();
         int lastSymbol = symbol;
         //int currentSymbol = symbolDateien[randomSymbol];
@@ -103,14 +102,18 @@ public class Aufgabe_Formen extends AppCompatActivity {
 
         // Antwort ist nicht korrekt
         if (((view.getId() == R.id.unwahr3) && antwortIstKorrekt) || ((view.getId() == R.id.wahr3) && !antwortIstKorrekt)) {
-            if (preferences.getInt(KEY, 0) < punkte) {
+            // Setzen des neuen Highscores
+            TopScore.highscore_formen = punkte;
+
+            if (preferences.getInt(KEY, 0) < TopScore.highscore_formen) {
+                preferencesEditor.putInt(KEY, TopScore.highscore_formen);
                 neuerHighScore = true;
             }
-            preferencesEditor.putInt("key", punkte);
+            preferencesEditor.putInt("key", TopScore.highscore_formen);
             preferencesEditor.commit();
 
-            PopUpFenster pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
-            pop.showPopUpWindow();
+            //PopUpFenster pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
+            //pop.showPopUpWindow();
 
             punkte = 0;     // Punktestand zurücksetzen bei falscher Antwort (besser als in der Methode selbst, da nicht auf "Exit" bzw. Continue geklickt werden muss, die Punktzahl aber trotzdem zurückgesetzt werden soll.)
 
@@ -152,6 +155,12 @@ public class Aufgabe_Formen extends AppCompatActivity {
 
         }
 
+        if (z.getCountDownTimer() != null) {        // damit erste Seite übersprungen wird, da hier die Zeit noch nicht läuft.
+//            z.getCountDownTimer().onFinish();
+            z.getCountDownTimer().cancel();
+            z = new Zeit(timer, punkte);     // neues Objekt fuer naechste Seite
+            z.running = true;
+        }
     }
 
 }

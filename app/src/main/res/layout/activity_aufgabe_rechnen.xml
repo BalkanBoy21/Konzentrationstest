@@ -24,8 +24,8 @@
 
     <ImageButton
         android:id="@+id/unwahr"
-        android:layout_width="190dp"
-        android:layout_height="195dp"
+        android:layout_width="212dp"
+        android:layout_height="193dp"
         android:onClick="check"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,12 +37,12 @@
 
     <ImageButton
         android:id="@+id/wahr"
-        android:layout_width="190dp"
-        android:layout_height="195dp"
+        android:layout_width="206dp"
+        android:layout_height="193dp"
+        android:layout_marginStart="212dp"
+        android:layout_marginLeft="212dp"
         android:onClick="check"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.976"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"

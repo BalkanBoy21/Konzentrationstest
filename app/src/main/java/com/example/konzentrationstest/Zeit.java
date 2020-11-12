@@ -18,6 +18,15 @@ public class Zeit extends AppCompatActivity {
     public Zeit (ProgressBar counter, int punkte) {
         this.counter = counter;
         this.punkte = punkte;
+    }
+
+    public CountDownTimer getCountDownTimer() { return this.countDownTimer; }
+
+    public void terminateDifficulty() {
+
+    }
+
+    public void laufen() {
         terminateDifficulty();
         diff = MainActivity.getCurrentDifficulty();
         Log.d("----", "Diff: " + diff);
@@ -51,12 +60,6 @@ public class Zeit extends AppCompatActivity {
         };
         countDownTimer.start();
         //Zeit.this.running = true;
-    }
-
-    public CountDownTimer getCountDownTimer() { return this.countDownTimer; }
-
-    public void terminateDifficulty() {
-
     }
 
     public void run() {

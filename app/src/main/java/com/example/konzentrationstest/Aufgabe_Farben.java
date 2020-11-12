@@ -4,8 +4,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -22,19 +22,15 @@ public class Aufgabe_Farben extends AppCompatActivity {
     private final int [] farbCodes = new int[farben.length];
 
     static int punkte;
-    Zeit z;
 
     SharedPreferences preferences;
     SharedPreferences.Editor preferencesEditor;
 
+    Dialog epicDialog;
     private final String KEY = "speicherPreferences_Farben";
 
-    Dialog epicDialog;
-
-    Button leave, stay;
-    TextView text, text2;
-
-    int highscore;
+    private ProgressBar timer;
+    private Zeit z;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +38,13 @@ public class Aufgabe_Farben extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aufgabe__farben);
 
-        ProgressBar timer = findViewById(R.id.timer_Farben);
+        timer = findViewById(R.id.timer_Farben);
 
         farbText = findViewById(R.id.textFarbe);
 
         epicDialog = new Dialog(this);
 
+        timer.setProgress(timer.getMax());
         z = new Zeit(timer, punkte);
 
         //setting preferences
@@ -80,7 +77,6 @@ public class Aufgabe_Farben extends AppCompatActivity {
     }
 
 
-
     public void check(View view) {
         String currentText = farbText.getText().toString();
         int currentColor = farbText.getCurrentTextColor();
@@ -96,17 +92,24 @@ public class Aufgabe_Farben extends AppCompatActivity {
         }
 
         if (((view.getId() == R.id.unwahr2) && antwortIstKorrekt) || ((view.getId() == R.id.wahr2) && !antwortIstKorrekt)){   // wenn auf Falsch geklickt wird, das Ergebnis aber richtig ist
-            if (preferences.getInt(KEY, 0) < punkte) {
+            // Setzen des neuen Highscores
+            TopScore.highscore_farben = punkte;
+
+            if (preferences.getInt(KEY, 0) < TopScore.highscore_farben) {
+                preferencesEditor.putInt(KEY, TopScore.highscore_farben);
                 neuerHighScore = true;
             }
-            preferencesEditor.putInt("key", punkte);
+            preferencesEditor.putInt("key", TopScore.highscore_farben);
             preferencesEditor.commit();
 
-            PopUpFenster pop = new PopUpFenster(Aufgabe_Farben.this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
+            timer.setProgress(timer.getMax());
+
+            PopUpFenster pop = new PopUpFenster(Aufgabe_Farben.this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY, z);
             pop.showPopUpWindow();
 
             punkte = 0;
-
+            //z.getCountDownTimer().cancel();
+            return;
         } else {    // Ergebnis ist richtig
             ++punkte;
 
@@ -132,6 +135,14 @@ public class Aufgabe_Farben extends AppCompatActivity {
             farbText.setText(farben[randomNumber]);
             farbText.setTextColor(randomFarbe);
             //ansicht.setBackgroundColor(randomFarbe);
+
+            //if (z.getCountDownTimer() != null) {        // damit erste Seite übersprungen wird, da hier die Zeit noch nicht läuft.
+            //z.getCountDownTimer().cancel();
+            Log.d("----", "Okayyyy");
+            z = new Zeit(timer, punkte);     // neues Objekt fuer naechste Seite
+            z.laufen();
+            z.running = true;
+            //}
         }
     }
 

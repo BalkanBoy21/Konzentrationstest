@@ -122,13 +122,6 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
 
     // besser nur eine Methode statt 2, und dann zwischen 2 Fällen unterscheiden
     public void check(View view) {
-        if (z.getCountDownTimer() != null) {        // damit erste Seite übersprungen wird, da hier die Zeit noch nicht läuft.
-//            z.getCountDownTimer().onFinish();
-            z.getCountDownTimer().cancel();
-            z = new Zeit(timer, punkte);     // neues Objekt fuer naechste Seite
-            z.running = true;
-        }
-
         boolean neuerHighScore = false;
         boolean antwortIstKorrekt = false;
 
@@ -147,14 +140,18 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
         }
 
         if (((view.getId() == R.id.unwahr) && antwortIstKorrekt) || (((view.getId() == R.id.wahr) && !antwortIstKorrekt))) {        // falsche Antwort wurde eingetippt
-            if (preferences.getInt(KEY, 0) < punkte) {
+            // Setzen des neuen Highscores
+            TopScore.highscore_rechnen = punkte;
+
+            if (preferences.getInt(KEY, 0) < TopScore.highscore_rechnen) {
+                preferencesEditor.putInt(KEY, TopScore.highscore_rechnen);
                 neuerHighScore = true;
             }
-            preferencesEditor.putInt("key", punkte);
+            preferencesEditor.putInt("key", TopScore.highscore_rechnen);
             preferencesEditor.commit();
 
-            PopUpFenster pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
-            pop.showPopUpWindow();
+            //PopUpFenster pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
+            //pop.showPopUpWindow();
 
             punkte = 0;
 
@@ -171,6 +168,13 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
                 displayedText = "&#x221a;" + summand1[nth_activity] + " = " + summen[nth_activity];
                 textFeld.setText(Html.fromHtml(displayedText));
             }
+        }
+
+        if (z.getCountDownTimer() != null) {        // damit erste Seite übersprungen wird, da hier die Zeit noch nicht läuft.
+//            z.getCountDownTimer().onFinish();
+            z.getCountDownTimer().cancel();
+            z = new Zeit(timer, punkte);     // neues Objekt fuer naechste Seite
+            z.running = true;
         }
 
     }

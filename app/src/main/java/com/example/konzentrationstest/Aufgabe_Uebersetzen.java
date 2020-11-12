@@ -147,8 +147,8 @@ public class Aufgabe_Uebersetzen extends AppCompatActivity {
             preferencesEditor.putInt("key", TopScore.highscore_uebersetzen);
             preferencesEditor.commit();
 
-            PopUpFenster pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
-            pop.showPopUpWindow();
+            //PopUpFenster pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
+            //pop.showPopUpWindow();
 
             punkte = 0; // Nach jedem Schließen eines Pop-Up-Fensters die Punktzahl zurücksetzen
 
@@ -182,6 +182,13 @@ public class Aufgabe_Uebersetzen extends AppCompatActivity {
 
             btns[2].setBackgroundColor(farbCodes[newColor]);
 
+        }
+
+        if (z.getCountDownTimer() != null) {        // damit erste Seite übersprungen wird, da hier die Zeit noch nicht läuft.
+//            z.getCountDownTimer().onFinish();
+            z.getCountDownTimer().cancel();
+            z = new Zeit(timer, punkte);     // neues Objekt fuer naechste Seite
+            z.running = true;
         }
     }
 }
