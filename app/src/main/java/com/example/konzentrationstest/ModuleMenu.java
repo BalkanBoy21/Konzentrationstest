@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 public class ModuleMenu extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     public Spinner mod;
-    private Button b1, b2, b3, b4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,10 +23,10 @@ public class ModuleMenu extends AppCompatActivity implements AdapterView.OnItemS
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modulemenu);
 
-        b1 = findViewById(R.id.button_rechnen);
-        b2 = findViewById(R.id.button_farbe);
-        b3 = findViewById(R.id.button_formen);
-        b4 = findViewById(R.id.button_uebersetzen);
+        Button b1 = findViewById(R.id.button_rechnen);
+        Button b2 = findViewById(R.id.button_farbe);
+        Button b3 = findViewById(R.id.button_formen);
+        Button b4 = findViewById(R.id.button_uebersetzen);
 
         b1.setBackgroundColor(getResources().getColor(R.color.limegreen));
         b2.setBackgroundColor(getResources().getColor(R.color.lightgreen));
@@ -50,22 +49,21 @@ public class ModuleMenu extends AppCompatActivity implements AdapterView.OnItemS
     @Override
     public void onNothingSelected(AdapterView<?> parent) { }
 
-    public void backToStartMenu(View view) {
-        Intent myIntent = new Intent(ModuleMenu.this, MainActivity.class);
-        ModuleMenu.this.startActivity(myIntent);
-    }
+    public void startModule(View view) {
+        Class nextModule = null;
+        int chosenModule = view.getId();
 
-    public void nextPage(View view) {
-        Class nextAct = null;
-        switch (view.getId()) {
-            //case R.id.button_rechnen: nextAct = Aufgabe_Rechnen.class; break;
-            case R.id.button_farbe: nextAct = Aufgabe_Farben.class; break;
-            case R.id.button_formen: nextAct = Aufgabe_Formen.class; break;
-            case R.id.button_uebersetzen: nextAct = Aufgabe_Uebersetzen.class; break;
-            default: nextAct = Aufgabe_Rechnen.class; break;
+        if (chosenModule == R.id.button_rechnen) {
+            nextModule = Aufgabe_Rechnen.class;
+        } else if (chosenModule == R.id.button_farbe) {
+            nextModule = Aufgabe_Farben.class;
+        } else if (chosenModule == R.id.button_formen) {
+            nextModule = Aufgabe_Formen.class;
+        } else if (chosenModule == R.id.button_uebersetzen) {
+            nextModule = Aufgabe_Uebersetzen.class;
         }
 
-        Intent myIntent = new Intent(ModuleMenu.this, nextAct);
+        Intent myIntent = new Intent(ModuleMenu.this, nextModule);
         ModuleMenu.this.startActivity(myIntent);
     }
 

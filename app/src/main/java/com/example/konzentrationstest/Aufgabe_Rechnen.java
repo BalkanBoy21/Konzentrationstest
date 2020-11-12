@@ -29,16 +29,19 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
     String operator = "+";
     String[] stufen = {"Hard", "Moderate", "Easy"};
 
-    private ProgressBar timer;
     private TextView textFeld;
 
-    // Pop-Up-Fenster
-    private Dialog epicDialog;
-    private final String KEY = "speicherPreferences_Rechnen";
+    // Pop-Up-Fenster und dazugehoerige Variablen
     private SharedPreferences preferences;
     private SharedPreferences.Editor preferencesEditor;
+    private final String KEY = "speicherPreferences_Rechnen";
+    private Dialog epicDialog;
 
+    private ProgressBar timer;
     private Zeit z;
+    private String diff;
+
+    int milliSec;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +55,19 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
 
         epicDialog = new Dialog(this);
 
+        // Setzen der max. Sekundenzahl durch ausgewaehlten Schwierigkeitsgrad
+        diff = MainActivity.getCurrentDifficulty();
+        milliSec = diff.equals("Easy") ? 3000 : (diff.equals("Moderate") ? 2000 : (diff.equals("Hard") ? 1000 : 5000));       // ziemlich schlechter Code, reicht aber für den Anfang. Lieber den Button erhalten und dann checken ob der entsprechende Button gedrückt wurde
+        timer.setMax(milliSec / 10);
+
+        // Die erste Timeline sollte aufgefuellt sein
+        timer.setProgress(timer.getMax());
         z = new Zeit(timer, punkte);
 
         //setting preferences
         this.preferences = this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);
         preferencesEditor = preferences.edit();
         preferencesEditor.apply();
-
 
             int [] temp_shuffle = new int[quadratzahlen.length];      // dient als Index nur fuer die Wurzel-Zahlen
 
@@ -132,6 +141,10 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
             ergebnisIstRichtig = summand1[nth_activity] - summand2[nth_activity] == summen[nth_activity];
         }*/
 
+        z.running = false;  // alter Zaehler wird gestoppt
+        z = new Zeit(timer, punkte);     // neues Objekt fuer naechste Seite
+        z.laufen();     // neuer Zaehler geht los
+
         // Prueft ob Antwort korrekt ist
         if (summand2[nth_activity] == 0) {  // Quadrat
             antwortIstKorrekt = Math.sqrt(summand1[nth_activity]) == summen[nth_activity];
@@ -150,11 +163,13 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
             preferencesEditor.putInt("key", TopScore.highscore_rechnen);
             preferencesEditor.commit();
 
-            //PopUpFenster pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
-            //pop.showPopUpWindow();
+            // Stoppt die Zeit, damit diese nicht weiter geht wenn man bereits im Pop-Up-Fenster ist
+            z.running = false;
+
+            PopUpFenster pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
+            pop.showPopUpWindow();
 
             punkte = 0;
-
         } else {
             ++punkte;
             ++nth_activity;
@@ -168,13 +183,6 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
                 displayedText = "&#x221a;" + summand1[nth_activity] + " = " + summen[nth_activity];
                 textFeld.setText(Html.fromHtml(displayedText));
             }
-        }
-
-        if (z.getCountDownTimer() != null) {        // damit erste Seite übersprungen wird, da hier die Zeit noch nicht läuft.
-//            z.getCountDownTimer().onFinish();
-            z.getCountDownTimer().cancel();
-            z = new Zeit(timer, punkte);     // neues Objekt fuer naechste Seite
-            z.running = true;
         }
 
     }

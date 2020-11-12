@@ -41,6 +41,9 @@ public class Aufgabe_Uebersetzen extends AppCompatActivity {
 
     private Dialog epicDialog;
 
+    private String diff;
+    int milliSec;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getSupportActionBar().hide(); // hide the title bar
@@ -102,12 +105,20 @@ public class Aufgabe_Uebersetzen extends AppCompatActivity {
         // PopUp-Fenster
         epicDialog = new Dialog(this);
 
-        // Zeitleiste erstellen
+        // Setzen der max. Sekundenzahl durch ausgewaehlten Schwierigkeitsgrad
+        diff = MainActivity.getCurrentDifficulty();
+        milliSec = diff.equals("Easy") ? 3000 : (diff.equals("Moderate") ? 2000 : (diff.equals("Hard") ? 1000 : 5000));       // ziemlich schlechter Code, reicht aber für den Anfang. Lieber den Button erhalten und dann checken ob der entsprechende Button gedrückt wurde
+        timer.setMax(milliSec / 10);
+
+        // Die erste Timeline sollte aufgefuellt sein
+        timer.setProgress(timer.getMax());
         z = new Zeit(timer, punkte);
+
 
         //setting preferences
         this.preferences = this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);
         preferencesEditor = preferences.edit();
+        preferencesEditor.apply();
 
         // Punktestand wird jedes Mal zurueckgesetzt, wenn die Seite neu betreten wird (besonders wenn auf "Beenden" geklickt wird)
         punkte = 0;
@@ -121,13 +132,21 @@ public class Aufgabe_Uebersetzen extends AppCompatActivity {
         boolean ergebnisIstRichtig = true;
         boolean neuerHighScore = false;
 
+        z.running = false;  // alter Zaehler wird gestoppt
+        z = new Zeit(timer, punkte);     // neues Objekt fuer naechste Seite
+        z.laufen();     // neuer Zaehler geht los
 
         ImageButton clickedButton;
-        switch (view.getId()) {
-            case R.id.farbe1: clickedButton = btn1; break;
-            case R.id.farbe2: clickedButton = btn2; break;
-            case R.id.farbe3: clickedButton = btn3; break;
-            default: clickedButton = btn1;
+        int id = view.getId();
+
+        if (id == R.id.farbe1) {
+            clickedButton = btn1;
+        } else if (id == R.id.farbe2) {
+            clickedButton = btn2;
+        } else if (id == R.id.farbe3) {
+            clickedButton = btn3;
+        } else {    // Nur fuer den Fall der Faelle, sollte aber auf keinen Fall dazu kommen
+            clickedButton = btn1;
         }
 
         int clickedButtonColor = ((ColorDrawable) clickedButton.getBackground()).getColor();
@@ -147,11 +166,13 @@ public class Aufgabe_Uebersetzen extends AppCompatActivity {
             preferencesEditor.putInt("key", TopScore.highscore_uebersetzen);
             preferencesEditor.commit();
 
-            //PopUpFenster pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
-            //pop.showPopUpWindow();
+            // Stoppt die Zeit, damit diese nicht weiter geht wenn man bereits im Pop-Up-Fenster ist
+            z.running = false;
+
+            PopUpFenster pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
+            pop.showPopUpWindow();
 
             punkte = 0; // Nach jedem Schließen eines Pop-Up-Fensters die Punktzahl zurücksetzen
-
         } else {
             ++punkte;
             int randomNumber, randomFarbe;
@@ -184,11 +205,5 @@ public class Aufgabe_Uebersetzen extends AppCompatActivity {
 
         }
 
-        if (z.getCountDownTimer() != null) {        // damit erste Seite übersprungen wird, da hier die Zeit noch nicht läuft.
-//            z.getCountDownTimer().onFinish();
-            z.getCountDownTimer().cancel();
-            z = new Zeit(timer, punkte);     // neues Objekt fuer naechste Seite
-            z.running = true;
-        }
     }
 }

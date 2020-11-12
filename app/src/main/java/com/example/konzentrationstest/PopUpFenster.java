@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.widget.Button;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,22 +16,19 @@ public class PopUpFenster extends AppCompatActivity {
     PopUpFenster p;
     int punkte;
     Object obj;
+
     int highscore;
     boolean neuerHighScore;
-    TextView textView;
-    Button leave, stay;
 
-    PopupWindow popupWindow;
-    View popupView;
+    Button leave, stay;
     Dialog epicDialog;
 
     TextView text, text2;
     SharedPreferences preferences;
     SharedPreferences.Editor preferencesEditor;
-    private final String KEY;      // fuer jede Klasse anderen, am besten ueber Konstruktor
-    Zeit z;
+    private final String KEY;      // fuer jede Klasse anderen Key fuer jeweils einen anderen Highscore
 
-    public PopUpFenster(Object obj, int punkte, int highscore, boolean neuerHighScore, Dialog epicDialog, SharedPreferences preferences, SharedPreferences.Editor preferencesEditor, String key, Zeit z) {
+    public PopUpFenster(Object obj, int punkte, int highscore, boolean neuerHighScore, Dialog epicDialog, SharedPreferences preferences, SharedPreferences.Editor preferencesEditor, String key) {
         this.obj = obj;
         this.punkte = punkte;
         this.highscore = highscore;
@@ -43,29 +39,26 @@ public class PopUpFenster extends AppCompatActivity {
         this.preferencesEditor = preferencesEditor;
 
         KEY = key;
-
-        this.z = z;
     }
 
     public void showPopUpWindow() {
         epicDialog.setContentView(R.layout.activity_popupfenster);
-        leave = (Button) epicDialog.findViewById(R.id.verlassen);
-        stay = (Button) epicDialog.findViewById(R.id.weiter);
 
-        text = (TextView) epicDialog.findViewById(R.id.anzeigeScore);
-        text2 = (TextView) epicDialog.findViewById(R.id.anzeigeHighscore);
+        leave = epicDialog.findViewById(R.id.verlassen);
+        stay = epicDialog.findViewById(R.id.weiter);
+
+        text = epicDialog.findViewById(R.id.anzeigeScore);
+        text2 = epicDialog.findViewById(R.id.anzeigeHighscore);
 
         String punkteText = "\n\tPunkte: " + punkte;
         text.setText(punkteText);
 
-        String displayedText = "";
+        // Text fuer Highscore
+        String displayedText = "\t\t\t\t\tHighscore: " + preferences.getInt(KEY, 0);
         if (neuerHighScore) {
             displayedText = "Neuer Highscore: " + preferences.getInt(KEY, 0);
-            text2.setText(displayedText);
-        } else {
-            displayedText = "\t\t\t\t\tHighscore: " + preferences.getInt(KEY, 0);
-            text2.setText(displayedText);
         }
+        text2.setText(displayedText);
 
         leave.setOnClickListener(new View.OnClickListener() {
             @Override

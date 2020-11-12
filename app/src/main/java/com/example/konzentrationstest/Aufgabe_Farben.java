@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -31,6 +30,9 @@ public class Aufgabe_Farben extends AppCompatActivity {
 
     private ProgressBar timer;
     private Zeit z;
+    String diff;
+
+    int milliSec;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +46,19 @@ public class Aufgabe_Farben extends AppCompatActivity {
 
         epicDialog = new Dialog(this);
 
+        // Setzen der max. Sekundenzahl durch ausgewaehlten Schwierigkeitsgrad
+        diff = MainActivity.getCurrentDifficulty();
+        milliSec = diff.equals("Easy") ? 3000 : (diff.equals("Moderate") ? 2000 : (diff.equals("Hard") ? 1000 : 5000));       // ziemlich schlechter Code, reicht aber für den Anfang. Lieber den Button erhalten und dann checken ob der entsprechende Button gedrückt wurde
+        timer.setMax(milliSec / 10);
+
+        // Die erste Timeline sollte aufgefuellt sein
         timer.setProgress(timer.getMax());
         z = new Zeit(timer, punkte);
 
         //setting preferences
         this.preferences = this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);
         preferencesEditor = preferences.edit();
+        preferencesEditor.apply();
 
         // durchsucht alle Farben in colors.xml (und weitere) und filtert alle Farben heraus, die im Array "farben" enthalten sind
         try {
@@ -76,12 +85,15 @@ public class Aufgabe_Farben extends AppCompatActivity {
 
     }
 
-
     public void check(View view) {
+
         String currentText = farbText.getText().toString();
         int currentColor = farbText.getCurrentTextColor();
         //int currentColor = ((ColorDrawable) ansicht.getBackground()).getColor();
 
+        z.running = false;  // alter Zaehler wird gestoppt
+        z = new Zeit(timer, punkte);     // neues Objekt fuer naechste Seite
+        z.laufen();     // neuer Zaehler geht los
 
         // Jedes Mal den HighScore neu auf falsch setzen, sonst wird jedes Mal angegeben, dass ein neuer HighScore erreicht wurde
         boolean neuerHighScore = false;
@@ -102,14 +114,13 @@ public class Aufgabe_Farben extends AppCompatActivity {
             preferencesEditor.putInt("key", TopScore.highscore_farben);
             preferencesEditor.commit();
 
-            timer.setProgress(timer.getMax());
+            // Stoppt die Zeit, damit diese nicht weiter geht wenn man bereits im Pop-Up-Fenster ist
+            z.running = false;
 
-            PopUpFenster pop = new PopUpFenster(Aufgabe_Farben.this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY, z);
+            PopUpFenster pop = new PopUpFenster(Aufgabe_Farben.this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
             pop.showPopUpWindow();
 
             punkte = 0;
-            //z.getCountDownTimer().cancel();
-            return;
         } else {    // Ergebnis ist richtig
             ++punkte;
 
@@ -136,13 +147,6 @@ public class Aufgabe_Farben extends AppCompatActivity {
             farbText.setTextColor(randomFarbe);
             //ansicht.setBackgroundColor(randomFarbe);
 
-            //if (z.getCountDownTimer() != null) {        // damit erste Seite übersprungen wird, da hier die Zeit noch nicht läuft.
-            //z.getCountDownTimer().cancel();
-            Log.d("----", "Okayyyy");
-            z = new Zeit(timer, punkte);     // neues Objekt fuer naechste Seite
-            z.laufen();
-            z.running = true;
-            //}
         }
     }
 

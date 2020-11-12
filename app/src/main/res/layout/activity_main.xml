@@ -14,7 +14,7 @@
         android:layout_width="154dp"
         android:layout_height="85dp"
         android:background="@drawable/btn_rounded"
-        android:onClick="goToPage2"
+        android:onClick="goToModuleMenu"
         android:text="Start"
         android:textColor="#FFFFFF"
         android:textSize="35dp"
