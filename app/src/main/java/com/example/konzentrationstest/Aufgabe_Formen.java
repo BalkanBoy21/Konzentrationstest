@@ -2,10 +2,10 @@
 package com.example.konzentrationstest;
 
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -22,12 +22,12 @@ import java.util.Arrays;
 
 public class Aufgabe_Formen extends AppCompatActivity {
 
-    String [] formenText = {"Kreis", "Quadrat", "Stern", "Herz", "Dreieck"};
-    int []symbolDateien = {R.drawable.kreis, R.drawable.quadrat, R.drawable.stern, R.drawable.herz, R.drawable.dreieck};
-    TextView textView;
-    ImageView form;
+    private final String [] formenText = {"Kreis", "Quadrat", "Stern", "Herz", "Dreieck"};
+    private final int []symbolDateien = {R.drawable.kreis, R.drawable.quadrat, R.drawable.stern, R.drawable.herz, R.drawable.dreieck};
+    private TextView textView;
+    private ImageView form;
 
-    static int punkte = 0;
+    int punkte = 0;
     int randomSymbol;
     String randomText;
     Zeit z;
@@ -35,12 +35,12 @@ public class Aufgabe_Formen extends AppCompatActivity {
 
     SharedPreferences preferences;
     SharedPreferences.Editor preferencesEditor;
-    final String KEY = "speicherPreferences3";
-    PopUpFenster pop;
+    final String KEY = "speicherPreferences_Formen";
 
-    int randomForm = 0;
-    int lastSymbol;
+    int symbol;
     int temp = 0;
+
+    Dialog epicDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,71 +53,72 @@ public class Aufgabe_Formen extends AppCompatActivity {
         form = findViewById(R.id.formSymbol);
         timer = findViewById(R.id.timer_Formen);
 
-        // fuer die erste Seite
-        randomSymbol = (int) (Math.random() * symbolDateien.length);
-        temp = randomSymbol;        // sehr wichtig fuer erste If-Anweisung in Methode check (nur fuer den Uebergang vom ersten zum zweiten Bild)
-        lastSymbol = symbolDateien[randomSymbol];
+        // PopUp-Fenster
+        epicDialog = new Dialog(this);
 
-        textView.setX(5.0f);
-        if (lastSymbol == R.drawable.kreis) {
-            textView.setY(20.0f);
-        } else if (lastSymbol == R.drawable.quadrat) {
-            textView.setY(20.0f);
-        } else if (lastSymbol == R.drawable.stern) {
-            textView.setY(3.0f);
-        } else if (lastSymbol == R.drawable.herz) {
-            textView.setY(0.0f);
-        } else if (lastSymbol == R.drawable.dreieck) {        // Entfernen, da jedes Rechteck auch ein Quadrat ist.
-            textView.setY(180.0f);
-        }
-
-        textView.setText(formenText[(int) (Math.random() * formenText.length)]);
-        form.setImageResource(symbolDateien[randomSymbol]);
-        punkte = 0;       // sehr wichtig, da man ins Menue zurueckgehen kann
-
-
-        int m = 10000;  // dummy, fuer den Anfang
+        // Zeitleiste erstellen
         z = new Zeit(timer, punkte);
 
         //setting preferences
         this.preferences = this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);
         preferencesEditor = preferences.edit();
+
+        // fuer die erste Seite
+        randomSymbol = (int) (Math.random() * symbolDateien.length);
+        temp = randomSymbol;        // sehr wichtig fuer erste If-Anweisung in Methode check (nur fuer den Uebergang vom ersten zum zweiten Bild)
+        symbol = symbolDateien[randomSymbol];
+
+        // fuer Position des Textes im Symbol
+        textView.setX(5.0f);
+        switch (symbol) {
+            case R.drawable.kreis: textView.setY(20.0f); break;
+            case R.drawable.quadrat: textView.setY(20.0f); break;
+            case R.drawable.stern: textView.setY(3.0f); break;
+            case R.drawable.herz: textView.setY(0.0f); break;
+            case R.drawable.dreieck: textView.setY(180.0f); break;
+        }
+
+        // Erstellen des Starttextes und der Startform
+        textView.setText(formenText[(int) (Math.random() * formenText.length)]);
+        form.setImageResource(symbolDateien[randomSymbol]);
+        punkte = 0;       // sehr wichtig, da man ins Menue zurueckgehen und das Spiel wieder oeffnen kann
+
     }
 
 
     public void check (View view) {
 
-        boolean ergebnisIstRichtig = false;
-
-        String currentText = textView.getText().toString();
-        int currentSymbol = lastSymbol;
+        String lastText = textView.getText().toString();
+        int lastSymbol = symbol;
         //int currentSymbol = symbolDateien[randomSymbol];
 
-        int index = Arrays.asList(formenText).indexOf(currentText);
+        boolean antwortIstKorrekt = false;
+        boolean neuerHighScore = false;
+
+        int index = Arrays.asList(formenText).indexOf(lastText);
+
         if (index == temp) {    // man ueberprueft, ob der Index des Textes mit dem Index der Form uebereinstimmt, Voraussetzung: Array formenText und symbolDateien stimmen in der Reihenfolge ueberein
-            ergebnisIstRichtig = true;
+            antwortIstKorrekt = true;
         }
 
-        if (((view.getId() == R.id.unwahr3) && ergebnisIstRichtig) || ((view.getId() == R.id.wahr3) && !ergebnisIstRichtig)) {
-            Log.d("---", "Deine Antwort ist nicht korrekt");
-            // Managen des HighScores
-            TopScore.highscore_formen = punkte;
-            boolean neuerHighScore = false;
-            if (preferences.getInt(KEY, 0) < TopScore.highscore_formen) {
-                preferencesEditor.putInt(KEY, TopScore.highscore_formen);
+        // Antwort ist nicht korrekt
+        if (((view.getId() == R.id.unwahr3) && antwortIstKorrekt) || ((view.getId() == R.id.wahr3) && !antwortIstKorrekt)) {
+            if (preferences.getInt(KEY, 0) < punkte) {
                 neuerHighScore = true;
             }
-            preferencesEditor.putInt("key", TopScore.highscore_formen);
+            preferencesEditor.putInt("key", punkte);
             preferencesEditor.commit();
 
-            pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore);
-            pop.showExitContinueWindow();
+            PopUpFenster pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
+            pop.showPopUpWindow();
 
-            punkte = 0;     // besser als in der Methode selbst, da nicht auf "Exit" bzw. Continue geklickt werden muss, die Punktzahl aber trotzdem zurückgesetzt werden soll.
-        } else { // Antwort ist richtig
+            punkte = 0;     // Punktestand zurücksetzen bei falscher Antwort (besser als in der Methode selbst, da nicht auf "Exit" bzw. Continue geklickt werden muss, die Punktzahl aber trotzdem zurückgesetzt werden soll.)
+
+        } else { // Antwort ist korrekt
+            // +1 Punkt wenn Antwort richtig
             ++punkte;
 
-            // damit Symbol und Text nicht 2 Mal hintereinander gleich sind
+            // Symbol und Text werden nicht 2 Mal hintereinander gleich sein
             do {
                 randomSymbol = (int) (Math.random() * symbolDateien.length);
 
@@ -132,44 +133,25 @@ public class Aufgabe_Formen extends AppCompatActivity {
                 } else {        // Aeußere sind ausgeschlossen
                     temp = (randomSymbol - 1) + (int) (Math.random() * 3);
                 }
-                lastSymbol = symbolDateien[temp];
-            } while (formenText[randomSymbol].equals(currentText) || (currentSymbol == lastSymbol));
+                symbol = symbolDateien[temp];
+            } while (formenText[randomSymbol].equals(lastText) || (lastSymbol == symbol));
 
             // fuer Position des Textes im Symbol
-            if (lastSymbol == R.drawable.kreis) {
-                setSymbolPosition(textView, R.drawable.kreis);
-            } else if (lastSymbol == R.drawable.quadrat) {
-                setSymbolPosition(textView, R.drawable.quadrat);
-            } else if (lastSymbol == R.drawable.stern) {
-                setSymbolPosition(textView, R.drawable.stern);
-            } else if (lastSymbol == R.drawable.herz) {
-                setSymbolPosition(textView, R.drawable.herz);
-            } else if (lastSymbol == R.drawable.dreieck) {
-                setSymbolPosition(textView, R.drawable.dreieck);
+            textView.setX(330.0f);
+            switch (symbol) {
+                case R.drawable.kreis: textView.setY(720.0f); break;
+                case R.drawable.quadrat: textView.setY(732.0f); break;
+                case R.drawable.stern: textView.setY(708.0f); break;
+                case R.drawable.herz: textView.setY(708.0f); break;
+                case R.drawable.dreieck: textView.setY(850.0f); break;
             }
 
+            // Setzen des neuen Textes und der neuen Form
             textView.setText(formenText[randomSymbol]);
-            form.setImageResource(lastSymbol);
+            form.setImageResource(symbol);
 
         }
 
     }
 
-
-
-    public void setSymbolPosition (TextView view, int symbolCode) {
-        view.setX(330.0f);
-        if (symbolCode == R.drawable.kreis) {
-            view.setY(720.0f);
-        } else if (symbolCode == R.drawable.quadrat) {
-            view.setY(732.0f);
-        } else if (symbolCode == R.drawable.stern) {
-            view.setY(708.0f);
-        } else if (symbolCode == R.drawable.herz) {
-            view.setY(708.0f);
-        } else if (symbolCode == R.drawable.dreieck) {
-            view.setY(850.0f);
-        }
-
-    }
 }

@@ -1,12 +1,11 @@
 package com.example.konzentrationstest;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -18,12 +17,13 @@ import java.util.Arrays;
 
 public class Aufgabe_Rechnen extends AppCompatActivity {
 
-    int [] quadratzahlen = {1, 4, 9, 16, 25, 36, 49, 64, 81, 100};
-    int [] summand1 = new int[10000 + quadratzahlen.length];     // vielleicht besser new int[100 + quadratzahlen.length] und dann irgendwie verteilen, sind viel zu viele Variablen
-    int [] summand2 = new int[summand1.length];
-    int [] summen = new int[summand1.length];
-    static int punkte = 0;
-    static int nth_activity = 0;
+    private final int [] quadratzahlen = {1, 4, 9, 16, 25, 36, 49, 64, 81, 100};
+    private final int [] summand1 = new int[10000 + quadratzahlen.length];     // vielleicht besser new int[100 + quadratzahlen.length] und dann irgendwie verteilen, sind viel zu viele Variablen
+    private final int [] summand2 = new int[summand1.length];
+    private final int [] summen = new int[summand1.length];
+
+    private int punkte;
+    private int nth_activity;
 
     //String[] operator = {"+", "-", "root"};         // hier weitermachen
     String operator = "+";
@@ -32,11 +32,12 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
     private ProgressBar timer;
     private TextView textFeld;
 
-    SharedPreferences preferences;
-    SharedPreferences.Editor preferencesEditor;
-    final String KEY = "speicherPreferences1";
+    // Pop-Up-Fenster
+    private Dialog epicDialog;
+    private final String KEY = "speicherPreferences_Rechnen";
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor preferencesEditor;
 
-    PopUpFenster pop;
     private Zeit z;
 
     @Override
@@ -46,58 +47,56 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aufgabe_rechnen);
 
-        int [] temp_shuffle = new int[quadratzahlen.length];      // dient als Index nur fuer die Wurzel-Zahlen
-
-        // nur fuer alle Wurzeln
-        for (int j = 0; j < quadratzahlen.length; j++) {
-            temp_shuffle[j] = (int) (Math.random() * 110);  // random-Index fuer die Wurzel-Zahlen, auf Array summand1 verteilen
-            summand1[temp_shuffle[j]] = quadratzahlen[j];
-            summand2[temp_shuffle[j]] = 0;        // Merkmal einer Wurzelzahl einfach, dass 2.Summand eine 0 ist (um sie von einfachen Zahlen zu unterscheiden), siehe check Methode
-            summen[temp_shuffle[j]] = generiereErgebnis_Wurzel(quadratzahlen[j]);    // bzw. selbst oben einfach eintragen
-        }
-
-        // zufällige Werte zuweisen nur für alle Summen
-        for (int i = 0; i < summand1.length; i++) {
-            if (summand1[i] == 0) {         // besser das hier als summand2[i], da in Java bei einem leeren Int-Array alle Werte per default gleich 0 sind.
-                summand1[i] = (int) (Math.random() * 20) + 1;
-                summand2[i] = (int) (Math.random() * 20) + 1;
-                summen[i] = generiereErgebnis(summand1[i], summand2[i]);
-            }
-        }
-
         textFeld = findViewById(R.id.aufgabenFeld);
         timer = findViewById(R.id.timer_Rechnen);
 
-        // vielleicht überflüssig
-        int a = 13 + (int) (Math.random() * 12);            // [13, 24]
-        int b = 5 + (int) (Math.random() * 28);             // [5, 32]
-        int c = (a + b - 3) + (int) (Math.random() * 3);    // [a+b-3; a+b+2]  -> spaeter nach belieben Aendern
-        summand1[0] = a;
-        summand2[0] = b;
-        summen[0] = c;
-        String s = a + " " + operator + " " + b + " = " + c;
-        textFeld.setText(s); // default für den ersten Wert
-        nth_activity = 0;       // sehr wichtig, da man ins Menue zurueckgehen kann
-        punkte = 0;
-
-        //schwierigkeitslevel = String.valueOf(MainActivity.diff.getSelectedItem()).split(" ")[0];      // gibt entweder Easy, Moderate oder Hard aus
-
-        //timer.setProgress(timer.getMax());      // nur fuer die erste Seite, also den ersten Wert
+        epicDialog = new Dialog(this);
 
         z = new Zeit(timer, punkte);
 
         //setting preferences
         this.preferences = this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);
         preferencesEditor = preferences.edit();
+        preferencesEditor.apply();
+
+
+            int [] temp_shuffle = new int[quadratzahlen.length];      // dient als Index nur fuer die Wurzel-Zahlen
+
+            // nur fuer alle Wurzeln
+            for (int j = 0; j < quadratzahlen.length; j++) {
+                temp_shuffle[j] = (int) (Math.random() * 110);  // random-Index fuer die Wurzel-Zahlen, auf Array summand1 verteilen
+                summand1[temp_shuffle[j]] = quadratzahlen[j];
+                summand2[temp_shuffle[j]] = 0;        // Merkmal einer Wurzelzahl einfach, dass 2.Summand eine 0 ist (um sie von einfachen Zahlen zu unterscheiden), siehe check Methode
+                summen[temp_shuffle[j]] = generiereErgebnis_Wurzel(quadratzahlen[j]);    // bzw. selbst oben einfach eintragen
+            }
+
+            // zufällige Werte zuweisen nur für alle Summen
+            for (int i = 0; i < summand1.length; i++) {
+                if (summand1[i] == 0) {         // besser das hier als summand2[i], da in Java bei einem leeren Int-Array alle Werte per default gleich 0 sind.
+                    summand1[i] = (int) (Math.random() * 20) + 1;
+                    summand2[i] = (int) (Math.random() * 20) + 1;
+                    summen[i] = generiereErgebnis(summand1[i], summand2[i]);
+                }
+            }
+
+            // Setzen der Werte fuer die erste Seite (wahrscheinlich überflüssig)
+            int a = 13 + (int) (Math.random() * 12);            // [13, 24]
+            int b = 5 + (int) (Math.random() * 28);             // [5, 32]
+            int c = (a + b - 3) + (int) (Math.random() * 3);    // [a+b-3; a+b+2]  -> spaeter nach belieben Aendern
+            summand1[0] = a;
+            summand2[0] = b;
+            summen[0] = c;
+            String s = a + " " + operator + " " + b + " = " + c;
+            textFeld.setText(s);    // default für den ersten Wert
+
+            // sehr wichtig, da man ins Menue zurueckgehen kann und die Punkte sonst nicht zurzeckgesetzt werden
+            nth_activity = 0;
+            punkte = 0;
     }
 
     // Index der Stufe * 2 + 1 (= 2n+1), um die Anzahl an Sekunden für den jeweiligen Schwierigkeitsgrad zu ermitteln. Reicht als Anfangsalgorithmus
     public int level_in_sekunden(String level_index) {
         return 2 * (Arrays.asList(stufen).indexOf(level_index)+1) + 2;  // +1 sehr wichtig, da für Hard ansonsten Wert von 0 angenommen wird
-    }
-
-    public ProgressBar getTimer() {
-        return this.timer;
     }
 
     // vielleicht nicht nur Plus-, sondern auch Mal Aufgaben oder Wurzel-Aufgaben
@@ -106,6 +105,7 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
         return (wert1 + wert2) + (int) (Math.random() * genauigkeitsWert);     // Intervall [wert1+wert2; wert1+wert2+(3-1)], z.B. 8 + 13 -> [21, 23]. Je höher der genauigkeitswert, umso weiter entfernt ist das Ergebnis (spaeter selbst festlegem)
     }
 
+    // Algorithmus fuer Wurzelzahl-Auswahl
     public static int generiereErgebnis_Wurzel(int wert) {
         // gewichtung gilt fuer ersten Parameterwert
         return zufallsGenerator((int) (Math.sqrt(wert)), (int) (Math.sqrt(wert)) + (int) (Math.random() * 2), 60);     // Intervall [wurzel(wert); wurzel(wert)+1]     // spaeter verfeinern, sodass die Wahrscheinlichkeit hoeher ist, dass das Ergebnis korrekt ist, zB mit neuer Methode und Modulo
@@ -128,13 +128,9 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
             z = new Zeit(timer, punkte);     // neues Objekt fuer naechste Seite
             z.running = true;
         }
-        //z.setMillisec(10000);       // neu auf 10000 setzen, wie oben bei Variable m
 
-        ImageButton th_down = findViewById(R.id.unwahr);
-        ImageButton th_up = findViewById(R.id.wahr);
-        textFeld = findViewById(R.id.aufgabenFeld);
-
-        boolean ergebnisIstRichtig;
+        boolean neuerHighScore = false;
+        boolean antwortIstKorrekt = false;
 
         // Folgender Kommentar ergänzt die Minus-Aufgaben, das ist nur der Anfang. Erst ganz zum Schluss machen, wenn alles andere wichtige erledigt ist
         /*
@@ -143,56 +139,39 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
             ergebnisIstRichtig = summand1[nth_activity] - summand2[nth_activity] == summen[nth_activity];
         }*/
 
+        // Prueft ob Antwort korrekt ist
         if (summand2[nth_activity] == 0) {  // Quadrat
-            ergebnisIstRichtig = Math.sqrt(summand1[nth_activity]) == summen[nth_activity];
+            antwortIstKorrekt = Math.sqrt(summand1[nth_activity]) == summen[nth_activity];
         } else {        // Summe
-            Log.d("", "Summand1: " + summand1[nth_activity]);
-            Log.d("", "Summand2: " + summand2[nth_activity]);
-            Log.d("", "Summe: " + summen[nth_activity]);
-            Log.d("", "Nth-Activity: " + nth_activity);
-            ergebnisIstRichtig = summand1[nth_activity] + summand2[nth_activity] == summen[nth_activity];
+            antwortIstKorrekt = summand1[nth_activity] + summand2[nth_activity] == summen[nth_activity];
         }
 
-        Log.d("", "Summand1: " + summand1[0]);
-        Log.d("", "Summand2: " + summand2[0]);
-        Log.d("", "Summe: " + summen[0]);
-        if (((view.getId() == R.id.unwahr) && ergebnisIstRichtig) || (((view.getId() == R.id.wahr) && !ergebnisIstRichtig))) {        // falsche Antwort wurde eingetippt
-            Log.d("---", "Deine Antwort ist nicht korrekt");
-
-            // Managen des HighScores
-            TopScore.highscore_rechnen = punkte;
-            boolean neuerHighScore = false;
-            if (preferences.getInt(KEY, 0) < TopScore.highscore_rechnen) {
-                preferencesEditor.putInt(KEY, TopScore.highscore_rechnen);
+        if (((view.getId() == R.id.unwahr) && antwortIstKorrekt) || (((view.getId() == R.id.wahr) && !antwortIstKorrekt))) {        // falsche Antwort wurde eingetippt
+            if (preferences.getInt(KEY, 0) < punkte) {
                 neuerHighScore = true;
             }
-            preferencesEditor.putInt("key", TopScore.highscore_rechnen);
+            preferencesEditor.putInt("key", punkte);
             preferencesEditor.commit();
 
-            //pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore);
-            //pop.showExitContinueWindow();
+            PopUpFenster pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
+            pop.showPopUpWindow();
+
             punkte = 0;
-            return;
+
+        } else {
+            ++punkte;
+            ++nth_activity;
+
+            String displayedText = "";
+            if (summand2[nth_activity] != 0) {  // gibt Summe aus
+                displayedText = summand1[nth_activity] + " " + operator + " " + summand2[nth_activity] + " = " + summen[nth_activity];
+                textFeld.setText(displayedText);
+            } else if (summand2[nth_activity] == 0) {   // gibt Text aus
+                //textFeld.setText(getResources().getString(R.string.sqr_root));
+                displayedText = "&#x221a;" + summand1[nth_activity] + " = " + summen[nth_activity];
+                textFeld.setText(Html.fromHtml(displayedText));
+            }
         }
-
-        ++punkte;
-        ++nth_activity;
-
-        if (summand2[nth_activity] != 0) {  // gib Summe aus
-            String s = summand1[nth_activity] + " " + operator + " " + summand2[nth_activity] + " = " + summen[nth_activity];
-            textFeld.setText(s);
-        } else if (summand2[nth_activity] == 0) {   // gib Text aus
-            //textFeld.setText(getResources().getString(R.string.sqr_root));
-            textFeld.setText(Html.fromHtml("&#x221a;" + summand1[nth_activity] + " = " + summen[nth_activity]));
-        }
-
-        //int sek = level_in_sekunden(schwierigkeitslevel);
-        //int mil = sek * 1000;
-        //z.setMillisec(mil);
-
-        //timer.setProgress(timer.getMax());
-
-        //z.run();
 
     }
 
