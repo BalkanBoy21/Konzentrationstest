@@ -111,12 +111,15 @@ public class Aufgabe_Farben extends AppCompatActivity {
 
         z.running = false;  // alter Zaehler wird gestoppt
 
+        pop.setNeuerHighScore(false);   // die Tatsache zuruecksetzen, dass ein neuer Highscore erreicht wurde (da der alte neue highscore der neue normale ist)
+
         String currentText = farbText.getText().toString();
         int currentColor = farbText.getCurrentTextColor();
         //int currentColor = ((ColorDrawable) ansicht.getBackground()).getColor();
 
         // Jedes Mal den HighScore neu auf falsch setzen, sonst wird jedes Mal angegeben, dass ein neuer HighScore erreicht wurde
         boolean antwortIstKorrekt = false;
+
 
         if (farbCodes[Arrays.asList(farben).indexOf(currentText)] == farbText.getCurrentTextColor()) {      // "... == currentColor" fuer Background-Color
             antwortIstKorrekt = true;
@@ -128,17 +131,16 @@ public class Aufgabe_Farben extends AppCompatActivity {
             // Setzen des neuen Highscores
             TopScore.highscore_farben = pop.punkte;
 
-            Log.e("", "Okay " + pop.getPreferences().getInt(pop.getKEY(), 0) + " //// " + TopScore.highscore_farben);
             if (preferences.getInt(KEY, 0) < TopScore.highscore_farben) {
                 preferencesEditor.putInt(KEY, TopScore.highscore_farben);
-                neuerHighScore = true;
+                pop.setNeuerHighScore(true);
             }
             preferencesEditor.putInt("key", TopScore.highscore_farben);
             preferencesEditor.commit();
 
             pop.showPopUpWindow();
 
-            pop.punkte = 0;
+            punkte = 0;
         } else {    // Ergebnis ist richtig
             ++pop.punkte;
             Log.e("--", "PopPunkte1: " + pop.punkte);

@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -43,6 +44,8 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
     private ProgressBar timer;
     private Zeit z;
 
+    PopUpFenster pop;
+    boolean neuerHighScore = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +107,9 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
 
             // sehr wichtig, da man ins Menue zurueckgehen kann und die Punkte sonst nicht zurzeckgesetzt werden
             nth_activity = 0;
+
+            pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
+
             punkte = 0;
     }
 
@@ -149,7 +155,8 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
         // alter Zaehler wird gestoppt
         z.running = false;
 
-        boolean neuerHighScore = false;
+        pop.setNeuerHighScore(false);
+
         boolean antwortIstKorrekt = false;
 
         // Folgender Kommentar ergänzt die Minus-Aufgaben, das ist nur der Anfang. Erst ganz zum Schluss machen, wenn alles andere wichtige erledigt ist
@@ -167,15 +174,14 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
             antwortIstKorrekt = summand1[nth_activity] + summand2[nth_activity] == summen[nth_activity];
         }
 
-        PopUpFenster pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
-
         if (((view.getId() == R.id.unwahr) && antwortIstKorrekt) || (((view.getId() == R.id.wahr) && !antwortIstKorrekt))) {        // falsche Antwort wurde eingetippt
             // Setzen des neuen Highscores
-            TopScore.highscore_rechnen = punkte;
+            TopScore.highscore_rechnen = pop.punkte;
 
+            Log.e("---", preferences.getInt(KEY, 0) + " /////  OKAY // " + pop.punkte);
             if (preferences.getInt(KEY, 0) < TopScore.highscore_rechnen) {
                 preferencesEditor.putInt(KEY, TopScore.highscore_rechnen);
-                neuerHighScore = true;
+                pop.setNeuerHighScore(true);
             }
             preferencesEditor.putInt("key", TopScore.highscore_rechnen);
             preferencesEditor.commit();
@@ -184,10 +190,10 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
 
             punkte = 0;
         } else {
-            z = new Zeit(timer, punkte);     // neues Objekt fuer naechste Seite
+            ++pop.punkte;
+            z = new Zeit(timer, pop.punkte);     // neues Objekt fuer naechste Seite
             z.laufen(pop);     // neuer Zaehler geht los
 
-            ++punkte;
             ++nth_activity;
 
             String displayedText = "";

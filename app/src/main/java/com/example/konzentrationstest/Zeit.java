@@ -36,22 +36,37 @@ public class Zeit extends AppCompatActivity {
             public void onTick(long millisUntilFinished) {
                 Zeit.this.counter.setProgress(((int) millisUntilFinished*9) / ((milliSec / 100) / 5));     // mathematisches Umrechnen, im Kopf etwas schwerer zu machen
 
-                if (Zeit.this.counter.getProgress() < 50) {     // die 80 hat nichts besonderes zu bedeuten
-                    Log.d("---", "Punkte " + punkte);
-                    // Setzen des neuen Highscores
-                    TopScore.highscore_farben = punkte;
+                if (Zeit.this.counter.getProgress() < 30) {     // die 80 hat nichts besonderes zu bedeuten
 
-                    Log.e("", "Okay " + pop.getPreferences().getInt(pop.getKEY(), 0) + " //// " + TopScore.highscore_farben);
-                    if (pop.getPreferences().getInt(pop.getKEY(), 0) < TopScore.highscore_farben) {
-                        pop.getPreferencesEditor().putInt(pop.getKEY(), TopScore.highscore_farben);
+                    int hs = 0;
+                    switch (pop.getKEY()) {
+                        case "speicherPreferences_Rechnen":
+                            TopScore.highscore_rechnen = pop.punkte;
+                            hs = TopScore.highscore_rechnen; break;
+                        case "speicherPreferences_Farben":
+                            TopScore.highscore_farben = pop.punkte;
+                            hs = TopScore.highscore_farben;
+                            break;
+                        case "speicherPreferences_Formen":
+                            TopScore.highscore_formen = pop.punkte;
+                            hs = TopScore.highscore_formen;
+                            break;
+                        case "speicherPreferences_Uebersetzen":
+                            TopScore.highscore_uebersetzen = pop.punkte;
+                            hs = TopScore.highscore_uebersetzen;
+                            break;
+                    }
+
+                    Log.e("----", pop.getPreferences().getInt(pop.getKEY(), 0) + " ///// " + hs);
+                    if (pop.getPreferences().getInt(pop.getKEY(), 0) < hs) {
+                        pop.getPreferencesEditor().putInt(pop.getKEY(), hs);
                         pop.setNeuerHighScore(true);
                         pop.neuerHighScore = true;
                     }
 
-                    pop.getPreferencesEditor().putInt("key", TopScore.highscore_farben);
+                    pop.getPreferencesEditor().putInt("key", hs);
                     pop.getPreferencesEditor().commit();
                     pop.showPopUpWindow();
-                    //popUp.punkte = 0;
                 }
 
                 if (!Zeit.this.running) {

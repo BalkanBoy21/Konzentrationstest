@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -110,12 +111,13 @@ public class PopUpFenster extends AppCompatActivity {
         });
 
         // sorgt dafuer dass Aktivität stoppt sobald man beim Laufen der Aktivität ins Hauptmenu zurueckmoechte
-        if (!isFinishing()) {
+        //if (isFinishing()) {
+            Log.e("---", "Juckt");
             epicDialog.setCancelable(false);
             epicDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             epicDialog.show();
             //punkte = 0;
-        }
+        //}
 
         //punkte = 0;
     }

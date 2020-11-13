@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -45,6 +46,8 @@ public class Aufgabe_Formen extends AppCompatActivity {
     int symbol;
     int temp = 0;
     int milliSec;
+    boolean neuerHighScore = false;
+    PopUpFenster pop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +99,8 @@ public class Aufgabe_Formen extends AppCompatActivity {
         form.setImageResource(symbolDateien[randomSymbol]);
         punkte = 0;       // sehr wichtig, da man ins Menue zurueckgehen und das Spiel wieder oeffnen kann
 
+        pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
+
     }
 
     // variable to track event time
@@ -117,7 +122,7 @@ public class Aufgabe_Formen extends AppCompatActivity {
         z.running = false;  // alter Zaehler wird gestoppt
 
         boolean antwortIstKorrekt = false;
-        boolean neuerHighScore = false;
+        pop.setNeuerHighScore(false);
 
         int index = Arrays.asList(formenText).indexOf(lastText);
 
@@ -125,16 +130,16 @@ public class Aufgabe_Formen extends AppCompatActivity {
             antwortIstKorrekt = true;
         }
 
-        PopUpFenster pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
-
         // Antwort ist nicht korrekt
         if (((view.getId() == R.id.unwahr3) && antwortIstKorrekt) || ((view.getId() == R.id.wahr3) && !antwortIstKorrekt)) {
             // Setzen des neuen Highscores
-            TopScore.highscore_formen = punkte;
+            TopScore.highscore_formen = pop.punkte;
 
+            Log.e("---", preferences.getInt(KEY, 0) + " /////  OKAY // " + pop.punkte);
             if (preferences.getInt(KEY, 0) < TopScore.highscore_formen) {
                 preferencesEditor.putInt(KEY, TopScore.highscore_formen);
-                neuerHighScore = true;
+                pop.setNeuerHighScore(true);
+//                neuerHighScore = true;
             }
             preferencesEditor.putInt("key", TopScore.highscore_formen);
             preferencesEditor.commit();
@@ -144,11 +149,9 @@ public class Aufgabe_Formen extends AppCompatActivity {
             punkte = 0;     // Punktestand zurücksetzen bei falscher Antwort (besser als in der Methode selbst, da nicht auf "Exit" bzw. Continue geklickt werden muss, die Punktzahl aber trotzdem zurückgesetzt werden soll.)
 
         } else { // Antwort ist korrekt
-            z = new Zeit(timer, punkte);     // neues Objekt fuer naechste Seite
+            ++pop.punkte;
+            z = new Zeit(timer, pop.punkte);     // neues Objekt fuer naechste Seite
             z.laufen(pop);     // neuer Zaehler geht los
-
-            // +1 Punkt wenn Antwort richtig
-            ++punkte;
 
             // Symbol und Text werden nicht 2 Mal hintereinander gleich sein
             do {

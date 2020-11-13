@@ -29,7 +29,7 @@ public class Aufgabe_Uebersetzen extends AppCompatActivity {
 
     SharedPreferences preferences;
     SharedPreferences.Editor preferencesEditor;
-    String KEY = "speicherPreferences4";
+    String KEY = "speicherPreferences_Uebersetzen";
 
     private TextView farbText;
 
@@ -44,6 +44,8 @@ public class Aufgabe_Uebersetzen extends AppCompatActivity {
 
     private String diff;
     int milliSec;
+    boolean neuerHighScore = false;
+    PopUpFenster pop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +125,8 @@ public class Aufgabe_Uebersetzen extends AppCompatActivity {
         preferencesEditor = preferences.edit();
         preferencesEditor.apply();
 
+        pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
+
         // Punktestand wird jedes Mal zurueckgesetzt, wenn die Seite neu betreten wird (besonders wenn auf "Beenden" geklickt wird)
         punkte = 0;
     }
@@ -144,9 +148,10 @@ public class Aufgabe_Uebersetzen extends AppCompatActivity {
 
         // Prueft ob die angegebene Loesung korrekt ist
         boolean ergebnisIstRichtig = true;
-        boolean neuerHighScore = false;
 
         z.running = false;  // alter Zaehler wird gestoppt
+
+        pop.setNeuerHighScore(false);
 
         ImageButton clickedButton;
         int id = view.getId();
@@ -167,15 +172,13 @@ public class Aufgabe_Uebersetzen extends AppCompatActivity {
             ergebnisIstRichtig = false;
         }
 
-        PopUpFenster pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
-
         if (!ergebnisIstRichtig) {
             // Setzen des neuen Highscores
-            TopScore.highscore_uebersetzen = punkte;
+            TopScore.highscore_uebersetzen = pop.punkte;
 
             if (preferences.getInt(KEY, 0) < TopScore.highscore_uebersetzen) {
                 preferencesEditor.putInt(KEY, TopScore.highscore_uebersetzen);
-                neuerHighScore = true;
+                pop.setNeuerHighScore(true);
             }
             preferencesEditor.putInt("key", TopScore.highscore_uebersetzen);
             preferencesEditor.commit();
@@ -184,10 +187,10 @@ public class Aufgabe_Uebersetzen extends AppCompatActivity {
 
             punkte = 0; // Nach jedem Schließen eines Pop-Up-Fensters die Punktzahl zurücksetzen
         } else {
-            z = new Zeit(timer, punkte);     // neues Objekt fuer naechste Seite
+            ++pop.punkte;
+            z = new Zeit(timer, pop.punkte);     // neues Objekt fuer naechste Seite
             z.laufen(pop);     // neuer Zaehler geht los
 
-            ++punkte;
             int randomNumber, randomFarbe;
 
                 // Implementierung, sodass Text und Farbe jedes Mal unterschiedlich zur vorherigen Activity sind + Farbe niemals dem Text entspricht
