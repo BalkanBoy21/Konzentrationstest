@@ -27,7 +27,7 @@ public class ModuleMenu extends AppCompatActivity implements AdapterView.OnItemS
         Button b1 = findViewById(R.id.button_rechnen);
         Button b2 = findViewById(R.id.button_farbe);
         Button b3 = findViewById(R.id.button_formen);
-        Button b4 = findViewById(R.id.button_uebersetzen);
+        Button b4 = findViewById(R.id.button_waehleUnpassendeFarbe);
 
         b1.setBackgroundColor(getResources().getColor(R.color.limegreen));
         b2.setBackgroundColor(getResources().getColor(R.color.lightgreen));
@@ -71,8 +71,8 @@ public class ModuleMenu extends AppCompatActivity implements AdapterView.OnItemS
             nextModule = Aufgabe_Farben.class;
         } else if (chosenModule == R.id.button_formen) {
             nextModule = Aufgabe_Formen.class;
-        } else if (chosenModule == R.id.button_uebersetzen) {
-            nextModule = Aufgabe_Uebersetzen.class;
+        } else if (chosenModule == R.id.button_waehleUnpassendeFarbe) {
+            nextModule = Aufgabe_waehleUnpassendeFarbe.class;
         }
 
         Intent myIntent = new Intent(ModuleMenu.this, nextModule);

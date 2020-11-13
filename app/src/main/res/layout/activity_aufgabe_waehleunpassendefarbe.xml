@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gainsboro"
-    tools:context=".Aufgabe_Uebersetzen">
+    tools:context=".Aufgabe_waehleUnpassendeFarbe">
 
 
     <ProgressBar
-        android:id="@+id/timer_Uebersetzen"
+        android:id="@+id/timer_waehleUnpassendeFarbe"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="359dp"
         android:layout_height="46dp"

@@ -5,6 +5,8 @@ package com.example.konzentrationstest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
@@ -59,6 +61,7 @@ public class Aufgabe_Formen extends AppCompatActivity {
         textView = findViewById(R.id.formText);
         form = findViewById(R.id.formSymbol);
         timer = findViewById(R.id.timer_Formen);
+        timer.setProgressTintList(ColorStateList.valueOf(Color.rgb(0,0, 139)));
 
         // PopUp-Fenster
         epicDialog = new Dialog(this);

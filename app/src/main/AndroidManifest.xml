@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/gehirn2"
         android:supportsRtl="true"
         android:theme="@style/Theme.Konzentrationstest">
-        <activity android:name=".Aufgabe_Uebersetzen"></activity>
+        <activity android:name=".Aufgabe_waehleUnpassendeFarbe"></activity>
         <activity android:name=".Aufgabe_Formen" />
         <activity android:name=".Aufgabe_Farben" />
         <activity android:name=".Aufgabe_Rechnen" />

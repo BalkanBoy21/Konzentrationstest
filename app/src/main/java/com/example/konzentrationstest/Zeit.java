@@ -51,9 +51,9 @@ public class Zeit extends AppCompatActivity {
                             TopScore.highscore_formen = pop.punkte;
                             hs = TopScore.highscore_formen;
                             break;
-                        case "speicherPreferences_Uebersetzen":
-                            TopScore.highscore_uebersetzen = pop.punkte;
-                            hs = TopScore.highscore_uebersetzen;
+                        case "speicherPreferences_waehleUnpassendeFarbe":
+                            TopScore.highscore_waehleUnpassendeFarbe = pop.punkte;
+                            hs = TopScore.highscore_waehleUnpassendeFarbe;
                             break;
                     }
 

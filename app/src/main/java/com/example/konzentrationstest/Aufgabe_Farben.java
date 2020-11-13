@@ -3,6 +3,7 @@ package com.example.konzentrationstest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -45,9 +46,7 @@ public class Aufgabe_Farben extends AppCompatActivity {
         setContentView(R.layout.activity_aufgabe__farben);
 
         timer = findViewById(R.id.timer_Farben);
-        timer.getProgressDrawable().setColorFilter(
-                Color.DKGRAY, android.graphics.PorterDuff.Mode.SRC_IN);
-        //timer.setScaleY(4f);
+        timer.setProgressTintList(ColorStateList.valueOf(Color.rgb(0,0, 139)));
 
         farbText = findViewById(R.id.textFarbe);
 

@@ -4,6 +4,8 @@ package com.example.konzentrationstest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -21,7 +23,7 @@ import java.util.List;
 
 
 
-public class Aufgabe_Uebersetzen extends AppCompatActivity {
+public class Aufgabe_waehleUnpassendeFarbe extends AppCompatActivity {
 
     private Zeit z;
     private ProgressBar timer;
@@ -29,7 +31,7 @@ public class Aufgabe_Uebersetzen extends AppCompatActivity {
 
     SharedPreferences preferences;
     SharedPreferences.Editor preferencesEditor;
-    String KEY = "speicherPreferences_Uebersetzen";
+    String KEY = "speicherPreferences_waehleUnpassendeFarbe";
 
     private TextView farbText;
 
@@ -51,9 +53,10 @@ public class Aufgabe_Uebersetzen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         getSupportActionBar().hide(); // hide the title bar
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_aufgabe__uebersetzen);
+        setContentView(R.layout.activity_aufgabe_waehleunpassendefarbe);
 
-        timer = findViewById(R.id.timer_Uebersetzen);
+        timer = findViewById(R.id.timer_waehleUnpassendeFarbe);
+        timer.setProgressTintList(ColorStateList.valueOf(Color.rgb(0,0, 139)));
         farbText = findViewById(R.id.colorText);
 
         btn1 = findViewById(R.id.farbe1);
@@ -174,13 +177,13 @@ public class Aufgabe_Uebersetzen extends AppCompatActivity {
 
         if (!ergebnisIstRichtig) {
             // Setzen des neuen Highscores
-            TopScore.highscore_uebersetzen = pop.punkte;
+            TopScore.highscore_waehleUnpassendeFarbe = pop.punkte;
 
-            if (preferences.getInt(KEY, 0) < TopScore.highscore_uebersetzen) {
-                preferencesEditor.putInt(KEY, TopScore.highscore_uebersetzen);
+            if (preferences.getInt(KEY, 0) < TopScore.highscore_waehleUnpassendeFarbe) {
+                preferencesEditor.putInt(KEY, TopScore.highscore_waehleUnpassendeFarbe);
                 pop.setNeuerHighScore(true);
             }
-            preferencesEditor.putInt("key", TopScore.highscore_uebersetzen);
+            preferencesEditor.putInt("key", TopScore.highscore_waehleUnpassendeFarbe);
             preferencesEditor.commit();
 
             pop.showPopUpWindow();
