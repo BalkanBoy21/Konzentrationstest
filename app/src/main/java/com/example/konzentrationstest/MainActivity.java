@@ -13,8 +13,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    private static Button easy, moderate, hard;
+    static Button easy, moderate, hard;
     private static Button[] btns;
+
+    // speichert zuletzt ausgewaehlten Button, wenn man durch Pop-Up-Fenster ins StartMenu gelangt
+    static String lastdisabledButton = "Easy";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +34,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 R.array.difficulty_items, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        // Schwierigkeitsgrad "Easy" als default-Wert
-        easy.setEnabled(false);
+        // speichert Button ab wenn man durch Verlieren ueber das PopUp-Fenster wieder zurueck ins StartMenu gelangt
+        if (lastdisabledButton.equals("Easy")) {
+            easy.setEnabled(false);
+        } else if (lastdisabledButton.equals("Moderate")) {
+            moderate.setEnabled(false);
+        } else if (lastdisabledButton.equals("Hard")) {
+            hard.setEnabled(false);
+        }
+
     }
 
     // gibt ausgewaehlten Schwierigkeitsgrad zurueck

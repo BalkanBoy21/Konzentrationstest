@@ -118,6 +118,8 @@ public class Aufgabe_Farben extends AppCompatActivity {
             antwortIstKorrekt = true;
         }
 
+        PopUpFenster pop = new PopUpFenster(Aufgabe_Farben.this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
+
         if (((view.getId() == R.id.unwahr2) && antwortIstKorrekt) || ((view.getId() == R.id.wahr2) && !antwortIstKorrekt)){   // wenn auf Falsch geklickt wird, das Ergebnis aber richtig ist
             // Setzen des neuen Highscores
             TopScore.highscore_farben = punkte;
@@ -129,13 +131,12 @@ public class Aufgabe_Farben extends AppCompatActivity {
             preferencesEditor.putInt("key", TopScore.highscore_farben);
             preferencesEditor.commit();
 
-            PopUpFenster pop = new PopUpFenster(Aufgabe_Farben.this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
             pop.showPopUpWindow();
 
             punkte = 0;
         } else {    // Ergebnis ist richtig
             z = new Zeit(timer, punkte);     // neuer Zaehler wird erstellt
-            z.laufen();     // neuer Zaehler startet
+            z.laufen(pop);     // neuer Zaehler startet
 
             ++punkte;
 

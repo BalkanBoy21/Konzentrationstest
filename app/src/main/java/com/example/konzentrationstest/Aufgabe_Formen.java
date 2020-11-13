@@ -125,6 +125,8 @@ public class Aufgabe_Formen extends AppCompatActivity {
             antwortIstKorrekt = true;
         }
 
+        PopUpFenster pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
+
         // Antwort ist nicht korrekt
         if (((view.getId() == R.id.unwahr3) && antwortIstKorrekt) || ((view.getId() == R.id.wahr3) && !antwortIstKorrekt)) {
             // Setzen des neuen Highscores
@@ -137,14 +139,13 @@ public class Aufgabe_Formen extends AppCompatActivity {
             preferencesEditor.putInt("key", TopScore.highscore_formen);
             preferencesEditor.commit();
 
-            PopUpFenster pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
             pop.showPopUpWindow();
 
             punkte = 0;     // Punktestand zurücksetzen bei falscher Antwort (besser als in der Methode selbst, da nicht auf "Exit" bzw. Continue geklickt werden muss, die Punktzahl aber trotzdem zurückgesetzt werden soll.)
 
         } else { // Antwort ist korrekt
             z = new Zeit(timer, punkte);     // neues Objekt fuer naechste Seite
-            z.laufen();     // neuer Zaehler geht los
+            z.laufen(pop);     // neuer Zaehler geht los
 
             // +1 Punkt wenn Antwort richtig
             ++punkte;

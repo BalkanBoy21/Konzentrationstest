@@ -167,6 +167,8 @@ public class Aufgabe_Uebersetzen extends AppCompatActivity {
             ergebnisIstRichtig = false;
         }
 
+        PopUpFenster pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
+
         if (!ergebnisIstRichtig) {
             // Setzen des neuen Highscores
             TopScore.highscore_uebersetzen = punkte;
@@ -178,14 +180,13 @@ public class Aufgabe_Uebersetzen extends AppCompatActivity {
             preferencesEditor.putInt("key", TopScore.highscore_uebersetzen);
             preferencesEditor.commit();
 
-            PopUpFenster pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
             pop.showPopUpWindow();
 
             punkte = 0; // Nach jedem Schließen eines Pop-Up-Fensters die Punktzahl zurücksetzen
         } else {
             z = new Zeit(timer, punkte);     // neues Objekt fuer naechste Seite
-            z.laufen();     // neuer Zaehler geht los
-            
+            z.laufen(pop);     // neuer Zaehler geht los
+
             ++punkte;
             int randomNumber, randomFarbe;
 

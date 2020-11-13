@@ -53,10 +53,7 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
 
         textFeld = findViewById(R.id.aufgabenFeld);
         timer = findViewById(R.id.timer_Rechnen);
-        timer.getProgressDrawable().setColorFilter(
-                Color.rgb(0,0,139), android.graphics.PorterDuff.Mode.SRC_IN);
         timer.setProgressTintList(ColorStateList.valueOf(Color.rgb(0,0,139)));
-
 
         epicDialog = new Dialog(this);
 
@@ -170,6 +167,8 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
             antwortIstKorrekt = summand1[nth_activity] + summand2[nth_activity] == summen[nth_activity];
         }
 
+        PopUpFenster pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
+
         if (((view.getId() == R.id.unwahr) && antwortIstKorrekt) || (((view.getId() == R.id.wahr) && !antwortIstKorrekt))) {        // falsche Antwort wurde eingetippt
             // Setzen des neuen Highscores
             TopScore.highscore_rechnen = punkte;
@@ -181,14 +180,12 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
             preferencesEditor.putInt("key", TopScore.highscore_rechnen);
             preferencesEditor.commit();
 
-
-            PopUpFenster pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
             pop.showPopUpWindow();
 
             punkte = 0;
         } else {
             z = new Zeit(timer, punkte);     // neues Objekt fuer naechste Seite
-            z.laufen();     // neuer Zaehler geht los
+            z.laufen(pop);     // neuer Zaehler geht los
 
             ++punkte;
             ++nth_activity;

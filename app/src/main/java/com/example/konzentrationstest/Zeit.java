@@ -16,13 +16,16 @@ public class Zeit extends AppCompatActivity {
     String[] diff;
     int milliSec;
 
+    private PopUpFenster pop;
+
     public Zeit (ProgressBar counter, int punkte) {
         this.counter = counter;
         this.punkte = punkte;
     }
 
     // startet Zeitleiste
-    public void laufen() {
+    public void laufen(PopUpFenster popUp) {
+        pop = popUp;
         diff = MainActivity.getCurrentDifficultyText();
         milliSec = Integer.parseInt(String.valueOf(Double.parseDouble(diff[1]) * 1000).split("\\.")[0]);
 
@@ -43,16 +46,16 @@ public class Zeit extends AppCompatActivity {
             }
 
             public void onFinish() {
+
                 Zeit.this.running = false;
-                // Pop-Up-Fenster erstellen
-//                PopUpFenster pop = new PopUpFenster(Zeit.this, punkte);
-//                pop.showPopUpWindow();
+
+                // Pop-Up-Fenster zeigen
+                pop.showPopUpWindow();
 
                 Zeit.this.counter.setProgress(Zeit.this.counter.getMax());
             }
         };
         countDownTimer.start();
-        //Zeit.this.running = true;
 
     }
 
