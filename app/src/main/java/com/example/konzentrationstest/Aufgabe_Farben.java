@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -22,7 +23,7 @@ public class Aufgabe_Farben extends AppCompatActivity {
     private final String [] farben = {"Grün", "Gelb", "Blau", "Rot", "Orange", "Weiß", "Pink"};
     private final int [] farbCodes = new int[farben.length];
 
-    static int punkte;
+    int punkte;
 
     SharedPreferences preferences;
     SharedPreferences.Editor preferencesEditor;
@@ -35,6 +36,7 @@ public class Aufgabe_Farben extends AppCompatActivity {
     String diff;
 
     int milliSec;
+    boolean neuerHighScore = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,16 +90,19 @@ public class Aufgabe_Farben extends AppCompatActivity {
         farbText.setTextColor(farbCodes[(int) (Math.random() * farbCodes.length)]);
 //        ansicht.setBackgroundColor(farbCodes[(int) (Math.random() * farbCodes.length)]);
 
-        punkte = 0;       // sehr wichtig, da man ins Menue zurueckgehen kann
+        this.punkte = 0;       // sehr wichtig, da man ins Menue zurueckgehen kann
+
+        pop = new PopUpFenster(Aufgabe_Farben.this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
 
     }
 
     // variable to track event time
     private long mLastClickTime = 0;
 
+    PopUpFenster pop;
     public void check(View view) {
         // Zeitdifferenz, um zu verhindern, dass 2 Buttons auf einmal geklickt werden
-        int difference = 100;
+        int difference = 150;
         // Preventing multiple clicks, using threshold of 1 second
         if (SystemClock.elapsedRealtime() - mLastClickTime < difference) {
             return;
@@ -111,14 +116,13 @@ public class Aufgabe_Farben extends AppCompatActivity {
         //int currentColor = ((ColorDrawable) ansicht.getBackground()).getColor();
 
         // Jedes Mal den HighScore neu auf falsch setzen, sonst wird jedes Mal angegeben, dass ein neuer HighScore erreicht wurde
-        boolean neuerHighScore = false;
         boolean antwortIstKorrekt = false;
 
         if (farbCodes[Arrays.asList(farben).indexOf(currentText)] == farbText.getCurrentTextColor()) {      // "... == currentColor" fuer Background-Color
             antwortIstKorrekt = true;
         }
 
-        PopUpFenster pop = new PopUpFenster(Aufgabe_Farben.this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
+       // pop = new PopUpFenster(Aufgabe_Farben.this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
 
         if (((view.getId() == R.id.unwahr2) && antwortIstKorrekt) || ((view.getId() == R.id.wahr2) && !antwortIstKorrekt)){   // wenn auf Falsch geklickt wird, das Ergebnis aber richtig ist
             // Setzen des neuen Highscores
@@ -133,12 +137,13 @@ public class Aufgabe_Farben extends AppCompatActivity {
 
             pop.showPopUpWindow();
 
-            punkte = 0;
+            pop.punkte = 0;
         } else {    // Ergebnis ist richtig
-            z = new Zeit(timer, punkte);     // neuer Zaehler wird erstellt
-            z.laufen(pop);     // neuer Zaehler startet
+            ++pop.punkte;
+            Log.e("--", "PopPunkte1: " + pop.punkte);
+            z = new Zeit(timer, pop.punkte);     // neuer Zaehler wird erstellt
 
-            ++punkte;
+            z.laufen(pop);     // neuer Zaehler startet
 
             int randomNumber;
             int randomFarbe;

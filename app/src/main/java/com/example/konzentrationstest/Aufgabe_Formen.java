@@ -103,7 +103,7 @@ public class Aufgabe_Formen extends AppCompatActivity {
 
     public void check (View view) {
         // Zeitdifferenz, um zu verhindern, dass 2 Buttons auf einmal geklickt werden
-        int difference = 100;
+        int difference = 150;
         // Preventing multiple clicks, using threshold of 1 second
         if (SystemClock.elapsedRealtime() - mLastClickTime < difference) {
             return;

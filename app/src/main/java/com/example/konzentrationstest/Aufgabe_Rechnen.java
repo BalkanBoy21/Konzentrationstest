@@ -53,7 +53,7 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
 
         textFeld = findViewById(R.id.aufgabenFeld);
         timer = findViewById(R.id.timer_Rechnen);
-        timer.setProgressTintList(ColorStateList.valueOf(Color.rgb(0,0,139)));
+        timer.setProgressTintList(ColorStateList.valueOf(Color.rgb(0,0, 139)));
 
         epicDialog = new Dialog(this);
 
@@ -139,7 +139,7 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
     // besser nur eine Methode statt 2, und dann zwischen 2 Fällen unterscheiden
     public void check(View view) {
         // Zeitdifferenz, um zu verhindern, dass 2 Buttons auf einmal geklickt werden
-        int difference = 100;
+        int difference = 150;
         // Preventing multiple clicks, using threshold of 1 second
         if (SystemClock.elapsedRealtime() - mLastClickTime < difference) {
             return;

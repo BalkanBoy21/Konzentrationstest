@@ -41,6 +41,10 @@ public class PopUpFenster extends AppCompatActivity {
         KEY = key;
     }
 
+    public void setPunkte() {
+        punkte = 0;
+    }
+
     public void showPopUpWindow() {
         epicDialog.setContentView(R.layout.activity_popupfenster);
 
@@ -81,12 +85,19 @@ public class PopUpFenster extends AppCompatActivity {
             @Override
             public void onClick (View view) {
                 epicDialog.dismiss();
+                PopUpFenster.this.punkte = 0;
             }
         });
 
-        epicDialog.setCancelable(false);
-        epicDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        epicDialog.show();
+        // sorgt dafuer dass Aktivität stoppt sobald man beim Laufen der Aktivität ins Hauptmenu zurueckmoechte
+        if (!isFinishing()) {
+            epicDialog.setCancelable(false);
+            epicDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            epicDialog.show();
+            //punkte = 0;
+        }
+
+        //punkte = 0;
     }
 
 }

@@ -16,7 +16,7 @@ public class Zeit extends AppCompatActivity {
     String[] diff;
     int milliSec;
 
-    private PopUpFenster pop;
+    //private PopUpFenster pop;
 
     public Zeit (ProgressBar counter, int punkte) {
         this.counter = counter;
@@ -25,38 +25,42 @@ public class Zeit extends AppCompatActivity {
 
     // startet Zeitleiste
     public void laufen(PopUpFenster popUp) {
-        pop = popUp;
+//        pop = popUp;
         diff = MainActivity.getCurrentDifficultyText();
         milliSec = Integer.parseInt(String.valueOf(Double.parseDouble(diff[1]) * 1000).split("\\.")[0]);
 
         // Jedes Mal neu resetten, um bei richtiger Antwort die letzte Anzeige der Zeitleiste zu loeschen und die neue Liste wieder voll zu machen
         this.running = true;
 
+        Log.d("---", "Punkte davor " + popUp.punkte);
         CountDownTimer countDownTimer = new CountDownTimer(milliSec, 10) {
             public void onTick(long millisUntilFinished) {
                 Zeit.this.counter.setProgress(((int) millisUntilFinished*9) / ((milliSec / 100) / 5));     // mathematisches Umrechnen, im Kopf etwas schwerer zu machen
 
+                if (Zeit.this.counter.getProgress() < 80) {     // die 80 hat nichts besonderes zu bedeuten
+                    Log.d("---", "Punkte " + punkte);
+                    popUp.showPopUpWindow();
+                    //popUp.punkte = 0;
+                }
+
                 if (!Zeit.this.running) {
-                    Log.d("---", "Abbruch.");
                     this.cancel();
-                    Zeit.this.running = false;
+                    //Zeit.this.running = false;
+                    Log.d("","---Bazinga");
                     Zeit.this.counter.setProgress(Zeit.this.counter.getMax());
                     return;
                 }
             }
 
             public void onFinish() {
-
-                Zeit.this.running = false;
-
-                // Pop-Up-Fenster zeigen
-                pop.showPopUpWindow();
-
+                // sorgt dafuer dass Aktivität stoppt sobald man beim Laufen der Aktivität ins Hauptmenu zurueckmoechte
+                if (!isFinishing()) {
+                    Zeit.this.running = false;
+                }
                 Zeit.this.counter.setProgress(Zeit.this.counter.getMax());
             }
         };
         countDownTimer.start();
-
     }
 
 }
