@@ -16,7 +16,7 @@ public class Zeit extends AppCompatActivity {
     String[] diff;
     int milliSec;
 
-    //private PopUpFenster pop;
+    private PopUpFenster pop;
 
     public Zeit (ProgressBar counter, int punkte) {
         this.counter = counter;
@@ -25,21 +25,32 @@ public class Zeit extends AppCompatActivity {
 
     // startet Zeitleiste
     public void laufen(PopUpFenster popUp) {
-//        pop = popUp;
+        pop = popUp;        // loest wohl irgendwie das Problem mit dem Zurückgehen und dem Stoppen der Acitivity
         diff = MainActivity.getCurrentDifficultyText();
         milliSec = Integer.parseInt(String.valueOf(Double.parseDouble(diff[1]) * 1000).split("\\.")[0]);
 
         // Jedes Mal neu resetten, um bei richtiger Antwort die letzte Anzeige der Zeitleiste zu loeschen und die neue Liste wieder voll zu machen
         this.running = true;
 
-        Log.d("---", "Punkte davor " + popUp.punkte);
         CountDownTimer countDownTimer = new CountDownTimer(milliSec, 10) {
             public void onTick(long millisUntilFinished) {
                 Zeit.this.counter.setProgress(((int) millisUntilFinished*9) / ((milliSec / 100) / 5));     // mathematisches Umrechnen, im Kopf etwas schwerer zu machen
 
-                if (Zeit.this.counter.getProgress() < 80) {     // die 80 hat nichts besonderes zu bedeuten
+                if (Zeit.this.counter.getProgress() < 50) {     // die 80 hat nichts besonderes zu bedeuten
                     Log.d("---", "Punkte " + punkte);
-                    popUp.showPopUpWindow();
+                    // Setzen des neuen Highscores
+                    TopScore.highscore_farben = punkte;
+
+                    Log.e("", "Okay " + pop.getPreferences().getInt(pop.getKEY(), 0) + " //// " + TopScore.highscore_farben);
+                    if (pop.getPreferences().getInt(pop.getKEY(), 0) < TopScore.highscore_farben) {
+                        pop.getPreferencesEditor().putInt(pop.getKEY(), TopScore.highscore_farben);
+                        pop.setNeuerHighScore(true);
+                        pop.neuerHighScore = true;
+                    }
+
+                    pop.getPreferencesEditor().putInt("key", TopScore.highscore_farben);
+                    pop.getPreferencesEditor().commit();
+                    pop.showPopUpWindow();
                     //popUp.punkte = 0;
                 }
 

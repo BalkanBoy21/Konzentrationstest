@@ -126,8 +126,9 @@ public class Aufgabe_Farben extends AppCompatActivity {
 
         if (((view.getId() == R.id.unwahr2) && antwortIstKorrekt) || ((view.getId() == R.id.wahr2) && !antwortIstKorrekt)){   // wenn auf Falsch geklickt wird, das Ergebnis aber richtig ist
             // Setzen des neuen Highscores
-            TopScore.highscore_farben = punkte;
+            TopScore.highscore_farben = pop.punkte;
 
+            Log.e("", "Okay " + pop.getPreferences().getInt(pop.getKEY(), 0) + " //// " + TopScore.highscore_farben);
             if (preferences.getInt(KEY, 0) < TopScore.highscore_farben) {
                 preferencesEditor.putInt(KEY, TopScore.highscore_farben);
                 neuerHighScore = true;

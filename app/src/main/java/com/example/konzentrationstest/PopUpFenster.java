@@ -41,6 +41,26 @@ public class PopUpFenster extends AppCompatActivity {
         KEY = key;
     }
 
+    public boolean getNeuerHighScore() {
+        return this.neuerHighScore;
+    }
+
+    public void setNeuerHighScore(boolean neuerHighScore) {
+        this.neuerHighScore = neuerHighScore;
+    }
+
+    public SharedPreferences getPreferences() {
+        return this.preferences;
+    }
+
+    public SharedPreferences.Editor getPreferencesEditor() {
+        return this.preferencesEditor;
+    }
+
+    public String getKEY() {
+        return this.KEY;
+    }
+
     public void setPunkte() {
         punkte = 0;
     }
@@ -54,7 +74,7 @@ public class PopUpFenster extends AppCompatActivity {
         text = epicDialog.findViewById(R.id.anzeigeScore);
         text2 = epicDialog.findViewById(R.id.anzeigeHighscore);
 
-        String punkteText = "\n\tPunkte: " + punkte;
+        String punkteText = "\n\tPunkte: " + this.punkte;
         text.setText(punkteText);
 
         // Text fuer Highscore
