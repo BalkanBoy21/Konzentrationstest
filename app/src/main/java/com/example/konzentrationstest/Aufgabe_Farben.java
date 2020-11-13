@@ -52,9 +52,11 @@ public class Aufgabe_Farben extends AppCompatActivity {
         epicDialog = new Dialog(this);
 
         // Setzen der max. Sekundenzahl durch ausgewaehlten Schwierigkeitsgrad
-        diff = MainActivity.getCurrentDifficulty();
-        milliSec = diff.equals("Easy") ? 3000 : (diff.equals("Moderate") ? 2000 : (diff.equals("Hard") ? 1000 : 5000));       // ziemlich schlechter Code, reicht aber für den Anfang. Lieber den Button erhalten und dann checken ob der entsprechende Button gedrückt wurde
-        timer.setMax(milliSec / ((milliSec / 100) / 3));
+        String[] diff = MainActivity.getCurrentDifficultyText();
+        int milliSec = Integer.parseInt(String.valueOf(Double.parseDouble(diff[1]) * 1000).split("\\.")[0]);
+
+        // Das Maximum fuer die Zeitleiste setzen
+        timer.setMax((milliSec*9) / ((milliSec / 100) / 5));
 
         // Die erste Timeline sollte aufgefuellt sein
         timer.setProgress(timer.getMax());
@@ -102,13 +104,11 @@ public class Aufgabe_Farben extends AppCompatActivity {
         }
         mLastClickTime = SystemClock.elapsedRealtime();
 
+        z.running = false;  // alter Zaehler wird gestoppt
+
         String currentText = farbText.getText().toString();
         int currentColor = farbText.getCurrentTextColor();
         //int currentColor = ((ColorDrawable) ansicht.getBackground()).getColor();
-
-        z.running = false;  // alter Zaehler wird gestoppt
-        z = new Zeit(timer, punkte);     // neuer Zaehler wird erstellt
-        z.laufen();     // neuer Zaehler startet
 
         // Jedes Mal den HighScore neu auf falsch setzen, sonst wird jedes Mal angegeben, dass ein neuer HighScore erreicht wurde
         boolean neuerHighScore = false;
@@ -129,14 +129,14 @@ public class Aufgabe_Farben extends AppCompatActivity {
             preferencesEditor.putInt("key", TopScore.highscore_farben);
             preferencesEditor.commit();
 
-            // Stoppt die Zeit, damit diese nicht weiter geht wenn man bereits im Pop-Up-Fenster ist
-            z.running = false;
-
             PopUpFenster pop = new PopUpFenster(Aufgabe_Farben.this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
             pop.showPopUpWindow();
 
             punkte = 0;
         } else {    // Ergebnis ist richtig
+            z = new Zeit(timer, punkte);     // neuer Zaehler wird erstellt
+            z.laufen();     // neuer Zaehler startet
+
             ++punkte;
 
             int randomNumber;

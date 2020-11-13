@@ -3,6 +3,8 @@ package com.example.konzentrationstest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.Html;
@@ -40,9 +42,7 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
 
     private ProgressBar timer;
     private Zeit z;
-    private String diff;
 
-    int milliSec;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +53,19 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
 
         textFeld = findViewById(R.id.aufgabenFeld);
         timer = findViewById(R.id.timer_Rechnen);
+        timer.getProgressDrawable().setColorFilter(
+                Color.rgb(0,0,139), android.graphics.PorterDuff.Mode.SRC_IN);
+        timer.setProgressTintList(ColorStateList.valueOf(Color.rgb(0,0,139)));
+
 
         epicDialog = new Dialog(this);
 
         // Setzen der max. Sekundenzahl durch ausgewaehlten Schwierigkeitsgrad
-        diff = MainActivity.getCurrentDifficulty();
-        milliSec = diff.equals("Easy") ? 3000 : (diff.equals("Moderate") ? 2000 : (diff.equals("Hard") ? 1000 : 5000));       // ziemlich schlechter Code, reicht aber für den Anfang. Lieber den Button erhalten und dann checken ob der entsprechende Button gedrückt wurde
-        timer.setMax(milliSec / ((milliSec / 100) / 3));
+        String[] diff = MainActivity.getCurrentDifficultyText();
+        int milliSec = Integer.parseInt(String.valueOf(Double.parseDouble(diff[1]) * 1000).split("\\.")[0]);
+
+        // Das Maximum fuer die Zeitleiste setzen
+        timer.setMax((milliSec*9) / ((milliSec / 100) / 5));
 
         // Die erste Timeline sollte aufgefuellt sein
         timer.setProgress(timer.getMax());
@@ -143,6 +149,9 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
         }
         mLastClickTime = SystemClock.elapsedRealtime();
 
+        // alter Zaehler wird gestoppt
+        z.running = false;
+
         boolean neuerHighScore = false;
         boolean antwortIstKorrekt = false;
 
@@ -153,9 +162,6 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
             ergebnisIstRichtig = summand1[nth_activity] - summand2[nth_activity] == summen[nth_activity];
         }*/
 
-        z.running = false;  // alter Zaehler wird gestoppt
-        z = new Zeit(timer, punkte);     // neues Objekt fuer naechste Seite
-        z.laufen();     // neuer Zaehler geht los
 
         // Prueft ob Antwort korrekt ist
         if (summand2[nth_activity] == 0) {  // Quadrat
@@ -175,14 +181,15 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
             preferencesEditor.putInt("key", TopScore.highscore_rechnen);
             preferencesEditor.commit();
 
-            // Stoppt die Zeit, damit diese nicht weiter geht wenn man bereits im Pop-Up-Fenster ist
-            z.running = false;
 
             PopUpFenster pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
             pop.showPopUpWindow();
 
             punkte = 0;
         } else {
+            z = new Zeit(timer, punkte);     // neues Objekt fuer naechste Seite
+            z.laufen();     // neuer Zaehler geht los
+
             ++punkte;
             ++nth_activity;
 

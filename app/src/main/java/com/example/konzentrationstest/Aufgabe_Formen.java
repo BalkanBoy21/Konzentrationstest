@@ -61,9 +61,11 @@ public class Aufgabe_Formen extends AppCompatActivity {
         epicDialog = new Dialog(this);
 
         // Setzen der max. Sekundenzahl durch ausgewaehlten Schwierigkeitsgrad
-        diff = MainActivity.getCurrentDifficulty();
-        milliSec = diff.equals("Easy") ? 3000 : (diff.equals("Moderate") ? 2000 : (diff.equals("Hard") ? 1000 : 5000));       // ziemlich schlechter Code, reicht aber für den Anfang. Lieber den Button erhalten und dann checken ob der entsprechende Button gedrückt wurde
-        timer.setMax(milliSec / ((milliSec / 100) / 3));
+        String[] diff = MainActivity.getCurrentDifficultyText();
+        int milliSec = Integer.parseInt(String.valueOf(Double.parseDouble(diff[1]) * 1000).split("\\.")[0]);
+
+        // Das Maximum fuer die Zeitleiste setzen
+        timer.setMax((milliSec*9) / ((milliSec / 100) / 5));
 
         // Die erste Timeline sollte aufgefuellt sein
         timer.setProgress(timer.getMax());
@@ -113,8 +115,6 @@ public class Aufgabe_Formen extends AppCompatActivity {
         //int currentSymbol = symbolDateien[randomSymbol];
 
         z.running = false;  // alter Zaehler wird gestoppt
-        z = new Zeit(timer, punkte);     // neues Objekt fuer naechste Seite
-        z.laufen();     // neuer Zaehler geht los
 
         boolean antwortIstKorrekt = false;
         boolean neuerHighScore = false;
@@ -137,15 +137,15 @@ public class Aufgabe_Formen extends AppCompatActivity {
             preferencesEditor.putInt("key", TopScore.highscore_formen);
             preferencesEditor.commit();
 
-            // Stoppt die Zeit, damit diese nicht weiter geht wenn man bereits im Pop-Up-Fenster ist
-            z.running = false;
-
             PopUpFenster pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
             pop.showPopUpWindow();
 
             punkte = 0;     // Punktestand zurücksetzen bei falscher Antwort (besser als in der Methode selbst, da nicht auf "Exit" bzw. Continue geklickt werden muss, die Punktzahl aber trotzdem zurückgesetzt werden soll.)
 
         } else { // Antwort ist korrekt
+            z = new Zeit(timer, punkte);     // neues Objekt fuer naechste Seite
+            z.laufen();     // neuer Zaehler geht los
+
             // +1 Punkt wenn Antwort richtig
             ++punkte;
 

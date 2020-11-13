@@ -36,13 +36,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     // gibt ausgewaehlten Schwierigkeitsgrad zurueck
-    public static String getCurrentDifficulty() {
+    public static String[] getCurrentDifficultyText() {
+        String[] difficultyParts = new String[2];
         for (Button difficulty: btns) {
             if (!difficulty.isEnabled()) {
-                return difficulty.getText().toString().split("\\s+")[0];
+                String[] temp = difficulty.getText().toString().split("\\(");
+                difficultyParts[0] = temp[0].trim();       // Schwierigkeitsgrad
+                difficultyParts[1] = temp[1].trim().split("s")[0].trim();       // das letzte Trim fuer den Fall, dass zwischen Sekunden und "s" noch eine Leerzeile vorhanden ist
             }
         }
-        return "Easy";
+        return difficultyParts;
     }
 
     // variable to track event time
