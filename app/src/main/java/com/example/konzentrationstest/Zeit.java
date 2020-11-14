@@ -39,39 +39,6 @@ public class Zeit extends AppCompatActivity {
             public void onTick(long millisUntilFinished) {
                 Zeit.this.counter.setProgress(((int) millisUntilFinished*9) / ((milliSec / 100) / 5));     // mathematisches Umrechnen, im Kopf etwas schwerer zu machen
 
-                if (Zeit.this.counter.getProgress() < 30) {     // die 80 hat nichts besonderes zu bedeuten
-                    Log.e("", "Abbruch");
-                    int hs = 0;
-                    switch (pop.getKEY()) {
-                        case "speicherPreferences_Rechnen":
-                            TopScore.highscore_rechnen = pop.punkte;
-                            hs = TopScore.highscore_rechnen; break;
-                        case "speicherPreferences_Farben":
-                            TopScore.highscore_farben = pop.punkte;
-                            hs = TopScore.highscore_farben;
-                            break;
-                        case "speicherPreferences_Formen":
-                            TopScore.highscore_formen = pop.punkte;
-                            hs = TopScore.highscore_formen;
-                            break;
-                        case "speicherPreferences_waehleUnpassendeFarbe":
-                            TopScore.highscore_waehleUnpassendeFarbe = pop.punkte;
-                            hs = TopScore.highscore_waehleUnpassendeFarbe;
-                            break;
-                    }
-
-                    Log.e("----", pop.getPreferences().getInt(pop.getKEY(), 0) + " ///// " + hs);
-                    if (pop.getPreferences().getInt(pop.getKEY(), 0) < hs) {
-                        pop.getPreferencesEditor().putInt(pop.getKEY(), hs);
-                        pop.setNeuerHighScore(true);
-                        pop.neuerHighScore = true;
-                    }
-
-                    pop.getPreferencesEditor().putInt("key", hs);
-                    pop.getPreferencesEditor().commit();
-                    pop.showPopUpWindow();
-                }
-
                 if (!Zeit.this.running) {
                     this.cancel();
                     //Zeit.this.running = false;
@@ -82,14 +49,44 @@ public class Zeit extends AppCompatActivity {
             }
 
             public void onFinish() {
-                Log.d("----", "Okay");
                 // sorgt dafuer dass Aktivität stoppt sobald man beim Laufen der Aktivität ins Hauptmenu zurueckmoechte
                 if (!isFinishing()) {
                     Zeit.this.running = false;
                 }
                 Zeit.this.counter.setProgress(Zeit.this.counter.getMax());
 
+                // nun ist der Backbutton wieder aktiv
                 Zeit.active = true;
+
+                int hs = 0;
+                switch (pop.getKEY()) {
+                    case "speicherPreferences_Rechnen":
+                        TopScore.highscore_rechnen = pop.punkte;
+                        hs = TopScore.highscore_rechnen; break;
+                    case "speicherPreferences_Farben":
+                        TopScore.highscore_farben = pop.punkte;
+                        hs = TopScore.highscore_farben;
+                        break;
+                    case "speicherPreferences_Formen":
+                        TopScore.highscore_formen = pop.punkte;
+                        hs = TopScore.highscore_formen;
+                        break;
+                    case "speicherPreferences_waehleUnpassendeFarbe":
+                        TopScore.highscore_waehleUnpassendeFarbe = pop.punkte;
+                        hs = TopScore.highscore_waehleUnpassendeFarbe;
+                        break;
+                }
+
+                Log.e("----", pop.getPreferences().getInt(pop.getKEY(), 0) + " ///// " + hs);
+                if (pop.getPreferences().getInt(pop.getKEY(), 0) < hs) {
+                    pop.getPreferencesEditor().putInt(pop.getKEY(), hs);
+                    pop.setNeuerHighScore(true);
+                    pop.neuerHighScore = true;
+                }
+
+                pop.getPreferencesEditor().putInt("key", hs);
+                pop.getPreferencesEditor().commit();
+                pop.showPopUpWindow();
             }
         };
         countDownTimer.start();

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -65,6 +66,17 @@ public class PopUpFenster extends AppCompatActivity {
     public void setPunkte() {
         punkte = 0;
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Log.d("----", "Event: " + Zeit.active);
+        if ((keyCode == KeyEvent.KEYCODE_BACK)  && (!Zeit.active)) {
+            //preventing default implementation previous to android.os.Build.VERSION_CODES.ECLAIR
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 
     public void showPopUpWindow() {
         epicDialog.setContentView(R.layout.activity_popupfenster);
