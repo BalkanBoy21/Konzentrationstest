@@ -12,6 +12,7 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -51,6 +52,7 @@ public class Aufgabe_Formen extends AppCompatActivity {
     int milliSec;
     boolean neuerHighScore = false;
     PopUpFenster pop;
+    static ImageButton down, up;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,9 @@ public class Aufgabe_Formen extends AppCompatActivity {
         form = findViewById(R.id.formSymbol);
         timer = findViewById(R.id.timer_Formen);
         timer.setProgressTintList(ColorStateList.valueOf(Color.rgb(0,0, 139)));
+
+        down = findViewById(R.id.unwahr3);
+        up = findViewById(R.id.wahr3);
 
         // PopUp-Fenster
         epicDialog = new Dialog(this);

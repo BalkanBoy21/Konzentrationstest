@@ -32,6 +32,7 @@
     <color name="whitered">#ff726f</color>
     <color name="darkgrey">#b0b0b0</color>
     <color name="teal">#3f888f</color>
+    <color name="Schwarz">#000000</color>
 
     <string-array name="colors">
         <item>@color/yellowgreen</item>
@@ -57,5 +58,6 @@
         <item>@color/whitered</item>
         <item>@color/darkgrey</item>
         <item>@color/Weiß</item>
+        <item>@color/Schwarz</item>
     </string-array>
 </resources>

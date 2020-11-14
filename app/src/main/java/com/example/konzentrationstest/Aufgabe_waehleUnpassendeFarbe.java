@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.KeyEvent;
@@ -36,12 +37,12 @@ public class Aufgabe_waehleUnpassendeFarbe extends AppCompatActivity {
 
     private TextView farbText;
 
-    private final String[] farben = {"Grün", "Gelb", "Blau", "Rot", "Orange", "Pink"};
+    private final String[] farben = {"Grün", "Gelb", "Blau", "Rot", "Orange", "Pink", "Schwarz"};
 
     private final int[] farbCodes = new int[farben.length];
 
     ImageButton btn1, btn2, btn3;
-    ImageButton[] btns;
+    static ImageButton[] btns;
 
     private Dialog epicDialog;
 
@@ -133,6 +134,16 @@ public class Aufgabe_waehleUnpassendeFarbe extends AppCompatActivity {
 
         // Punktestand wird jedes Mal zurueckgesetzt, wenn die Seite neu betreten wird (besonders wenn auf "Beenden" geklickt wird)
         punkte = 0;
+    }
+
+    public static ImageButton[] getButtons() {
+        return btns;
+    }
+
+    public void setButtonsDisabled() {
+        for (ImageButton ib: btns) {
+            ib.setEnabled(false);
+        }
     }
 
     @Override

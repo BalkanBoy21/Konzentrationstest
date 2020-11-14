@@ -19,6 +19,7 @@
         android:textSize="35dp"
         app:backgroundTint="#BD3D3D"
         app:iconTint="#D1C9C9"
+        android:theme="@style/Theme.MaterialComponents"
         android:background="@drawable/btn_rounded"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

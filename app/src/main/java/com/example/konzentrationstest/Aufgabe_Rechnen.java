@@ -11,6 +11,7 @@ import android.text.Html;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -47,6 +48,7 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
 
     PopUpFenster pop;
     boolean neuerHighScore = false;
+    static ImageButton down, up;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,9 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
         textFeld = findViewById(R.id.aufgabenFeld);
         timer = findViewById(R.id.timer_Rechnen);
         timer.setProgressTintList(ColorStateList.valueOf(Color.rgb(0,0, 139)));
+
+        down = findViewById(R.id.unwahr);
+        up = findViewById(R.id.wahr);
 
         epicDialog = new Dialog(this);
 

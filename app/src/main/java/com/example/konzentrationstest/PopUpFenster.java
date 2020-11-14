@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -117,6 +118,29 @@ public class PopUpFenster extends AppCompatActivity {
         stay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View view) {
+
+                switch (KEY) {
+                    case "speicherPreferences_Rechnen":
+                        // macht Buttons wieder frei sobald das Pop-Up-Fenster verlassen wurde
+                        Aufgabe_Rechnen.down.setEnabled(true);
+                        Aufgabe_Rechnen.up.setEnabled(true);
+                        break;
+                    case "speicherPreferences_Farben":
+                        Aufgabe_Farben.down.setEnabled(true);
+                        Aufgabe_Farben.up.setEnabled(true);
+                        break;
+                    case "speicherPreferences_Formen":
+                        Aufgabe_Formen.down.setEnabled(true);
+                        Aufgabe_Formen.up.setEnabled(true);
+                        break;
+                    case "speicherPreferences_waehleUnpassendeFarbe":
+                        // enablen der Buttons
+                        for (ImageButton ib: Aufgabe_waehleUnpassendeFarbe.getButtons()) {
+                            ib.setEnabled(true);
+                        }
+                        break;
+                }
+                Zeit.active = true;
                 epicDialog.dismiss();
                 PopUpFenster.this.punkte = 0;
             }

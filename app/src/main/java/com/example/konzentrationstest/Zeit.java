@@ -2,6 +2,7 @@ package com.example.konzentrationstest;
 
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -62,18 +63,30 @@ public class Zeit extends AppCompatActivity {
                 switch (pop.getKEY()) {
                     case "speicherPreferences_Rechnen":
                         TopScore.highscore_rechnen = pop.punkte;
-                        hs = TopScore.highscore_rechnen; break;
+                        hs = TopScore.highscore_rechnen;
+                        // verhindert Button-Klick nachdem die Zeitleiste vorbei ist (durch schnelles Klicken)
+                        Aufgabe_Rechnen.down.setEnabled(false);
+                        Aufgabe_Rechnen.up.setEnabled(false);
+                        break;
                     case "speicherPreferences_Farben":
                         TopScore.highscore_farben = pop.punkte;
                         hs = TopScore.highscore_farben;
+                        Aufgabe_Farben.down.setEnabled(false);
+                        Aufgabe_Farben.up.setEnabled(false);
                         break;
                     case "speicherPreferences_Formen":
                         TopScore.highscore_formen = pop.punkte;
                         hs = TopScore.highscore_formen;
+                        Aufgabe_Formen.down.setEnabled(false);
+                        Aufgabe_Formen.up.setEnabled(false);
                         break;
                     case "speicherPreferences_waehleUnpassendeFarbe":
                         TopScore.highscore_waehleUnpassendeFarbe = pop.punkte;
                         hs = TopScore.highscore_waehleUnpassendeFarbe;
+                        // verhindert Button-Klick nachdem die Zeitleiste vorbei ist (durch schnelles Klicken)
+                        for (ImageButton ib: Aufgabe_waehleUnpassendeFarbe.getButtons()) {
+                            ib.setEnabled(false);
+                        }
                         break;
                 }
 
@@ -81,7 +94,6 @@ public class Zeit extends AppCompatActivity {
                 if (pop.getPreferences().getInt(pop.getKEY(), 0) < hs) {
                     pop.getPreferencesEditor().putInt(pop.getKEY(), hs);
                     pop.setNeuerHighScore(true);
-                    pop.neuerHighScore = true;
                 }
 
                 pop.getPreferencesEditor().putInt("key", hs);

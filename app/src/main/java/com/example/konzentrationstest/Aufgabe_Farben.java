@@ -10,6 +10,7 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -22,7 +23,7 @@ public class Aufgabe_Farben extends AppCompatActivity {
 
     private TextView farbText;
 
-    private final String [] farben = {"Grün", "Gelb", "Blau", "Rot", "Orange", "Weiß", "Pink"};
+    private final String [] farben = {"Grün", "Gelb", "Blau", "Rot", "Orange", "Weiß", "Pink", "Schwarz"};
     private final int [] farbCodes = new int[farben.length];
 
     int punkte;
@@ -40,11 +41,16 @@ public class Aufgabe_Farben extends AppCompatActivity {
     int milliSec;
     boolean neuerHighScore = false;
 
+    static ImageButton down, up;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getSupportActionBar().hide(); // hide the title bar
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aufgabe__farben);
+
+        down = findViewById(R.id.unwahr2);
+        up = findViewById(R.id.wahr2);
 
         timer = findViewById(R.id.timer_Farben);
         timer.setProgressTintList(ColorStateList.valueOf(Color.rgb(0,0, 139)));
@@ -98,6 +104,7 @@ public class Aufgabe_Farben extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Log.d("----", Zeit.active + "");
         // nur zurueckgehen wenn die Zeit nicht am Laufen ist
         if ((keyCode == KeyEvent.KEYCODE_BACK) && (!Zeit.active)) {
             //preventing default implementation previous to android.os.Build.VERSION_CODES.ECLAIR
