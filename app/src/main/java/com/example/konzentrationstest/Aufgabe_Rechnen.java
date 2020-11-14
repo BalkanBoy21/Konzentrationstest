@@ -116,7 +116,7 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)  && (!Zeit.active)) {
             //preventing default implementation previous to android.os.Build.VERSION_CODES.ECLAIR
             return true;
         }

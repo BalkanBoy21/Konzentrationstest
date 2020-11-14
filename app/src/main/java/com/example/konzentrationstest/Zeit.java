@@ -17,6 +17,7 @@ public class Zeit extends AppCompatActivity {
     int milliSec;
 
     private PopUpFenster pop;
+    static boolean active = true;
 
     public Zeit (ProgressBar counter, int punkte) {
         this.counter = counter;
@@ -31,6 +32,8 @@ public class Zeit extends AppCompatActivity {
 
         // Jedes Mal neu resetten, um bei richtiger Antwort die letzte Anzeige der Zeitleiste zu loeschen und die neue Liste wieder voll zu machen
         this.running = true;
+
+        Zeit.active = false;
 
         CountDownTimer countDownTimer = new CountDownTimer(milliSec, 10) {
             public void onTick(long millisUntilFinished) {
@@ -79,11 +82,14 @@ public class Zeit extends AppCompatActivity {
             }
 
             public void onFinish() {
+                Log.d("----", "Okay");
                 // sorgt dafuer dass Aktivität stoppt sobald man beim Laufen der Aktivität ins Hauptmenu zurueckmoechte
                 if (!isFinishing()) {
                     Zeit.this.running = false;
                 }
                 Zeit.this.counter.setProgress(Zeit.this.counter.getMax());
+
+                Zeit.active = true;
             }
         };
         countDownTimer.start();
