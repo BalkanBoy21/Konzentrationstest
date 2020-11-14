@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -132,6 +133,15 @@ public class Aufgabe_waehleUnpassendeFarbe extends AppCompatActivity {
 
         // Punktestand wird jedes Mal zurueckgesetzt, wenn die Seite neu betreten wird (besonders wenn auf "Beenden" geklickt wird)
         punkte = 0;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            //preventing default implementation previous to android.os.Build.VERSION_CODES.ECLAIR
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     // variable to track event time

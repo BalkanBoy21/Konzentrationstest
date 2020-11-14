@@ -37,7 +37,7 @@ public class Zeit extends AppCompatActivity {
                 Zeit.this.counter.setProgress(((int) millisUntilFinished*9) / ((milliSec / 100) / 5));     // mathematisches Umrechnen, im Kopf etwas schwerer zu machen
 
                 if (Zeit.this.counter.getProgress() < 30) {     // die 80 hat nichts besonderes zu bedeuten
-
+                    Log.e("", "Abbruch");
                     int hs = 0;
                     switch (pop.getKEY()) {
                         case "speicherPreferences_Rechnen":

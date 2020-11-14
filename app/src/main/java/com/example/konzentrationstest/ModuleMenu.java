@@ -54,29 +54,29 @@ public class ModuleMenu extends AppCompatActivity implements AdapterView.OnItemS
     private long mLastClickTime = 0;
 
     public void startModule(View view) {
-        // Zeitdifferenz, um zu verhindern, dass 2 Buttons auf einmal geklickt werden
-        int difference = 100;
-        // Preventing multiple clicks, using threshold of 1 second
-        if (SystemClock.elapsedRealtime() - mLastClickTime < difference) {
-            return;
-        }
-        mLastClickTime = SystemClock.elapsedRealtime();
+            // Zeitdifferenz, um zu verhindern, dass 2 Buttons auf einmal geklickt werden
+            int difference = 100;
+            // Preventing multiple clicks, using threshold of 1 second
+            if (SystemClock.elapsedRealtime() - mLastClickTime < difference) {
+                return;
+            }
+            mLastClickTime = SystemClock.elapsedRealtime();
 
-        Class nextModule = null;
-        int chosenModule = view.getId();
+            Class nextModule = null;
+            int chosenModule = view.getId();
 
-        if (chosenModule == R.id.button_rechnen) {
-            nextModule = Aufgabe_Rechnen.class;
-        } else if (chosenModule == R.id.button_farbe) {
-            nextModule = Aufgabe_Farben.class;
-        } else if (chosenModule == R.id.button_formen) {
-            nextModule = Aufgabe_Formen.class;
-        } else if (chosenModule == R.id.button_waehleUnpassendeFarbe) {
-            nextModule = Aufgabe_waehleUnpassendeFarbe.class;
-        }
+            if (chosenModule == R.id.button_rechnen) {
+                nextModule = Aufgabe_Rechnen.class;
+            } else if (chosenModule == R.id.button_farbe) {
+                nextModule = Aufgabe_Farben.class;
+            } else if (chosenModule == R.id.button_formen) {
+                nextModule = Aufgabe_Formen.class;
+            } else if (chosenModule == R.id.button_waehleUnpassendeFarbe) {
+                nextModule = Aufgabe_waehleUnpassendeFarbe.class;
+            }
 
-        Intent myIntent = new Intent(ModuleMenu.this, nextModule);
-        ModuleMenu.this.startActivity(myIntent);
+            Intent myIntent = new Intent(ModuleMenu.this, nextModule);
+            ModuleMenu.this.startActivity(myIntent);
     }
 
 }
