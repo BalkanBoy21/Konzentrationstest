@@ -150,11 +150,9 @@ public class Aufgabe_Formen extends AppCompatActivity {
             // Setzen des neuen Highscores
             TopScore.highscore_formen = pop.punkte;
 
-            Log.e("---", preferences.getInt(KEY, 0) + " /////  OKAY // " + pop.punkte);
             if (preferences.getInt(KEY, 0) < TopScore.highscore_formen) {
                 preferencesEditor.putInt(KEY, TopScore.highscore_formen);
                 pop.setNeuerHighScore(true);
-//                neuerHighScore = true;
             }
             preferencesEditor.putInt("key", TopScore.highscore_formen);
             preferencesEditor.commit();

@@ -192,7 +192,6 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
             // Setzen des neuen Highscores
             TopScore.highscore_rechnen = pop.punkte;
 
-            Log.e("---", preferences.getInt(KEY, 0) + " /////  OKAY // " + pop.punkte);
             if (preferences.getInt(KEY, 0) < TopScore.highscore_rechnen) {
                 preferencesEditor.putInt(KEY, TopScore.highscore_rechnen);
                 pop.setNeuerHighScore(true);
