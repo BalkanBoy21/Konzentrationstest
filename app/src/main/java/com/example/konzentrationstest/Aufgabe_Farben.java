@@ -47,7 +47,7 @@ public class Aufgabe_Farben extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         getSupportActionBar().hide(); // hide the title bar
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_aufgabe__farben);
+        setContentView(R.layout.activity_aufgabe_farben);
 
         down = findViewById(R.id.unwahr2);
         up = findViewById(R.id.wahr2);

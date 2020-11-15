@@ -2,7 +2,6 @@ package com.example.konzentrationstest;
 
 import android.os.CountDownTimer;
 import android.util.Log;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,6 +39,7 @@ public class Zeit extends AppCompatActivity {
             public void onTick(long millisUntilFinished) {
                 Zeit.this.counter.setProgress(((int) millisUntilFinished*9) / ((milliSec / 100) / 5));     // mathematisches Umrechnen, im Kopf etwas schwerer zu machen
 
+                // setzt nach jeder richtigen Antwort die Progressbar zurueck und stoppt den vorheigen Timer, damit diese nicht einfach weiterlaeuft
                 if (!Zeit.this.running) {
                     this.cancel();
                     //Zeit.this.running = false;
@@ -59,6 +59,7 @@ public class Zeit extends AppCompatActivity {
                 // nun ist der Backbutton wieder aktiv
                 Zeit.active = true;
 
+                // spaeter getter aufrufen oder aehnliches, keine statischen Variablen verwenden
                 int hs = 0;
                 switch (pop.getKEY()) {
                     case "speicherPreferences_Rechnen":
@@ -84,13 +85,12 @@ public class Zeit extends AppCompatActivity {
                         TopScore.highscore_waehleUnpassendeFarbe = pop.punkte;
                         hs = TopScore.highscore_waehleUnpassendeFarbe;
                         // verhindert Button-Klick nachdem die Zeitleiste vorbei ist (durch schnelles Klicken)
-                        for (ImageButton ib: Aufgabe_waehleUnpassendeFarbe.getButtons()) {
-                            ib.setEnabled(false);
-                        }
+                        Aufgabe_waehleUnpassendeFarbe.btn1.setEnabled(false);
+                        Aufgabe_waehleUnpassendeFarbe.btn2.setEnabled(false);
+                        Aufgabe_waehleUnpassendeFarbe.btn3.setEnabled(false);
                         break;
                 }
 
-                Log.e("----", pop.getPreferences().getInt(pop.getKEY(), 0) + " ///// " + hs);
                 if (pop.getPreferences().getInt(pop.getKEY(), 0) < hs) {
                     pop.getPreferencesEditor().putInt(pop.getKEY(), hs);
                     pop.setNeuerHighScore(true);

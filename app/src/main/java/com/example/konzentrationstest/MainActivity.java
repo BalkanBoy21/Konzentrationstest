@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +20,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     // speichert zuletzt ausgewaehlten Button, wenn man durch Pop-Up-Fenster ins StartMenu gelangt
     static String lastdisabledButton = "Easy";
 
+    ImageView iv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getSupportActionBar().hide(); // hide the title bar
@@ -29,6 +32,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         moderate = findViewById(R.id.moderate);
         hard = findViewById(R.id.hard);
         btns = new Button[] {easy, moderate, hard};
+
+        iv = findViewById(R.id.brainIcon);
+        iv.setImageResource(R.drawable.braining_finalicon);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.difficulty_items, android.R.layout.simple_spinner_item);

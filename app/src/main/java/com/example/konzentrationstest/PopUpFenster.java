@@ -64,13 +64,9 @@ public class PopUpFenster extends AppCompatActivity {
         return this.KEY;
     }
 
-    public void setPunkte() {
-        punkte = 0;
-    }
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        Log.d("----", "Event: " + Zeit.active);
+        // macht Zurueckgehen nur moeglich wenn der Timer nicht laeuft
         if ((keyCode == KeyEvent.KEYCODE_BACK)  && (!Zeit.active)) {
             //preventing default implementation previous to android.os.Build.VERSION_CODES.ECLAIR
             return true;
@@ -147,13 +143,10 @@ public class PopUpFenster extends AppCompatActivity {
         });
 
         // sorgt dafuer dass Aktivität stoppt sobald man beim Laufen der Aktivität ins Hauptmenu zurueckmoechte
-        //if (isFinishing()) {
-            Log.e("---", "Juckt");
-            epicDialog.setCancelable(false);
-            epicDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            epicDialog.show();
-            //punkte = 0;
-        //}
+        Log.e("---", "Juckt");
+        epicDialog.setCancelable(false);
+        epicDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        epicDialog.show();
 
         //punkte = 0;
     }

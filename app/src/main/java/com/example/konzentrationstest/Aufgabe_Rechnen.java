@@ -180,8 +180,7 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
         if (currentOperator.equals("-")) {
             ergebnisIstRichtig = summand1[nth_activity] - summand2[nth_activity] == summen[nth_activity];
         }*/
-
-
+        
         // Prueft ob Antwort korrekt ist
         if (summand2[nth_activity] == 0) {  // Quadrat
             antwortIstKorrekt = Math.sqrt(summand1[nth_activity]) == summen[nth_activity];

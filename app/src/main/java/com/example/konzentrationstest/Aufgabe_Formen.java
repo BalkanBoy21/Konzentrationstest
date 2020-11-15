@@ -59,7 +59,7 @@ public class Aufgabe_Formen extends AppCompatActivity {
         //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar().hide(); // hide the title bar
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_aufgabe__formen);
+        setContentView(R.layout.activity_aufgabe_formen);
 
         textView = findViewById(R.id.formText);
         form = findViewById(R.id.formSymbol);

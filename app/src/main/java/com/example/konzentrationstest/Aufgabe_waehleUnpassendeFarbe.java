@@ -41,7 +41,7 @@ public class Aufgabe_waehleUnpassendeFarbe extends AppCompatActivity {
 
     private final int[] farbCodes = new int[farben.length];
 
-    ImageButton btn1, btn2, btn3;
+    static ImageButton btn1, btn2, btn3;
     static ImageButton[] btns;
 
     private Dialog epicDialog;
