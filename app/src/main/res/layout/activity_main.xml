@@ -2,98 +2,98 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/sound"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mediumseagreen"
+    android:background="#00FA9A"
     tools:context=".MainActivity">
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/startBtn"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="154dp"
-        android:layout_height="121dp"
+        android:layout_width="210dp"
+        android:layout_height="101dp"
         android:onClick="goToModuleMenu"
-        android:text="Start"
-        android:textColor="#FFFFFF"
-        android:textSize="35dp"
-        app:backgroundTint="#BD3D3D"
-        app:iconTint="#D1C9C9"
-        android:theme="@style/Theme.MaterialComponents"
-        android:background="@drawable/btn_rounded"
+        android:text="START"
+        android:textSize="30dp"
+        app:backgroundTint="#DF5353"
+        app:cornerRadius="35dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.447"
-        app:rippleColor="#F31717" />
-
-    <Button
-        android:id="@+id/hard"
-        android:layout_width="127dp"
-        android:layout_height="70dp"
-        android:onClick="terminateDfficulty"
-        android:text="Hard \n(1s)"
-        app:backgroundTint="#64B7E1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.652" />
-
-    <Button
-        android:id="@+id/easy"
-        android:layout_width="127dp"
-        android:layout_height="70dp"
-        android:onClick="terminateDfficulty"
-        android:text="Easy\n(2s)"
-        app:backgroundTint="#64B7E1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.056"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.652" />
+        app:layout_constraintVertical_bias="0.428" />
 
     <Button
         android:id="@+id/moderate"
         android:layout_width="127dp"
-        android:layout_height="70dp"
+        android:layout_height="150dp"
         android:onClick="terminateDfficulty"
         android:text="Moderate \n(1.5s)"
         app:backgroundTint="#64B7E1"
+        style="?android:attr/borderlessButtonStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.652" />
+        app:layout_constraintVertical_bias="0.753" />
+
+    <Button
+        android:id="@+id/easy"
+        android:layout_width="127dp"
+        android:layout_height="150dp"
+        android:onClick="terminateDfficulty"
+        android:text="Easy\n(2s)"
+        app:backgroundTint="#64B7E1"
+        style="?android:attr/borderlessButtonStyle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.056"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.753" />
+
+    <Button
+        android:id="@+id/hard"
+        android:layout_width="127dp"
+        android:layout_height="150dp"
+        android:onClick="terminateDfficulty"
+        android:text="Hard \n(1s)"
+        app:backgroundTint="#64B7E1"
+        style="?android:attr/borderlessButtonStyle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.753" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="112dp"
+        android:layout_marginTop="116dp"
         android:text="Braining"
-        android:textColor="@color/black"
+        android:textColor="#000000"
         android:textSize="45dp"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textStyle="italic"
+        />
 
     <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="98dp"
-        android:layout_height="82dp"
+        android:id="@+id/brainIcon"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.046"
+        app:layout_constraintVertical_bias="0.054"
         app:srcCompat="@drawable/app_icon" />
 
 
