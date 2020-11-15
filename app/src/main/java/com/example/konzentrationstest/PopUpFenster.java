@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -63,17 +62,6 @@ public class PopUpFenster extends AppCompatActivity {
     public String getKEY() {
         return this.KEY;
     }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // macht Zurueckgehen nur moeglich wenn der Timer nicht laeuft
-        if ((keyCode == KeyEvent.KEYCODE_BACK)  && (!Zeit.active)) {
-            //preventing default implementation previous to android.os.Build.VERSION_CODES.ECLAIR
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
 
     public void showPopUpWindow() {
         epicDialog.setContentView(R.layout.activity_popupfenster);
@@ -136,9 +124,10 @@ public class PopUpFenster extends AppCompatActivity {
                         }
                         break;
                 }
-                Zeit.active = true;
                 epicDialog.dismiss();
-                PopUpFenster.this.punkte = 0;
+                // aktiviert Back-Button wieder sobald auf "Weiter geklickt wird"
+                Zeit.active = true;
+                punkte = 0;
             }
         });
 

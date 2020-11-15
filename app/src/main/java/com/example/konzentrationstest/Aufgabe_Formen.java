@@ -35,11 +35,9 @@ public class Aufgabe_Formen extends AppCompatActivity {
 
     int punkte = 0;
     int randomSymbol;
-    String randomText;
 
     ProgressBar timer;
     Zeit z;
-    String diff;
 
     // Pop-Up-Hilfsmittel
     SharedPreferences preferences;
@@ -49,7 +47,6 @@ public class Aufgabe_Formen extends AppCompatActivity {
 
     int symbol;
     int temp = 0;
-    int milliSec;
     boolean neuerHighScore = false;
     PopUpFenster pop;
     static ImageButton down, up;

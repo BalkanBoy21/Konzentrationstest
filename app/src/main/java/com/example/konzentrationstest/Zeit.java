@@ -99,6 +99,7 @@ public class Zeit extends AppCompatActivity {
                 pop.getPreferencesEditor().putInt("key", hs);
                 pop.getPreferencesEditor().commit();
                 pop.showPopUpWindow();
+                Zeit.active = true;
             }
         };
         countDownTimer.start();

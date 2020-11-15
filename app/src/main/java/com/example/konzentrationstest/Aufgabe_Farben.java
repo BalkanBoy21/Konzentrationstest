@@ -36,9 +36,7 @@ public class Aufgabe_Farben extends AppCompatActivity {
 
     private ProgressBar timer;
     private Zeit z;
-    String diff;
 
-    int milliSec;
     boolean neuerHighScore = false;
 
     static ImageButton down, up;
@@ -104,7 +102,7 @@ public class Aufgabe_Farben extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        Log.d("----", Zeit.active + "");
+        Log.d("----", "Nein");
         // nur zurueckgehen wenn die Zeit nicht am Laufen ist
         if ((keyCode == KeyEvent.KEYCODE_BACK) && (!Zeit.active)) {
             //preventing default implementation previous to android.os.Build.VERSION_CODES.ECLAIR
@@ -137,7 +135,6 @@ public class Aufgabe_Farben extends AppCompatActivity {
         // Jedes Mal den HighScore neu auf falsch setzen, sonst wird jedes Mal angegeben, dass ein neuer HighScore erreicht wurde
         boolean antwortIstKorrekt = false;
 
-
         if (farbCodes[Arrays.asList(farben).indexOf(currentText)] == farbText.getCurrentTextColor()) {      // "... == currentColor" fuer Background-Color
             antwortIstKorrekt = true;
         }
@@ -160,7 +157,6 @@ public class Aufgabe_Farben extends AppCompatActivity {
             punkte = 0;
         } else {    // Ergebnis ist richtig
             ++pop.punkte;
-            Log.e("--", "PopPunkte1: " + pop.punkte);
             z = new Zeit(timer, pop.punkte);     // neuer Zaehler wird erstellt
 
             z.laufen(pop);     // neuer Zaehler startet

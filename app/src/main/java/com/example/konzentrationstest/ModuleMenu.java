@@ -6,7 +6,6 @@ import android.os.SystemClock;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,8 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 // Settings for playing the game
 public class ModuleMenu extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-
-    public Spinner mod;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

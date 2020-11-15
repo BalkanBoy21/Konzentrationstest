@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     // speichert zuletzt ausgewaehlten Button, wenn man durch Pop-Up-Fenster ins StartMenu gelangt
     static String lastdisabledButton = "Easy";
 
-    ImageView iv, b;
+    ImageView iv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +35,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         iv = findViewById(R.id.brainIcon);
         iv.setImageResource(R.drawable.braining_finalicon);
-
-        //b = findViewById(R.id.brain);
-
-//        b.setImageResource(R.drawable.png_brain);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.difficulty_items, android.R.layout.simple_spinner_item);

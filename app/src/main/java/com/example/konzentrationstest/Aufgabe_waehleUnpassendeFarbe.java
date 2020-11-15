@@ -23,8 +23,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-
-
 public class Aufgabe_waehleUnpassendeFarbe extends AppCompatActivity {
 
     private Zeit z;
@@ -46,8 +44,6 @@ public class Aufgabe_waehleUnpassendeFarbe extends AppCompatActivity {
 
     private Dialog epicDialog;
 
-    private String diff;
-    int milliSec;
     boolean neuerHighScore = false;
     PopUpFenster pop;
 
