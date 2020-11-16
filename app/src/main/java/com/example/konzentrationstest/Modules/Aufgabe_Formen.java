@@ -1,5 +1,5 @@
 
-package com.example.konzentrationstest;
+package com.example.konzentrationstest.Modules;
 
 
 import android.app.Dialog;
@@ -9,7 +9,6 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -18,6 +17,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.konzentrationstest.MainActivity;
+import com.example.konzentrationstest.PopUpFenster;
+import com.example.konzentrationstest.R;
+import com.example.konzentrationstest.TopScore;
+import com.example.konzentrationstest.Zeit;
 
 import java.util.Arrays;
 
@@ -28,32 +33,33 @@ import java.util.Arrays;
 
 public class Aufgabe_Formen extends AppCompatActivity {
 
+    // wichtig: formenText und symbolDateien muessen 1:1 in der gleichen Reihenfolge sein
     private final String [] formenText = {"Kreis", "Quadrat", "Stern", "Herz", "Dreieck"};
     private final int []symbolDateien = {R.drawable.kreis, R.drawable.quadrat, R.drawable.stern, R.drawable.herz, R.drawable.dreieck};
-    private TextView textView;
+
     private ImageView form;
+    private int randomSymbol;
+    int symbol;
 
-    int punkte = 0;
-    int randomSymbol;
+    private int punkte = 0;
+    private boolean neuerHighScore = false;
+    int temp = 0;
 
-    ProgressBar timer;
-    Zeit z;
+    private ProgressBar timer;
+    private PopUpFenster pop;
+    private Zeit z;
+    private TextView textView;
 
     // Pop-Up-Hilfsmittel
-    SharedPreferences preferences;
-    SharedPreferences.Editor preferencesEditor;
-    Dialog epicDialog;
-    final String KEY = "speicherPreferences_Formen";
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor preferencesEditor;
+    private Dialog epicDialog;
+    private final String KEY = "speicherPreferences_Formen";
 
-    int symbol;
-    int temp = 0;
-    boolean neuerHighScore = false;
-    PopUpFenster pop;
-    static ImageButton down, up;
+    public static ImageButton down, up;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar().hide(); // hide the title bar
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aufgabe_formen);
@@ -134,21 +140,24 @@ public class Aufgabe_Formen extends AppCompatActivity {
         int lastSymbol = symbol;
         //int currentSymbol = symbolDateien[randomSymbol];
 
-        z.running = false;  // alter Zaehler wird gestoppt
+        // alter Zaehler wird gestoppt
+        z.running = false;
 
-        boolean antwortIstKorrekt = false;
+        // Wieder zuruecksetzen, da neuer Highscore nun normaler Highscore ist
         pop.setNeuerHighScore(false);
 
         int index = Arrays.asList(formenText).indexOf(lastText);
+        boolean antwortIstKorrekt = false;
 
-        if (index == temp) {    // man ueberprueft, ob der Index des Textes mit dem Index der Form uebereinstimmt, Voraussetzung: Array formenText und symbolDateien stimmen in der Reihenfolge ueberein
+        // Ueberpruefung ob Index des Textes mit dem der Form uebereinstimmt
+        if (index == temp) {
             antwortIstKorrekt = true;
         }
 
         // Antwort ist nicht korrekt
         if (((view.getId() == R.id.unwahr3) && antwortIstKorrekt) || ((view.getId() == R.id.wahr3) && !antwortIstKorrekt)) {
             // Setzen des neuen Highscores
-            TopScore.highscore_formen = pop.punkte;
+            TopScore.highscore_formen = pop.getPunkte();
 
             if (preferences.getInt(KEY, 0) < TopScore.highscore_formen) {
                 preferencesEditor.putInt(KEY, TopScore.highscore_formen);
@@ -159,12 +168,10 @@ public class Aufgabe_Formen extends AppCompatActivity {
 
             pop.showPopUpWindow();
 
-            punkte = 0;     // Punktestand zurücksetzen bei falscher Antwort (besser als in der Methode selbst, da nicht auf "Exit" bzw. Continue geklickt werden muss, die Punktzahl aber trotzdem zurückgesetzt werden soll.)
-
         } else { // Antwort ist korrekt
-            ++pop.punkte;
-            z = new Zeit(timer, pop.punkte);     // neues Objekt fuer naechste Seite
-            z.laufen(pop);     // neuer Zaehler geht los
+            pop.increaseScore();
+            z = new Zeit(timer, pop.getPunkte());     // neues Objekt fuer naechste Seite
+            z.laufen(pop);     // neuen Zaehler starten
 
             // Symbol und Text werden nicht 2 Mal hintereinander gleich sein
             do {
@@ -186,12 +193,16 @@ public class Aufgabe_Formen extends AppCompatActivity {
 
             // fuer Position des Textes im Symbol
             textView.setX(330.0f);
-            switch (symbol) {
-                case R.drawable.kreis: textView.setY(720.0f); break;
-                case R.drawable.quadrat: textView.setY(732.0f); break;
-                case R.drawable.stern: textView.setY(708.0f); break;
-                case R.drawable.herz: textView.setY(708.0f); break;
-                case R.drawable.dreieck: textView.setY(850.0f); break;
+            if (symbol == R.drawable.kreis) {
+                textView.setY(720.0f);
+            } else if (symbol == R.drawable.quadrat) {
+                textView.setY(732.0f);
+            } else if (symbol == R.drawable.stern) {
+                textView.setY(708.0f);
+            } else if (symbol == R.drawable.herz) {
+                textView.setY(708.0f);
+            } else {    // if symbol == R.drawable.dreieck
+                textView.setY(850.0f);
             }
 
             // Setzen des neuen Textes und der neuen Form

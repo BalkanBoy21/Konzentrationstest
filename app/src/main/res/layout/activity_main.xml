@@ -5,7 +5,7 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00FA9A"
+    android:background="@drawable/gradient_list"
     tools:context=".MainActivity">
 
     <com.google.android.material.button.MaterialButton
@@ -15,6 +15,7 @@
         android:onClick="goToModuleMenu"
         android:text="START"
         android:textSize="30dp"
+        android:textColor="@color/Weiß"
         app:backgroundTint="#DF5353"
         app:cornerRadius="35dp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -1,4 +1,4 @@
-package com.example.konzentrationstest;
+package com.example.konzentrationstest.Modules;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.Html;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -16,6 +15,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.konzentrationstest.MainActivity;
+import com.example.konzentrationstest.PopUpFenster;
+import com.example.konzentrationstest.R;
+import com.example.konzentrationstest.TopScore;
+import com.example.konzentrationstest.Zeit;
 
 import java.util.Arrays;
 
@@ -28,8 +33,10 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
     private final int [] summand2 = new int[summand1.length];
     private final int [] summen = new int[summand1.length];
 
-    private int punkte;
+    // Punkte sind 0 sobald Modul geoeffnet wird
+    private final int punkte = 0;
     private int nth_activity;
+    private final boolean neuerHighScore = false;
 
     //String[] operator = {"+", "-", "root"};         // hier weitermachen
     String operator = "+";
@@ -46,9 +53,8 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
     private ProgressBar timer;
     private Zeit z;
 
-    PopUpFenster pop;
-    boolean neuerHighScore = false;
-    static ImageButton down, up;
+    private PopUpFenster pop;
+    public static ImageButton down, up;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +88,7 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
         preferencesEditor = preferences.edit();
         preferencesEditor.apply();
 
+        // simple Implementierungen fuer die Bestimmung der Summanden
             int [] temp_shuffle = new int[quadratzahlen.length];      // dient als Index nur fuer die Wurzel-Zahlen
 
             // nur fuer alle Wurzeln
@@ -114,9 +121,9 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
             // sehr wichtig, da man ins Menue zurueckgehen kann und die Punkte sonst nicht zurzeckgesetzt werden
             nth_activity = 0;
 
+            // erzeuge Pop-Up-Fenster, das bei falscher Antwort aufgerufen wird
             pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
 
-            punkte = 0;
     }
 
     @Override
@@ -157,7 +164,6 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
     // variable to track event time
     private long mLastClickTime = 0;
 
-    // besser nur eine Methode statt 2, und dann zwischen 2 Fällen unterscheiden
     public void check(View view) {
         // Zeitdifferenz, um zu verhindern, dass 2 Buttons auf einmal geklickt werden
         int difference = 150;
@@ -170,9 +176,11 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
         // alter Zaehler wird gestoppt
         z.running = false;
 
+        // Wieder zuruecksetzen, da neuer Highscore nun normaler Highscore ist
         pop.setNeuerHighScore(false);
 
-        boolean antwortIstKorrekt = false;
+        // Variable um Richtigkeit der Antwort zu ueberpruefen
+        boolean antwortIstKorrekt;
 
         // Folgender Kommentar ergänzt die Minus-Aufgaben, das ist nur der Anfang. Erst ganz zum Schluss machen, wenn alles andere wichtige erledigt ist
         /*
@@ -180,7 +188,7 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
         if (currentOperator.equals("-")) {
             ergebnisIstRichtig = summand1[nth_activity] - summand2[nth_activity] == summen[nth_activity];
         }*/
-        
+
         // Prueft ob Antwort korrekt ist
         if (summand2[nth_activity] == 0) {  // Quadrat
             antwortIstKorrekt = Math.sqrt(summand1[nth_activity]) == summen[nth_activity];
@@ -190,7 +198,7 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
 
         if (((view.getId() == R.id.unwahr) && antwortIstKorrekt) || (((view.getId() == R.id.wahr) && !antwortIstKorrekt))) {        // falsche Antwort wurde eingetippt
             // Setzen des neuen Highscores
-            TopScore.highscore_rechnen = pop.punkte;
+            TopScore.highscore_rechnen = pop.getPunkte();
 
             if (preferences.getInt(KEY, 0) < TopScore.highscore_rechnen) {
                 preferencesEditor.putInt(KEY, TopScore.highscore_rechnen);
@@ -201,11 +209,12 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
 
             pop.showPopUpWindow();
 
-            punkte = 0;
         } else {
-            ++pop.punkte;
-            z = new Zeit(timer, pop.punkte);     // neues Objekt fuer naechste Seite
-            z.laufen(pop);     // neuer Zaehler geht los
+            // erhoehe Punktestand um 1
+            pop.increaseScore();
+            z = new Zeit(timer, pop.getPunkte());     // neues Objekt fuer naechste Seite
+            // neuen Zaehler starten
+            z.laufen(pop);
 
             ++nth_activity;
 

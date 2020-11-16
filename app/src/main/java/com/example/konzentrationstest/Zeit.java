@@ -2,22 +2,28 @@ package com.example.konzentrationstest;
 
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.konzentrationstest.Modules.Aufgabe_Farben;
+import com.example.konzentrationstest.Modules.Aufgabe_Formen;
+import com.example.konzentrationstest.Modules.Aufgabe_Rechnen;
+import com.example.konzentrationstest.Modules.Aufgabe_waehleUnpassendeFarbe;
+
 public class Zeit extends AppCompatActivity {
 
     private final ProgressBar counter;
+    private PopUpFenster pop;
 
-    boolean running = true;
     int punkte = 0;
-
-    String[] diff;
     int milliSec;
 
-    private PopUpFenster pop;
-    static boolean active = true;
+    String[] diff;
+
+    public boolean running = true;
+    public static boolean active = true;
 
     public Zeit (ProgressBar counter, int punkte) {
         this.counter = counter;
@@ -63,31 +69,34 @@ public class Zeit extends AppCompatActivity {
                 int hs = 0;
                 switch (pop.getKEY()) {
                     case "speicherPreferences_Rechnen":
-                        TopScore.highscore_rechnen = pop.punkte;
+                        TopScore.highscore_rechnen = pop.getPunkte();
                         hs = TopScore.highscore_rechnen;
                         // verhindert Button-Klick nachdem die Zeitleiste vorbei ist (durch schnelles Klicken)
                         Aufgabe_Rechnen.down.setEnabled(false);
                         Aufgabe_Rechnen.up.setEnabled(false);
                         break;
                     case "speicherPreferences_Farben":
-                        TopScore.highscore_farben = pop.punkte;
+                        TopScore.highscore_farben = pop.getPunkte();
                         hs = TopScore.highscore_farben;
                         Aufgabe_Farben.down.setEnabled(false);
                         Aufgabe_Farben.up.setEnabled(false);
                         break;
                     case "speicherPreferences_Formen":
-                        TopScore.highscore_formen = pop.punkte;
+                        TopScore.highscore_formen = pop.getPunkte();
                         hs = TopScore.highscore_formen;
                         Aufgabe_Formen.down.setEnabled(false);
                         Aufgabe_Formen.up.setEnabled(false);
                         break;
                     case "speicherPreferences_waehleUnpassendeFarbe":
-                        TopScore.highscore_waehleUnpassendeFarbe = pop.punkte;
+                        TopScore.highscore_waehleUnpassendeFarbe = pop.getPunkte();
                         hs = TopScore.highscore_waehleUnpassendeFarbe;
                         // verhindert Button-Klick nachdem die Zeitleiste vorbei ist (durch schnelles Klicken)
-                        Aufgabe_waehleUnpassendeFarbe.btn1.setEnabled(false);
-                        Aufgabe_waehleUnpassendeFarbe.btn2.setEnabled(false);
-                        Aufgabe_waehleUnpassendeFarbe.btn3.setEnabled(false);
+                        for (ImageButton iv: Aufgabe_waehleUnpassendeFarbe.btns) {
+                            iv.setEnabled(false);
+                        }
+                        //Aufgabe_waehleUnpassendeFarbe.btn1.setEnabled(false);
+                        //Aufgabe_waehleUnpassendeFarbe.btn2.setEnabled(false);
+                        //Aufgabe_waehleUnpassendeFarbe.btn3.setEnabled(false);
                         break;
                 }
 

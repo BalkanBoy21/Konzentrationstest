@@ -1,4 +1,4 @@
-package com.example.konzentrationstest;
+package com.example.konzentrationstest.Modules;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -16,6 +16,12 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.konzentrationstest.MainActivity;
+import com.example.konzentrationstest.PopUpFenster;
+import com.example.konzentrationstest.R;
+import com.example.konzentrationstest.TopScore;
+import com.example.konzentrationstest.Zeit;
+
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
@@ -26,20 +32,18 @@ public class Aufgabe_Farben extends AppCompatActivity {
     private final String [] farben = {"Grün", "Gelb", "Blau", "Rot", "Orange", "Weiß", "Pink", "Schwarz"};
     private final int [] farbCodes = new int[farben.length];
 
-    int punkte;
-
-    SharedPreferences preferences;
-    SharedPreferences.Editor preferencesEditor;
-
-    Dialog epicDialog;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor preferencesEditor;
+    private Dialog epicDialog;
     private final String KEY = "speicherPreferences_Farben";
 
     private ProgressBar timer;
     private Zeit z;
 
-    boolean neuerHighScore = false;
+    private int punkte;
+    private boolean neuerHighScore = false;
 
-    static ImageButton down, up;
+    public static ImageButton down, up;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,9 +128,11 @@ public class Aufgabe_Farben extends AppCompatActivity {
         }
         mLastClickTime = SystemClock.elapsedRealtime();
 
-        z.running = false;  // alter Zaehler wird gestoppt
+        // vorherigen Zaehler stoppen
+        z.running = false;
 
-        pop.setNeuerHighScore(false);   // die Tatsache zuruecksetzen, dass ein neuer Highscore erreicht wurde (da der alte neue highscore der neue normale ist)
+        // Wieder zuruecksetzen, da neuer Highscore nun normaler Highscore ist
+        pop.setNeuerHighScore(false);
 
         String currentText = farbText.getText().toString();
         int currentColor = farbText.getCurrentTextColor();
@@ -143,7 +149,7 @@ public class Aufgabe_Farben extends AppCompatActivity {
 
         if (((view.getId() == R.id.unwahr2) && antwortIstKorrekt) || ((view.getId() == R.id.wahr2) && !antwortIstKorrekt)){   // wenn auf Falsch geklickt wird, das Ergebnis aber richtig ist
             // Setzen des neuen Highscores
-            TopScore.highscore_farben = pop.punkte;
+            TopScore.highscore_farben = pop.getPunkte();
 
             if (preferences.getInt(KEY, 0) < TopScore.highscore_farben) {
                 preferencesEditor.putInt(KEY, TopScore.highscore_farben);
@@ -154,10 +160,9 @@ public class Aufgabe_Farben extends AppCompatActivity {
 
             pop.showPopUpWindow();
 
-            punkte = 0;
         } else {    // Ergebnis ist richtig
-            ++pop.punkte;
-            z = new Zeit(timer, pop.punkte);     // neuer Zaehler wird erstellt
+            pop.increaseScore();
+            z = new Zeit(timer, pop.getPunkte());     // neuer Zaehler wird erstellt
 
             z.laufen(pop);     // neuer Zaehler startet
 

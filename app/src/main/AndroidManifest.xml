@@ -9,10 +9,10 @@
         android:roundIcon="@mipmap/gehirn2"
         android:supportsRtl="true"
         android:theme="@style/Theme.Konzentrationstest">
-        <activity android:name=".Aufgabe_waehleUnpassendeFarbe"></activity>
-        <activity android:name=".Aufgabe_Formen" />
-        <activity android:name=".Aufgabe_Farben" />
-        <activity android:name=".Aufgabe_Rechnen" />
+        <activity android:name=".Modules.Aufgabe_waehleUnpassendeFarbe"></activity>
+        <activity android:name=".Modules.Aufgabe_Formen" />
+        <activity android:name=".Modules.Aufgabe_Farben" />
+        <activity android:name=".Modules.Aufgabe_Rechnen" />
         <activity android:name=".ModuleMenu" />
         <activity android:name=".PopUpFenster"/>
         <activity android:name=".MainActivity">

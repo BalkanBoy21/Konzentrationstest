@@ -1,5 +1,5 @@
 
-package com.example.konzentrationstest;
+package com.example.konzentrationstest.Modules;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.KeyEvent;
@@ -17,6 +16,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.konzentrationstest.MainActivity;
+import com.example.konzentrationstest.PopUpFenster;
+import com.example.konzentrationstest.R;
+import com.example.konzentrationstest.TopScore;
+import com.example.konzentrationstest.Zeit;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -40,7 +45,7 @@ public class Aufgabe_waehleUnpassendeFarbe extends AppCompatActivity {
     private final int[] farbCodes = new int[farben.length];
 
     static ImageButton btn1, btn2, btn3;
-    static ImageButton[] btns;
+    public static ImageButton[] btns;
 
     private Dialog epicDialog;
 
@@ -105,7 +110,6 @@ public class Aufgabe_waehleUnpassendeFarbe extends AppCompatActivity {
 
         btn3.setBackgroundColor(farbCodes[newColor]);
 
-
         // PopUp-Fenster
         epicDialog = new Dialog(this);
 
@@ -128,7 +132,7 @@ public class Aufgabe_waehleUnpassendeFarbe extends AppCompatActivity {
 
         pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
 
-        // Punktestand wird jedes Mal zurueckgesetzt, wenn die Seite neu betreten wird (besonders wenn auf "Beenden" geklickt wird)
+        // Punktestand wird jedes Mal zurueckgesetzt, wenn die Seite neu betreten wird (besonders wenn auf "Verlassen" geklickt wird)
         punkte = 0;
     }
 
@@ -169,8 +173,10 @@ public class Aufgabe_waehleUnpassendeFarbe extends AppCompatActivity {
         // Prueft ob die angegebene Loesung korrekt ist
         boolean ergebnisIstRichtig = true;
 
-        z.running = false;  // alter Zaehler wird gestoppt
+        // alter Zaehler wird gestoppt
+        z.running = false;
 
+        // Wieder zuruecksetzen, da neuer Highscore nun normaler Highscore ist
         pop.setNeuerHighScore(false);
 
         ImageButton clickedButton;
@@ -194,7 +200,7 @@ public class Aufgabe_waehleUnpassendeFarbe extends AppCompatActivity {
 
         if (!ergebnisIstRichtig) {
             // Setzen des neuen Highscores
-            TopScore.highscore_waehleUnpassendeFarbe = pop.punkte;
+            TopScore.highscore_waehleUnpassendeFarbe = pop.getPunkte();
 
             if (preferences.getInt(KEY, 0) < TopScore.highscore_waehleUnpassendeFarbe) {
                 preferencesEditor.putInt(KEY, TopScore.highscore_waehleUnpassendeFarbe);
@@ -205,11 +211,13 @@ public class Aufgabe_waehleUnpassendeFarbe extends AppCompatActivity {
 
             pop.showPopUpWindow();
 
-            punkte = 0; // Nach jedem Schließen eines Pop-Up-Fensters die Punktzahl zurücksetzen
         } else {
-            ++pop.punkte;
-            z = new Zeit(timer, pop.punkte);     // neues Objekt fuer naechste Seite
-            z.laufen(pop);     // neuer Zaehler geht los
+            // Score um 1 erhoehen
+            pop.increaseScore();
+            // neues Objekt fuer naechste Seite
+            z = new Zeit(timer, pop.getPunkte());
+            // neuen Zaehler srtarten
+            z.laufen(pop);
 
             int randomNumber, randomFarbe;
 
@@ -222,23 +230,24 @@ public class Aufgabe_waehleUnpassendeFarbe extends AppCompatActivity {
                 farbText.setText(farben[randomNumber]);
                 farbText.setTextColor(farbCodes[randomFarbe]);
 
-            // nach jedem Klick die Buttons shufflen, damit richtige Antwort nicht immer an der selben (an der dritten) Stelle ist
+            // nach jedem Klick die Buttons shufflen, damit richtige Antwort nicht immer an der dritten Stelle ist
             List<ImageButton> intList = Arrays.asList(btns);
             Collections.shuffle(intList);
             intList.toArray(btns);
 
             // Setzen der Farben
+            // anhand der Textfarbe
             btns[0].setBackgroundColor(farbText.getCurrentTextColor());
+            // anhand des Textes
             btns[1].setBackgroundColor(farbCodes[Arrays.asList(farben).indexOf(farbText.getText().toString())]);
 
-            // die letzte Farbe unterscheidet sich von den anderen beiden und ist somit richtig
+            // die letzte Farbe unterscheidet sich von den anderen beiden und ist richtig
             int newColor;
             do {
                 newColor = (int) (Math.random() * farbCodes.length);
             } while ((farbCodes[Arrays.asList(farben).indexOf(farbText.getText().toString())] == farbCodes[newColor]) || (farbCodes[newColor] == farbText.getCurrentTextColor()));
 
             btns[2].setBackgroundColor(farbCodes[newColor]);
-
         }
 
     }

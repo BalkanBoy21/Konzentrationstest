@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/mediumseagreen"
-    tools:context=".Aufgabe_Rechnen">
+    tools:context=".Modules.Aufgabe_Rechnen">
 
     <ImageButton
         android:id="@+id/unwahr"

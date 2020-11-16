@@ -10,6 +10,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.konzentrationstest.Modules.Aufgabe_Farben;
+import com.example.konzentrationstest.Modules.Aufgabe_Formen;
+import com.example.konzentrationstest.Modules.Aufgabe_Rechnen;
+import com.example.konzentrationstest.Modules.Aufgabe_waehleUnpassendeFarbe;
+
 
 // Settings for playing the game
 public class ModuleMenu extends AppCompatActivity implements AdapterView.OnItemSelectedListener {

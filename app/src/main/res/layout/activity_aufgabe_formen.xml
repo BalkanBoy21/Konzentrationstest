@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/mediumseagreen"
-    tools:context=".Aufgabe_Formen">
+    tools:context=".Modules.Aufgabe_Formen">
 
     <ProgressBar
         android:id="@+id/timer_Formen"

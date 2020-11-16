@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     // speichert zuletzt ausgewaehlten Button, wenn man durch Pop-Up-Fenster ins StartMenu gelangt
     static String lastdisabledButton = "Easy";
 
-    ImageView iv;
+    private ImageView iv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +43,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         // speichert Button ab wenn man durch Verlieren ueber das PopUp-Fenster wieder zurueck ins StartMenu gelangt
         if (lastdisabledButton.equals("Easy")) {
             easy.setEnabled(false);
+            //easy.setBackgroundColor(R.color.Grün);
         } else if (lastdisabledButton.equals("Moderate")) {
             moderate.setEnabled(false);
+            //moderate.setBackgroundColor(R.color.Grün);
         } else if (lastdisabledButton.equals("Hard")) {
             hard.setEnabled(false);
+            //hard.setBackgroundColor(R.color.Grün);
         }
 
     }
@@ -87,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         for (Button btn: btns) {
             if (view.getId() == btn.getId()) {
                 btn.setEnabled(false);
-                btn.setBackgroundColor(R.color.Grün);
+                //btn.setBackgroundColor(R.color.Grün);
                 break;
             }
         }

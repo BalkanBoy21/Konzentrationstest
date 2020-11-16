@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -13,22 +12,26 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.konzentrationstest.Modules.Aufgabe_Farben;
+import com.example.konzentrationstest.Modules.Aufgabe_Formen;
+import com.example.konzentrationstest.Modules.Aufgabe_Rechnen;
+import com.example.konzentrationstest.Modules.Aufgabe_waehleUnpassendeFarbe;
+
 public class PopUpFenster extends AppCompatActivity {
 
-    PopUpFenster p;
-    int punkte;
-    Object obj;
+    private Object obj;
 
-    int highscore;
-    boolean neuerHighScore;
+    private Button leave, stay;
+    private Dialog epicDialog;
 
-    Button leave, stay;
-    Dialog epicDialog;
-
-    TextView text, text2;
-    SharedPreferences preferences;
-    SharedPreferences.Editor preferencesEditor;
+    private TextView text, text2;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor preferencesEditor;
     private final String KEY;      // fuer jede Klasse anderen Key fuer jeweils einen anderen Highscore
+
+    private int punkte;
+    private int highscore;
+    private boolean neuerHighScore;
 
     public PopUpFenster(Object obj, int punkte, int highscore, boolean neuerHighScore, Dialog epicDialog, SharedPreferences preferences, SharedPreferences.Editor preferencesEditor, String key) {
         this.obj = obj;
@@ -41,10 +44,6 @@ public class PopUpFenster extends AppCompatActivity {
         this.preferencesEditor = preferencesEditor;
 
         KEY = key;
-    }
-
-    public boolean getNeuerHighScore() {
-        return this.neuerHighScore;
     }
 
     public void setNeuerHighScore(boolean neuerHighScore) {
@@ -62,6 +61,10 @@ public class PopUpFenster extends AppCompatActivity {
     public String getKEY() {
         return this.KEY;
     }
+
+    public int getPunkte() { return this.punkte; }
+
+    public void increaseScore() { this.punkte += 1; }
 
     public void showPopUpWindow() {
         epicDialog.setContentView(R.layout.activity_popupfenster);
@@ -90,7 +93,7 @@ public class PopUpFenster extends AppCompatActivity {
                     MainActivity.lastdisabledButton = "Easy";
                 } else if (difficulty.equals("Moderate")) {
                     MainActivity.lastdisabledButton = "Moderate";
-                } else if (difficulty.equals("Hard")) {
+                } else { // if (difficulty.equals("Hard")) {
                     MainActivity.lastdisabledButton = "Hard";
                 }
 
@@ -102,7 +105,6 @@ public class PopUpFenster extends AppCompatActivity {
         stay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View view) {
-
                 switch (KEY) {
                     case "speicherPreferences_Rechnen":
                         // macht Buttons wieder frei sobald das Pop-Up-Fenster verlassen wurde
@@ -125,19 +127,18 @@ public class PopUpFenster extends AppCompatActivity {
                         break;
                 }
                 epicDialog.dismiss();
-                // aktiviert Back-Button wieder sobald auf "Weiter geklickt wird"
+                // aktiviert Back-Button wieder sobald auf "Weiter" geklickt wird
                 Zeit.active = true;
+                // Punkte wieder zuruecksetzen
                 punkte = 0;
             }
         });
 
-        // sorgt dafuer dass Aktivität stoppt sobald man beim Laufen der Aktivität ins Hauptmenu zurueckmoechte
-        Log.e("---", "Juckt");
+        // sorgt dafuer dass Aktivität beendet wird sobald man beim Laufen der Aktivität ins Hauptmenu zurueckmoechte
         epicDialog.setCancelable(false);
         epicDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         epicDialog.show();
 
-        //punkte = 0;
     }
 
 }
