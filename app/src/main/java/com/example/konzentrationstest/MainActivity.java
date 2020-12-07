@@ -42,14 +42,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         // speichert Button ab wenn man durch Verlieren ueber das PopUp-Fenster wieder zurueck ins StartMenu gelangt
         if (lastdisabledButton.equals("Easy")) {
+            easy.setBackgroundResource(android.R.drawable.btn_default);
             easy.setEnabled(false);
-            //easy.setBackgroundColor(R.color.Grün);
         } else if (lastdisabledButton.equals("Moderate")) {
+            moderate.setBackgroundResource(android.R.drawable.btn_default);
             moderate.setEnabled(false);
-            //moderate.setBackgroundColor(R.color.Grün);
         } else if (lastdisabledButton.equals("Hard")) {
+            hard.setBackgroundResource(android.R.drawable.btn_default);
             hard.setEnabled(false);
-            //hard.setBackgroundColor(R.color.Grün);
         }
 
     }
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         // Zeitdifferenz, um zu verhindern, dass 2 Buttons auf einmal geklickt werden
         int difference = 100;
         // Preventing multiple clicks, using threshold of 1 second
-        if (SystemClock.elapsedRealtime() - mLastClickTime < 100) {
+        if (SystemClock.elapsedRealtime() - mLastClickTime < difference) {
             return;
         }
         mLastClickTime = SystemClock.elapsedRealtime();
@@ -90,7 +90,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         for (Button btn: btns) {
             if (view.getId() == btn.getId()) {
                 btn.setEnabled(false);
-                //btn.setBackgroundColor(R.color.Grün);
                 break;
             }
         }

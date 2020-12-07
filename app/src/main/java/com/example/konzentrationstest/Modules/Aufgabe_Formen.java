@@ -42,7 +42,7 @@ public class Aufgabe_Formen extends AppCompatActivity {
     int symbol;
 
     private int punkte = 0;
-    private boolean neuerHighScore = false;
+    private final boolean neuerHighScore = false;
     int temp = 0;
 
     private ProgressBar timer;
