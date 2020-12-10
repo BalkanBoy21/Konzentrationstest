@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private static long mLastClickTime = 0;
 
     // setzt angeklickten Schwierigkeitsgrad auf Zustand "enabled", alle anderen auf "disabled"
-    public static void terminateDfficulty(View view) {
+    public static void terminateDfficulty (View view) {
         // Zeitdifferenz, um zu verhindern, dass 2 Buttons auf einmal geklickt werden
         int difference = 100;
         // Preventing multiple clicks, using threshold of 1 second

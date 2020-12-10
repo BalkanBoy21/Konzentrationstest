@@ -5,7 +5,7 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_list"
+    android:background="@color/limegreen"
     tools:context=".MainActivity">
 
     <com.google.android.material.button.MaterialButton
@@ -27,48 +27,48 @@
 
     <Button
         android:id="@+id/moderate"
-        android:layout_width="127dp"
-        android:layout_height="150dp"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="135dp"
+        android:layout_height="227dp"
         android:onClick="terminateDfficulty"
         android:text="Moderate \n(1.5s)"
         app:backgroundTint="#64B7E1"
-        style="?android:attr/borderlessButtonStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.753" />
+        app:layout_constraintVertical_bias="0.938" />
 
     <Button
         android:id="@+id/easy"
-        android:layout_width="127dp"
-        android:layout_height="150dp"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="138dp"
+        android:layout_height="227dp"
         android:onClick="terminateDfficulty"
         android:text="Easy\n(2s)"
         app:backgroundTint="#64B7E1"
-        style="?android:attr/borderlessButtonStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.056"
+        app:layout_constraintHorizontal_bias="0.01"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.753" />
+        app:layout_constraintVertical_bias="0.938" />
 
     <Button
         android:id="@+id/hard"
-        android:layout_width="127dp"
-        android:layout_height="150dp"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="135dp"
+        android:layout_height="227dp"
         android:onClick="terminateDfficulty"
         android:text="Hard \n(1s)"
         app:backgroundTint="#64B7E1"
-        style="?android:attr/borderlessButtonStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.753" />
+        app:layout_constraintVertical_bias="0.938" />
 
     <TextView
         android:id="@+id/textView"
