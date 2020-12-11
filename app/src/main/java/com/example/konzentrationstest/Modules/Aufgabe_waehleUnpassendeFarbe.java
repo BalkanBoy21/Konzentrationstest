@@ -40,7 +40,8 @@ public class Aufgabe_waehleUnpassendeFarbe extends AppCompatActivity {
 
     private TextView farbText;
 
-    private final String[] farben = {"Grün", "Gelb", "Blau", "Rot", "Orange", "Pink", "Schwarz"};
+    //private final String[] farben = {"Grün", "Gelb", "Blau", "Rot", "Orange", "Pink", "Schwarz"};
+    private final String[] farben = {"Green", "Yellow", "Blue", "Red", "Orange", "Pink", "Black"};
 
     private final int[] farbCodes = new int[farben.length];
 

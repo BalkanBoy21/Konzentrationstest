@@ -34,7 +34,9 @@ import java.util.Arrays;
 public class Aufgabe_Formen extends AppCompatActivity {
 
     // wichtig: formenText und symbolDateien muessen 1:1 in der gleichen Reihenfolge sein
-    private final String [] formenText = {"Kreis", "Quadrat", "Stern", "Herz", "Dreieck"};
+//    private final String [] formenText = {"Kreis", "Quadrat", "Stern", "Herz", "Dreieck"};
+    private final String [] formenText = {"Circle", "Rectangle", "Star", "Heart", "Triangle"};
+
     private final int []symbolDateien = {R.drawable.kreis, R.drawable.quadrat, R.drawable.stern, R.drawable.herz, R.drawable.dreieck};
 
     private ImageView form;
@@ -192,7 +194,7 @@ public class Aufgabe_Formen extends AppCompatActivity {
             } while (formenText[randomSymbol].equals(lastText) || (lastSymbol == symbol));
 
             // fuer Position des Textes im Symbol
-            textView.setX(330.0f);
+            textView.setX(295.0f);
             if (symbol == R.drawable.kreis) {
                 textView.setY(720.0f);
             } else if (symbol == R.drawable.quadrat) {
