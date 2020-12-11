@@ -34,6 +34,13 @@
     <color name="teal">#3f888f</color>
     <color name="Schwarz">#000000</color>
 
+    <color name="Green">#008000</color>
+    <color name="Yellow">#FFFF00</color>
+    <color name="Blue">#0000FF</color>
+    <color name="Red">#ff0000</color>
+    <color name="Black">#000000</color>
+    <color name="White">#FFFFFFFF</color>
+
     <string-array name="colors">
         <item>@color/yellowgreen</item>
         <item>@color/greenyellow</item>
