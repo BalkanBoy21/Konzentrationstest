@@ -9,7 +9,7 @@
 
     <Button
         android:id="@+id/button_rechnen"
-        android:layout_width="411dp"
+        android:layout_width="fill_parent"
         android:layout_height="183dp"
         android:layout_below="@+id/button_farbe"
         android:onClick="startModule"
@@ -17,14 +17,13 @@
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/button_farbe"
-        android:layout_width="411dp"
+        android:layout_width="fill_parent"
         android:layout_height="183dp"
         android:layout_below="@+id/button_formen"
         android:onClick="startModule"
@@ -32,35 +31,32 @@
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.333" />
 
     <Button
         android:id="@+id/button_formen"
-        android:layout_width="411dp"
+        android:layout_width="fill_parent"
         android:layout_height="183dp"
         android:onClick="startModule"
         android:text="Shapes"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.667" />
 
     <Button
         android:id="@+id/button_waehleUnpassendeFarbe"
-        android:layout_width="411dp"
+        android:layout_width="fill_parent"
         android:layout_height="183dp"
         android:onClick="startModule"
         android:text="Inappropriate Color"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />

@@ -27,11 +27,15 @@ public class PopUpFenster extends AppCompatActivity {
     private TextView text, text2;
     private SharedPreferences preferences;
     private SharedPreferences.Editor preferencesEditor;
-    private final String KEY;      // fuer jede Klasse anderen Key fuer jeweils einen anderen Highscore
+    private String KEY;      // fuer jede Klasse anderen Key fuer jeweils einen anderen Highscore
 
     private int punkte;
     private int highscore;
     private boolean neuerHighScore;
+
+    public PopUpFenster() {
+
+    }
 
     public PopUpFenster(Object obj, int punkte, int highscore, boolean neuerHighScore, Dialog epicDialog, SharedPreferences preferences, SharedPreferences.Editor preferencesEditor, String key) {
         this.obj = obj;
@@ -75,13 +79,13 @@ public class PopUpFenster extends AppCompatActivity {
         text = epicDialog.findViewById(R.id.anzeigeScore);
         text2 = epicDialog.findViewById(R.id.anzeigeHighscore);
 
-        String punkteText = "\n\tPunkte: " + this.punkte;
+        String punkteText = "\n\tScore: " + this.punkte;
         text.setText(punkteText);
 
         // Text fuer Highscore
         String displayedText = "\t\t\t\t\tHighscore: " + preferences.getInt(KEY, 0);
         if (neuerHighScore) {
-            displayedText = "Neuer Highscore: " + preferences.getInt(KEY, 0);
+            displayedText = "New Highscore: " + preferences.getInt(KEY, 0);
         }
         text2.setText(displayedText);
 

@@ -72,7 +72,8 @@ public class Aufgabe_waehleUnpassendeFarbe extends AppCompatActivity {
 
         // durchsucht alle Farben in colors.xml (und weitere) und filtert alle Farben heraus, die im Array "farben" enthalten sind
         try {
-            Field[] fields = Class.forName(getPackageName() + ".R$color").getDeclaredFields();
+            Field[] fields = Class.forName("com.example.konzentrationstest" + ".R$color").getDeclaredFields();
+            //Field[] fields = Class.forName();
             String colorName;
             for (Field farbe : fields) {
                 colorName = farbe.getName();

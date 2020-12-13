@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Konzentrationstest</string>
+    <string name="app_name">Braining_Test</string>
     <string-array name="difficulty_items">
         <item>Easy (5s)</item>
         <item>Moderate (3s)</item>

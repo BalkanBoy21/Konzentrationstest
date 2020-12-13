@@ -13,12 +13,11 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="359dp"
         android:layout_height="46dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
         android:max="3"
         android:scaleX="1"
         android:scaleY="4"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023" />
@@ -48,7 +47,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.014"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timer_Rechnen"
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/thumbs_down" />
 
