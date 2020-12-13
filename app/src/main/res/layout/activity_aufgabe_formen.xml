@@ -64,15 +64,15 @@
 
     <TextView
         android:id="@+id/formText"
-        android:layout_width="181dp"
-        android:layout_height="50dp"
+        android:layout_width="152dp"
+        android:layout_height="51dp"
         android:text="TextView"
         android:textAlignment="center"
         android:textSize="35dp"
         app:layout_constraintBottom_toBottomOf="@+id/formSymbol"
         app:layout_constraintEnd_toEndOf="@+id/formSymbol"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="@+id/formSymbol"
         app:layout_constraintTop_toTopOf="@+id/formSymbol"
-        app:layout_constraintVertical_bias="0.462" />
+        app:layout_constraintVertical_bias="0.49" />
 </androidx.constraintlayout.widget.ConstraintLayout>

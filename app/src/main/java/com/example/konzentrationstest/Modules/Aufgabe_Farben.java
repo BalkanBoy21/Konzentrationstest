@@ -29,8 +29,7 @@ public class Aufgabe_Farben extends AppCompatActivity {
 
     private TextView farbText;
 
-    //private final String [] farben = {"Grün", "Gelb", "Blau", "Rot", "Orange", "Weiß", "Pink", "Schwarz"};
-    private final String[] farben = {"Green", "Yellow", "Blue", "Red", "Orange", "White", "Pink", "Black"};
+    private final String [] farben = {"Grün", "Gelb", "Blau", "Rot", "Orange", "Weiß", "Pink", "Schwarz"};
     private final int [] farbCodes = new int[farben.length];
 
     private SharedPreferences preferences;
