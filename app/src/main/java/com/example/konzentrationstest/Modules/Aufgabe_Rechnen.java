@@ -63,7 +63,7 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aufgabe_rechnen);
 
-        textFeld = findViewById(R.id.aufgabenFeld);
+        textFeld = findViewById(R.id.textFarbe);
         timer = findViewById(R.id.timer_Rechnen);
         timer.setProgressTintList(ColorStateList.valueOf(Color.rgb(0,0, 139)));
 

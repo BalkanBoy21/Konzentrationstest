@@ -34,7 +34,7 @@ import java.util.Arrays;
 public class Aufgabe_Formen extends AppCompatActivity {
 
     // wichtig: formenText und symbolDateien muessen 1:1 in der gleichen Reihenfolge sein
-    private final String [] formenText = {"Kreis", "Quadrat", "Stern", "Herz", "Dreieck"};
+    private final String [] formenText = {"Circle", "Rectangle", "Star", "Heart", "Triangle"};
     private final int []symbolDateien = {R.drawable.kreis, R.drawable.quadrat, R.drawable.stern, R.drawable.herz, R.drawable.dreieck};
 
     private ImageView form;
@@ -95,16 +95,6 @@ public class Aufgabe_Formen extends AppCompatActivity {
         randomSymbol = (int) (Math.random() * symbolDateien.length);
         temp = randomSymbol;        // sehr wichtig fuer erste If-Anweisung in Methode check (nur fuer den Uebergang vom ersten zum zweiten Bild)
         symbol = symbolDateien[randomSymbol];
-
-        // fuer Position des Textes im Symbol
-        textView.setX(5.0f);
-        switch (symbol) {
-            case R.drawable.kreis: textView.setY(20.0f); break;
-            case R.drawable.quadrat: textView.setY(20.0f); break;
-            case R.drawable.stern: textView.setY(2.0f); break;
-            case R.drawable.herz: textView.setY(0.0f); break;
-            case R.drawable.dreieck: textView.setY(180.0f); break;
-        }
 
         // Erstellen des Starttextes und der Startform
         textView.setText(formenText[(int) (Math.random() * formenText.length)]);
@@ -190,20 +180,6 @@ public class Aufgabe_Formen extends AppCompatActivity {
                 }
                 symbol = symbolDateien[temp];
             } while (formenText[randomSymbol].equals(lastText) || (lastSymbol == symbol));
-
-            // fuer Position des Textes im Symbol
-            textView.setX(330.0f);
-            if (symbol == R.drawable.kreis) {
-                textView.setY(720.0f);
-            } else if (symbol == R.drawable.quadrat) {
-                textView.setY(732.0f);
-            } else if (symbol == R.drawable.stern) {
-                textView.setY(708.0f);
-            } else if (symbol == R.drawable.herz) {
-                textView.setY(708.0f);
-            } else {    // if symbol == R.drawable.dreieck
-                textView.setY(850.0f);
-            }
 
             // Setzen des neuen Textes und der neuen Form
             textView.setText(formenText[randomSymbol]);

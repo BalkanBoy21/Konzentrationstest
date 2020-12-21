@@ -40,7 +40,8 @@ public class Aufgabe_waehleUnpassendeFarbe extends AppCompatActivity {
 
     private TextView farbText;
 
-    private final String[] farben = {"Grün", "Gelb", "Blau", "Rot", "Orange", "Pink", "Schwarz"};
+    //private final String[] farben = {"Grün", "Gelb", "Blau", "Rot", "Orange", "Pink", "Schwarz"};
+    private String[] farben = {"Green", "Yellow", "Blue", "Red", "Orange", "Pink", "Black"};
 
     private final int[] farbCodes = new int[farben.length];
 
@@ -187,10 +188,8 @@ public class Aufgabe_waehleUnpassendeFarbe extends AppCompatActivity {
             clickedButton = btn1;
         } else if (id == R.id.farbe2) {
             clickedButton = btn2;
-        } else if (id == R.id.farbe3) {
+        } else { //if (id == R.id.farbe3) {
             clickedButton = btn3;
-        } else {    // Nur fuer den Fall der Faelle, sollte aber auf keinen Fall dazu kommen
-            clickedButton = btn1;
         }
 
         int clickedButtonColor = ((ColorDrawable) clickedButton.getBackground()).getColor();
