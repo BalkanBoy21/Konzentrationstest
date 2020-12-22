@@ -34,7 +34,7 @@ import java.util.Arrays;
 public class Aufgabe_Formen extends AppCompatActivity {
 
     // wichtig: formenText und symbolDateien muessen 1:1 in der gleichen Reihenfolge sein
-    private final String [] formenText = {"Circle", "Rectangle", "Star", "Heart", "Triangle"};
+    private final String[] formenText = {"Kreis", "Quadrat", "Stern", "Herz", "Dreieck"};
     private final int []symbolDateien = {R.drawable.kreis, R.drawable.quadrat, R.drawable.stern, R.drawable.herz, R.drawable.dreieck};
 
     private ImageView form;
@@ -53,7 +53,6 @@ public class Aufgabe_Formen extends AppCompatActivity {
     // Pop-Up-Hilfsmittel
     private SharedPreferences preferences;
     private SharedPreferences.Editor preferencesEditor;
-    private Dialog epicDialog;
     private final String KEY = "speicherPreferences_Formen";
 
     public static ImageButton down, up;
@@ -73,7 +72,7 @@ public class Aufgabe_Formen extends AppCompatActivity {
         up = findViewById(R.id.wahr3);
 
         // PopUp-Fenster
-        epicDialog = new Dialog(this);
+        Dialog epicDialog = new Dialog(this);
 
         // Setzen der max. Sekundenzahl durch ausgewaehlten Schwierigkeitsgrad
         String[] diff = MainActivity.getCurrentDifficultyText();

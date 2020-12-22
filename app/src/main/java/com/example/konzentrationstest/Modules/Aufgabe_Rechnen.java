@@ -48,7 +48,6 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
     private SharedPreferences preferences;
     private SharedPreferences.Editor preferencesEditor;
     private final String KEY = "speicherPreferences_Rechnen";
-    private Dialog epicDialog;
 
     private ProgressBar timer;
     private Zeit z;
@@ -70,7 +69,7 @@ public class Aufgabe_Rechnen extends AppCompatActivity {
         down = findViewById(R.id.unwahr);
         up = findViewById(R.id.wahr);
 
-        epicDialog = new Dialog(this);
+        Dialog epicDialog = new Dialog(this);
 
         // Setzen der max. Sekundenzahl durch ausgewaehlten Schwierigkeitsgrad
         String[] diff = MainActivity.getCurrentDifficultyText();

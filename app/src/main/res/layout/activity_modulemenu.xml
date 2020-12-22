@@ -6,7 +6,7 @@
     android:background="@color/mediumseagreen"
     tools:context=".ModuleMenu"
     android:orientation="vertical"
-    android:resizeableActivity="false">
+    android:screenOrientation="portrait">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="startModule"
-            android:text="Arithmetic"
+            android:text="Rechnen"
             android:textSize="30dp" />
 
         <Button
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="startModule"
-            android:text="Color words"
+            android:text="Farbwörter"
             android:textSize="30dp" />
 
         <Button
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="startModule"
-            android:text="Shapes"
+            android:text="Formen"
             android:textSize="30dp" />
 
         <Button
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="startModule"
-            android:text="Inappropriate colors"
+            android:text="Unpassende Farbe wählen"
             android:textSize="30dp" />
 
     </LinearLayout>

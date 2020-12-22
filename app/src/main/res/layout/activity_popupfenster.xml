@@ -7,9 +7,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:resizeableActivity="false"
-    android:background="@color/Blau"
-    >
+    android:screenOrientation="portrait"
+    android:background="@color/Blau">
 
     <androidx.cardview.widget.CardView
         android:layout_width="338dp"

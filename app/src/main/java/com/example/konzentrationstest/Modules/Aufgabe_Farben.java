@@ -7,7 +7,6 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -29,21 +28,19 @@ public class Aufgabe_Farben extends AppCompatActivity {
 
     private TextView farbText;
 
-    //private final String [] farben = {"Grün", "Gelb", "Blau", "Rot", "Orange", "Weiß", "Pink", "Schwarz"};
-
-    private String[] farben = {"Green", "Yellow", "Blue", "Red", "Orange", "White", "Pink", "Black"};
+    private final String [] farben = {"Grün", "Gelb", "Blau", "Rot", "Orange", "Weiß", "Pink", "Schwarz"};
+    //private String[] farben = {"Green", "Yellow", "Blue", "Red", "Orange", "White", "Pink", "Black"};
     private final int [] farbCodes = new int[farben.length];
 
     private SharedPreferences preferences;
     private SharedPreferences.Editor preferencesEditor;
-    private Dialog epicDialog;
     private final String KEY = "speicherPreferences_Farben";
 
     private ProgressBar timer;
     private Zeit z;
 
     private int punkte;
-    private boolean neuerHighScore = false;
+    private final boolean neuerHighScore = false;
 
     public static ImageButton down, up;
 
@@ -61,7 +58,7 @@ public class Aufgabe_Farben extends AppCompatActivity {
 
         farbText = findViewById(R.id.textFarbe);
 
-        epicDialog = new Dialog(this);
+        Dialog epicDialog = new Dialog(this);
 
         // Setzen der max. Sekundenzahl durch ausgewaehlten Schwierigkeitsgrad
         String[] diff = MainActivity.getCurrentDifficultyText();
@@ -108,7 +105,6 @@ public class Aufgabe_Farben extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        Log.d("----", "Nein");
         // nur zurueckgehen wenn die Zeit nicht am Laufen ist
         if ((keyCode == KeyEvent.KEYCODE_BACK) && (!Zeit.active)) {
             //preventing default implementation previous to android.os.Build.VERSION_CODES.ECLAIR

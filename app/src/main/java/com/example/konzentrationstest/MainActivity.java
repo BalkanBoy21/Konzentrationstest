@@ -3,6 +3,8 @@ package com.example.konzentrationstest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private static Button[] btns;
 
     // speichert zuletzt ausgewaehlten Button, wenn man durch Pop-Up-Fenster ins StartMenu gelangt
-    static String lastdisabledButton = "Easy";
+    static String lastdisabledButton = "Leicht";
 
     private ImageView iv;
 
@@ -41,13 +43,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // speichert Button ab wenn man durch Verlieren ueber das PopUp-Fenster wieder zurueck ins StartMenu gelangt
-        if (lastdisabledButton.equals("Easy")) {
+        if (lastdisabledButton.equals("Leicht")) {
             easy.setBackgroundResource(android.R.drawable.btn_default);
             easy.setEnabled(false);
-        } else if (lastdisabledButton.equals("Moderate")) {
+        } else if (lastdisabledButton.equals("Mittel")) {
             moderate.setBackgroundResource(android.R.drawable.btn_default);
             moderate.setEnabled(false);
-        } else if (lastdisabledButton.equals("Hard")) {
+        } else if (lastdisabledButton.equals("Schwer")) {
             hard.setBackgroundResource(android.R.drawable.btn_default);
             hard.setEnabled(false);
         }
@@ -109,6 +111,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void goToModuleMenu(View view) {
         Intent myIntent = new Intent(MainActivity.this, ModuleMenu.class);
         MainActivity.this.startActivity(myIntent);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(startMain);
+
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            //preventing default implementation previous to android.os.Build.VERSION_CODES.ECLAIR
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }
