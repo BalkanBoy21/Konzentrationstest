@@ -3,7 +3,6 @@ package com.example.konzentrationstest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -43,13 +42,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // speichert Button ab wenn man durch Verlieren ueber das PopUp-Fenster wieder zurueck ins StartMenu gelangt
-        if (lastdisabledButton.equals("Leicht")) {
+        if (lastdisabledButton.equals("Leicht".trim())) {
             easy.setBackgroundResource(android.R.drawable.btn_default);
             easy.setEnabled(false);
-        } else if (lastdisabledButton.equals("Mittel")) {
+        } else if (lastdisabledButton.equals("Mittel".trim())) {
             moderate.setBackgroundResource(android.R.drawable.btn_default);
             moderate.setEnabled(false);
-        } else if (lastdisabledButton.equals("Schwer")) {
+        } else if (lastdisabledButton.equals("Schwer".trim())) {
             hard.setBackgroundResource(android.R.drawable.btn_default);
             hard.setEnabled(false);
         }

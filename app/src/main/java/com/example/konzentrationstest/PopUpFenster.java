@@ -93,12 +93,12 @@ public class PopUpFenster extends AppCompatActivity {
             @Override
             public void onClick (View view) {
                 String difficulty = MainActivity.getCurrentDifficultyText()[0];
-                if (difficulty.equals("Easy")) {
-                    MainActivity.lastdisabledButton = "Easy";
-                } else if (difficulty.equals("Moderate")) {
-                    MainActivity.lastdisabledButton = "Moderate";
+                if (difficulty.equals("Leicht")) {
+                    MainActivity.lastdisabledButton = "Leicht";
+                } else if (difficulty.equals("Mittel")) {
+                    MainActivity.lastdisabledButton = "Mittel";
                 } else { // if (difficulty.equals("Hard")) {
-                    MainActivity.lastdisabledButton = "Hard";
+                    MainActivity.lastdisabledButton = "Schwer";
                 }
 
                 Intent myIntent = new Intent( (AppCompatActivity) obj, MainActivity.class);

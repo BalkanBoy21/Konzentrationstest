@@ -62,7 +62,15 @@ public class Aufgabe_Farben extends AppCompatActivity {
 
         // Setzen der max. Sekundenzahl durch ausgewaehlten Schwierigkeitsgrad
         String[] diff = MainActivity.getCurrentDifficultyText();
-        int milliSec = Integer.parseInt(String.valueOf(Double.parseDouble(diff[1]) * 1000).split("\\.")[0]);
+
+        int milliSec;
+        if (diff[1].equals("Leicht")) {
+            milliSec = 2000;
+        } else if (diff[1].equals("Mittel")) {
+            milliSec = 1500;
+        } else {
+            milliSec = 1000;
+        }
 
         // Das Maximum fuer die Zeitleiste setzen
         timer.setMax((milliSec*9) / ((milliSec / 100) / 5));

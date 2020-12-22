@@ -9,6 +9,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -76,7 +77,17 @@ public class Aufgabe_Formen extends AppCompatActivity {
 
         // Setzen der max. Sekundenzahl durch ausgewaehlten Schwierigkeitsgrad
         String[] diff = MainActivity.getCurrentDifficultyText();
-        int milliSec = Integer.parseInt(String.valueOf(Double.parseDouble(diff[1]) * 1000).split("\\.")[0]);
+        int milliSec;
+        Log.d("---", "Diff:" + diff[1]);
+        if (diff[1].equals("Leicht")) {
+            milliSec = 2000;
+        } else if (diff[1].equals("Mittel")) {
+            milliSec = 1500;
+        } else {
+            milliSec = 1000;
+        }
+
+        //int milliSec = Integer.parseInt(String.valueOf(Double.parseDouble(diff[1]) * 1000).split("\\.")[0]);
 
         // Das Maximum fuer die Zeitleiste setzen
         timer.setMax((milliSec*9) / ((milliSec / 100) / 5));
