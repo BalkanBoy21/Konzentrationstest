@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mediumseagreen"
-    tools:context=".ModuleMenu"
+    android:background="#3993B6"
     android:orientation="vertical"
-    android:screenOrientation="portrait">
+    android:screenOrientation="portrait"
+    tools:context=".ModuleMenu">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,7 +25,8 @@
             android:layout_weight="1"
             android:onClick="startModule"
             android:text="Rechnen"
-            android:textSize="30dp" />
+            android:textSize="30dp"
+            app:backgroundTint="#3A7CAF" />
 
         <Button
             android:id="@+id/button_farbe"
@@ -33,7 +35,8 @@
             android:layout_weight="1"
             android:onClick="startModule"
             android:text="Farbwörter"
-            android:textSize="30dp" />
+            android:textSize="30dp"
+            app:backgroundTint="#5EA4CC" />
 
         <Button
             android:id="@+id/button_formen"
@@ -42,7 +45,8 @@
             android:layout_weight="1"
             android:onClick="startModule"
             android:text="Formen"
-            android:textSize="30dp" />
+            android:textSize="30dp"
+            app:backgroundTint="#1786E8" />
 
         <Button
             android:id="@+id/button_waehleUnpassendeFarbe"
@@ -51,7 +55,8 @@
             android:layout_weight="1"
             android:onClick="startModule"
             android:text="Unpassende Farbe wählen"
-            android:textSize="30dp" />
+            android:textSize="30dp"
+            app:backgroundTint="#116391" />
 
     </LinearLayout>
 </LinearLayout>

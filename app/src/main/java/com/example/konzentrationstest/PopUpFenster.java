@@ -33,10 +33,6 @@ public class PopUpFenster extends AppCompatActivity {
     private int highscore;
     private boolean neuerHighScore;
 
-    public PopUpFenster() {
-
-    }
-
     public PopUpFenster(Object obj, int punkte, int highscore, boolean neuerHighScore, Dialog epicDialog, SharedPreferences preferences, SharedPreferences.Editor preferencesEditor, String key) {
         this.obj = obj;
         this.punkte = punkte;

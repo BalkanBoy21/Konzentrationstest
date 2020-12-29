@@ -5,26 +5,27 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/limegreen"
+    android:background="@color/teal"
     android:screenOrientation="portrait"
     tools:context=".MainActivity">
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/startBtn"
-        android:layout_width="210dp"
-        android:layout_height="101dp"
+        android:layout_width="189dp"
+        android:layout_height="90dp"
+        android:background="@drawable/button_border"
         android:onClick="goToModuleMenu"
         android:text="START"
-        android:textSize="30dp"
         android:textColor="@color/Weiß"
-        app:backgroundTint="#DF5353"
+        android:textSize="30dp"
+        app:backgroundTint="#DC2837"
         app:cornerRadius="35dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.428" />
+        app:layout_constraintVertical_bias="0.408" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -83,22 +84,20 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.938" />
 
-</LinearLayout>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="116dp"
-        android:text="Braining"
+        android:layout_marginTop="132dp"
+        android:text="BRAINING"
         android:textColor="#000000"
         android:textSize="45dp"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textStyle="italic"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/brainIcon"

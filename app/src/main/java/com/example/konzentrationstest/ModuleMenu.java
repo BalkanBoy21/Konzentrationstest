@@ -31,11 +31,6 @@ public class ModuleMenu extends AppCompatActivity implements AdapterView.OnItemS
         Button b3 = findViewById(R.id.button_formen);
         Button b4 = findViewById(R.id.button_waehleUnpassendeFarbe);
 
-        b1.setBackgroundColor(getResources().getColor(R.color.limegreen));
-        b2.setBackgroundColor(getResources().getColor(R.color.lightgreen));
-        b3.setBackgroundColor(getResources().getColor(R.color.mediumspringgreen));
-        b4.setBackgroundColor(getResources().getColor(R.color.springgreen));
-
         b1.setTextColor(getResources().getColor(R.color.white));
         b2.setTextColor(getResources().getColor(R.color.white));
         b3.setTextColor(getResources().getColor(R.color.white));
