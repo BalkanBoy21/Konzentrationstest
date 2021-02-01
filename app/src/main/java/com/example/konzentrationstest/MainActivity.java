@@ -13,16 +13,25 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * This class represents the main menu.
+ */
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    // buttons for difficulty
     static Button easy, moderate, hard;
+
+    // temporary variable used for saving the state of the last clicked button
     private static Button[] btns;
 
-    // speichert zuletzt ausgewaehlten Button, wenn man durch Pop-Up-Fenster ins StartMenu gelangt
+    // saves last clicked button to remember the difficulty of the game
     static String lastdisabledButton = "Leicht";
 
-    private ImageView iv;
 
+    /**
+     * A method which is called when the program is run
+     * @param savedInstanceState reference to a bundle object that is passed into the onCreate method of every Android Activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getSupportActionBar().hide(); // hide the title bar
@@ -34,14 +43,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         hard = findViewById(R.id.hard);
         btns = new Button[] {easy, moderate, hard};
 
-        iv = findViewById(R.id.brainIcon);
+        ImageView iv = findViewById(R.id.brainIcon);
         iv.setImageResource(R.drawable.braining_finalicon);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.difficulty_items, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        // speichert Button ab wenn man durch Verlieren ueber das PopUp-Fenster wieder zurueck ins StartMenu gelangt
+        // saves button when player enters start menu after loosing the game
         if (lastdisabledButton.equals("Leicht".trim())) {
             easy.setBackgroundResource(android.R.drawable.btn_default);
             easy.setEnabled(false);
@@ -55,14 +64,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
-    // gibt ausgewaehlten Schwierigkeitsgrad zurueck
+    /**
+     * Method gets chosen difficulty
+     * @return text of the current chosen difficulty
+     */
     public static String[] getCurrentDifficultyText() {
         String[] difficultyParts = new String[2];
         for (Button difficulty: btns) {
             if (!difficulty.isEnabled()) {
                 String[] temp = difficulty.getText().toString().split("\\(");
-                difficultyParts[0] = temp[0].trim();       // Schwierigkeitsgrad
-                difficultyParts[1] = temp[1].trim().split("s")[0].trim();       // das letzte Trim fuer den Fall, dass zwischen Sekunden und "s" noch eine Leerzeile vorhanden ist
+                // difficulty
+                difficultyParts[0] = temp[0].trim();
+                // get rest of the string
+                difficultyParts[1] = temp[1].trim().split("s")[0].trim();
             }
         }
         return difficultyParts;
@@ -71,9 +85,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     // variable to track event time
     private static long mLastClickTime = 0;
 
-    // setzt angeklickten Schwierigkeitsgrad auf Zustand "enabled", alle anderen auf "disabled"
+    /**
+     * This method sets the new difficulty depending on the clicked button
+     * @param view view of the method and the class' xml file.
+     */
     public static void terminateDfficulty (View view) {
-        // Zeitdifferenz, um zu verhindern, dass 2 Buttons auf einmal geklickt werden
+        // time difference to prevent clicking on two buttons at the same time
         int difference = 100;
         // Preventing multiple clicks, using threshold of 1 second
         if (SystemClock.elapsedRealtime() - mLastClickTime < difference) {
@@ -88,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         hard.setEnabled(true);
         hard.setBackgroundResource(android.R.drawable.btn_default);
 
+        // checks which button is clicked and enable it
         for (Button btn: btns) {
             if (view.getId() == btn.getId()) {
                 btn.setEnabled(false);
@@ -105,8 +123,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
     }
-
-    // oeffnet das ModuleMenu
+    
+    /**
+     * Opens module menu when back button is clicked
+     * @param view view of the method and the class' xml file.
+     */
     public void goToModuleMenu(View view) {
         Intent myIntent = new Intent(MainActivity.this, ModuleMenu.class);
         MainActivity.this.startActivity(myIntent);

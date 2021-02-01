@@ -10,13 +10,12 @@
         android:roundIcon="@mipmap/gehirn2"
         android:supportsRtl="true"
         android:theme="@style/Theme.Konzentrationstest">
-        <activity android:name=".Modules.Aufgabe_waehleUnpassendeFarbe"></activity>
-        <activity android:name=".Modules.Aufgabe_Formen" />
-        <activity android:name=".Modules.Aufgabe_Farben" />
-        <activity android:name=".Modules.Aufgabe_Rechnen" />
-        <activity android:name=".ModuleMenu" />
-        <activity android:name=".PopUpFenster"/>
-        <activity android:name=".MainActivity">
+        <activity android:name=".Modules.Aufgabe_waehleUnpassendeFarbe" android:screenOrientation="portrait"/>
+        <activity android:name=".Modules.Aufgabe_Formen" android:screenOrientation="portrait"/>
+        <activity android:name=".Modules.Aufgabe_Farben" android:screenOrientation="portrait"/>
+        <activity android:name=".Modules.Aufgabe_Rechnen" android:screenOrientation="portrait"/>
+        <activity android:name=".ModuleMenu" android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

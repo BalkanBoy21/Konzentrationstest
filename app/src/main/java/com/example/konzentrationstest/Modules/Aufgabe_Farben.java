@@ -24,6 +24,9 @@ import com.example.konzentrationstest.Zeit;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
+/**
+ * This class handles the color module.
+ */
 public class Aufgabe_Farben extends AppCompatActivity {
 
     private TextView farbText;
@@ -40,9 +43,10 @@ public class Aufgabe_Farben extends AppCompatActivity {
     private Zeit z;
 
     private int punkte;
-    private final boolean neuerHighScore = false;
+    private final boolean newHighscore = false;
 
     public static ImageButton down, up;
+    private PopUpFenster pop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +81,7 @@ public class Aufgabe_Farben extends AppCompatActivity {
 
         // Die erste Timeline sollte aufgefuellt sein
         timer.setProgress(timer.getMax());
-        z = new Zeit(timer, punkte);
+        z = new Zeit(timer);
 
         //setting preferences
         this.preferences = this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);
@@ -100,20 +104,20 @@ public class Aufgabe_Farben extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        // Fuer erste Seite
+        // first page
         farbText.setText(farben[(int) (Math.random() * farben.length)]);
         farbText.setTextColor(farbCodes[(int) (Math.random() * farbCodes.length)]);
 //        ansicht.setBackgroundColor(farbCodes[(int) (Math.random() * farbCodes.length)]);
 
         this.punkte = 0;       // sehr wichtig, da man ins Menue zurueckgehen kann
 
-        pop = new PopUpFenster(Aufgabe_Farben.this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
+        pop = new PopUpFenster(Aufgabe_Farben.this, punkte, newHighscore, epicDialog, preferences, preferencesEditor, KEY);
 
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // nur zurueckgehen wenn die Zeit nicht am Laufen ist
+        // when time isn't running
         if ((keyCode == KeyEvent.KEYCODE_BACK) && (!Zeit.active)) {
             //preventing default implementation previous to android.os.Build.VERSION_CODES.ECLAIR
             return true;
@@ -124,9 +128,12 @@ public class Aufgabe_Farben extends AppCompatActivity {
     // variable to track event time
     private long mLastClickTime = 0;
 
-    PopUpFenster pop;
+    /**
+     * This method handles all button events of this page.
+     * @param view view of the method and the class' xml file.
+     */
     public void check(View view) {
-        // Zeitdifferenz, um zu verhindern, dass 2 Buttons auf einmal geklickt werden
+        // time difference to prevent clicking on two buttons at the same time
         int difference = 150;
         // Preventing multiple clicks, using threshold of 1 second
         if (SystemClock.elapsedRealtime() - mLastClickTime < difference) {
@@ -134,48 +141,49 @@ public class Aufgabe_Farben extends AppCompatActivity {
         }
         mLastClickTime = SystemClock.elapsedRealtime();
 
-        // vorherigen Zaehler stoppen
+        // stop timer
         z.running = false;
 
-        // Wieder zuruecksetzen, da neuer Highscore nun normaler Highscore ist
-        pop.setNeuerHighScore(false);
+        // new highscore is normal highscore now
+        pop.setNewHighscore(false);
 
         String currentText = farbText.getText().toString();
         int currentColor = farbText.getCurrentTextColor();
         //int currentColor = ((ColorDrawable) ansicht.getBackground()).getColor();
 
-        // Jedes Mal den HighScore neu auf falsch setzen, sonst wird jedes Mal angegeben, dass ein neuer HighScore erreicht wurde
+        // determines if given answer is correct or not
         boolean antwortIstKorrekt = false;
 
         if (farbCodes[Arrays.asList(farben).indexOf(currentText)] == farbText.getCurrentTextColor()) {      // "... == currentColor" fuer Background-Color
             antwortIstKorrekt = true;
         }
 
-       // pop = new PopUpFenster(Aufgabe_Farben.this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
-
-        if (((view.getId() == R.id.unwahr2) && antwortIstKorrekt) || ((view.getId() == R.id.wahr2) && !antwortIstKorrekt)){   // wenn auf Falsch geklickt wird, das Ergebnis aber richtig ist
+        // task is correct but player clicked on wrong button
+        if (((view.getId() == R.id.unwahr2) && antwortIstKorrekt) || ((view.getId() == R.id.wahr2) && !antwortIstKorrekt)){
             // Setzen des neuen Highscores
             TopScore.highscore_farben = pop.getPunkte();
 
             if (preferences.getInt(KEY, 0) < TopScore.highscore_farben) {
                 preferencesEditor.putInt(KEY, TopScore.highscore_farben);
-                pop.setNeuerHighScore(true);
+                pop.setNewHighscore(true);
             }
             preferencesEditor.putInt("key", TopScore.highscore_farben);
             preferencesEditor.commit();
 
             pop.showPopUpWindow();
 
-        } else {    // Ergebnis ist richtig
+        } else {
+            // increases score
             pop.increaseScore();
-            z = new Zeit(timer, pop.getPunkte());     // neuer Zaehler wird erstellt
 
-            z.laufen(pop);     // neuer Zaehler startet
+            // timer
+            z = new Zeit(timer);
 
-            int randomNumber;
-            int randomFarbe;
+            // starts new timer
+            z.laufen(pop);
 
-            // Implementierung, sodass nur die benachbarten Farben ausgewählt werden können um die Häufigkeit zu erhöhen
+            // implementation to select random colors
+            int randomNumber, randomFarbe;
             do {
                 randomNumber = (int) (Math.random() * farben.length);
                 if (randomNumber == 0) {
@@ -189,7 +197,7 @@ public class Aufgabe_Farben extends AppCompatActivity {
                 } else {    // fuer alle Zahlen bis auf die aeußersten des Arrays
                     randomFarbe = farbCodes[(randomNumber - 1) + (int) (Math.random() * 3)];
                 }
-            } while (farben[randomNumber].equals(currentText) || (randomFarbe == currentColor));      // nach jedem Klick eine andere Farbe und ein anderer Text
+            } while (farben[randomNumber].equals(currentText) || (randomFarbe == currentColor));
 
             farbText.setText(farben[randomNumber]);
             farbText.setTextColor(randomFarbe);

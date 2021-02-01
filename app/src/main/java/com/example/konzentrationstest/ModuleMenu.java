@@ -15,8 +15,9 @@ import com.example.konzentrationstest.Modules.Aufgabe_Formen;
 import com.example.konzentrationstest.Modules.Aufgabe_Rechnen;
 import com.example.konzentrationstest.Modules.Aufgabe_waehleUnpassendeFarbe;
 
-
-// Settings for playing the game
+/**
+ * This class represents the module menu of the application.
+ */
 public class ModuleMenu extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     @Override
@@ -31,11 +32,11 @@ public class ModuleMenu extends AppCompatActivity implements AdapterView.OnItemS
         Button b3 = findViewById(R.id.button_formen);
         Button b4 = findViewById(R.id.button_waehleUnpassendeFarbe);
 
+        // sets the text colors for all module buttons
         b1.setTextColor(getResources().getColor(R.color.white));
         b2.setTextColor(getResources().getColor(R.color.white));
         b3.setTextColor(getResources().getColor(R.color.white));
         b4.setTextColor(getResources().getColor(R.color.white));
-
     }
 
     @Override
@@ -50,8 +51,13 @@ public class ModuleMenu extends AppCompatActivity implements AdapterView.OnItemS
     // variable to track event time
     private long mLastClickTime = 0;
 
+    /**
+     * A method which is called when a module button is clicked
+     *
+     * @param view view of the method and the class' xml file.
+     */
     public void startModule(View view) {
-            // Zeitdifferenz, um zu verhindern, dass 2 Buttons auf einmal geklickt werden
+            // time difference to prevent clicking on two buttons at the same time
             int difference = 100;
             // Preventing multiple clicks, using threshold of 1 second
             if (SystemClock.elapsedRealtime() - mLastClickTime < difference) {
@@ -59,9 +65,9 @@ public class ModuleMenu extends AppCompatActivity implements AdapterView.OnItemS
             }
             mLastClickTime = SystemClock.elapsedRealtime();
 
-            Class nextModule = null;
+            Class <?> nextModule = null;
             int chosenModule = view.getId();
-
+            // select next module
             if (chosenModule == R.id.button_rechnen) {
                 nextModule = Aufgabe_Rechnen.class;
             } else if (chosenModule == R.id.button_farbe) {

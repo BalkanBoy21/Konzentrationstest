@@ -17,27 +17,36 @@ import com.example.konzentrationstest.Modules.Aufgabe_Formen;
 import com.example.konzentrationstest.Modules.Aufgabe_Rechnen;
 import com.example.konzentrationstest.Modules.Aufgabe_waehleUnpassendeFarbe;
 
+/**
+ * This class represents the pop up window
+ */
 public class PopUpFenster extends AppCompatActivity {
 
-    private Object obj;
+    private final Object obj;
 
-    private Button leave, stay;
-    private Dialog epicDialog;
+    private final Dialog epicDialog;
 
-    private TextView text, text2;
-    private SharedPreferences preferences;
-    private SharedPreferences.Editor preferencesEditor;
-    private String KEY;      // fuer jede Klasse anderen Key fuer jeweils einen anderen Highscore
+    private final SharedPreferences preferences;
+    private final SharedPreferences.Editor preferencesEditor;
+    private final String KEY;      // fuer jede Klasse anderen Key fuer jeweils einen anderen Highscore
 
     private int punkte;
-    private int highscore;
-    private boolean neuerHighScore;
+    private boolean newHighscore;
 
-    public PopUpFenster(Object obj, int punkte, int highscore, boolean neuerHighScore, Dialog epicDialog, SharedPreferences preferences, SharedPreferences.Editor preferencesEditor, String key) {
+    /**
+     * Constructor of the pop up window
+     * @param obj object of the class in which the pop up window is called.
+     * @param punkte reached score.
+     * @param newHighscore new highscore.
+     * @param epicDialog dialog of the class with its context.
+     * @param preferences sharespreferences for the highscore.
+     * @param preferencesEditor editor sharespreferences for the highscore.
+     * @param key particular key for each module.
+     */
+    public PopUpFenster(Object obj, int punkte, boolean newHighscore, Dialog epicDialog, SharedPreferences preferences, SharedPreferences.Editor preferencesEditor, String key) {
         this.obj = obj;
         this.punkte = punkte;
-        this.highscore = highscore;
-        this.neuerHighScore = neuerHighScore;
+        this.newHighscore = newHighscore;
 
         this.epicDialog = epicDialog;
         this.preferences = preferences;
@@ -46,8 +55,8 @@ public class PopUpFenster extends AppCompatActivity {
         KEY = key;
     }
 
-    public void setNeuerHighScore(boolean neuerHighScore) {
-        this.neuerHighScore = neuerHighScore;
+    public void setNewHighscore(boolean newHighscore) {
+        this.newHighscore = newHighscore;
     }
 
     public SharedPreferences getPreferences() {
@@ -66,28 +75,29 @@ public class PopUpFenster extends AppCompatActivity {
 
     public void increaseScore() { this.punkte += 1; }
 
+    /**
+     * calls pop up window when game is over
+     */
     public void showPopUpWindow() {
         epicDialog.setContentView(R.layout.activity_popupfenster);
 
-        leave = epicDialog.findViewById(R.id.verlassen);
-        stay = epicDialog.findViewById(R.id.weiter);
+        Button leave = epicDialog.findViewById(R.id.verlassen);
+        Button stay = epicDialog.findViewById(R.id.weiter);
 
-        text = epicDialog.findViewById(R.id.anzeigeScore);
-        text2 = epicDialog.findViewById(R.id.anzeigeHighscore);
+        TextView text = epicDialog.findViewById(R.id.anzeigeScore);
+        TextView text2 = epicDialog.findViewById(R.id.anzeigeHighscore);
 
         String punkteText = "\n\tScore: " + this.punkte;
         text.setText(punkteText);
 
         // Text fuer Highscore
         String displayedText = "\t\t\t\t\tHighscore: " + preferences.getInt(KEY, 0);
-        if (neuerHighScore) {
+        if (newHighscore) {
             displayedText = "New Highscore: " + preferences.getInt(KEY, 0);
         }
         text2.setText(displayedText);
 
-        leave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick (View view) {
+        leave.setOnClickListener((View view) -> {
                 String difficulty = MainActivity.getCurrentDifficultyText()[0];
                 if (difficulty.equals("Leicht")) {
                     MainActivity.lastdisabledButton = "Leicht";
@@ -99,42 +109,39 @@ public class PopUpFenster extends AppCompatActivity {
 
                 Intent myIntent = new Intent( (AppCompatActivity) obj, MainActivity.class);
                 ((AppCompatActivity) obj).startActivity(myIntent);
-            }
-        });
+            });
 
-        stay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick (View view) {
-                switch (KEY) {
-                    case "speicherPreferences_Rechnen":
-                        // macht Buttons wieder frei sobald das Pop-Up-Fenster verlassen wurde
-                        Aufgabe_Rechnen.down.setEnabled(true);
-                        Aufgabe_Rechnen.up.setEnabled(true);
-                        break;
-                    case "speicherPreferences_Farben":
-                        Aufgabe_Farben.down.setEnabled(true);
-                        Aufgabe_Farben.up.setEnabled(true);
-                        break;
-                    case "speicherPreferences_Formen":
-                        Aufgabe_Formen.down.setEnabled(true);
-                        Aufgabe_Formen.up.setEnabled(true);
-                        break;
-                    case "speicherPreferences_waehleUnpassendeFarbe":
-                        // enablen der Buttons
-                        for (ImageButton ib: Aufgabe_waehleUnpassendeFarbe.getButtons()) {
-                            ib.setEnabled(true);
-                        }
-                        break;
-                }
-                epicDialog.dismiss();
-                // aktiviert Back-Button wieder sobald auf "Weiter" geklickt wird
-                Zeit.active = true;
-                // Punkte wieder zuruecksetzen
-                punkte = 0;
+        stay.setOnClickListener((View view) -> {
+            switch (KEY) {
+                case "speicherPreferences_Rechnen":
+                    // macht Buttons wieder frei sobald das Pop-Up-Fenster verlassen wurde
+                    Aufgabe_Rechnen.down.setEnabled(true);
+                    Aufgabe_Rechnen.up.setEnabled(true);
+                    break;
+                case "speicherPreferences_Farben":
+                    Aufgabe_Farben.down.setEnabled(true);
+                    Aufgabe_Farben.up.setEnabled(true);
+                    break;
+                case "speicherPreferences_Formen":
+                    Aufgabe_Formen.down.setEnabled(true);
+                    Aufgabe_Formen.up.setEnabled(true);
+                    break;
+                case "speicherPreferences_waehleUnpassendeFarbe":
+                    // enablen der Buttons
+                    for (ImageButton ib: Aufgabe_waehleUnpassendeFarbe.getButtons()) {
+                        ib.setEnabled(true);
+                    }
+                    break;
             }
-        });
+            epicDialog.dismiss();
+            // aktiviert Back-Button wieder sobald auf "Weiter" geklickt wird
+            // makes
+            Zeit.active = true;
+            // Punkte wieder zuruecksetzen
+            punkte = 0;
+        }
 
-        // sorgt dafuer dass Aktivität beendet wird sobald man beim Laufen der Aktivität ins Hauptmenu zurueckmoechte
+        // makes leaving to the module menu during game impossible
         epicDialog.setCancelable(false);
         epicDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         epicDialog.show();

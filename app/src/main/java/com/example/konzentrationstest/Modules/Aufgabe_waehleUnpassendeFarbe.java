@@ -28,6 +28,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * This class handles the module about inapproriate colors.
+ */
 public class Aufgabe_waehleUnpassendeFarbe extends AppCompatActivity {
 
     private Zeit z;
@@ -47,7 +50,7 @@ public class Aufgabe_waehleUnpassendeFarbe extends AppCompatActivity {
     static ImageButton btn1, btn2, btn3;
     public static ImageButton[] btns;
 
-    boolean neuerHighScore = false;
+    boolean newHighscore = false;
     PopUpFenster pop;
 
     @Override
@@ -64,10 +67,10 @@ public class Aufgabe_waehleUnpassendeFarbe extends AppCompatActivity {
         btn2 = findViewById(R.id.farbe2);
         btn3 = findViewById(R.id.farbe3);
 
-        // initialisiere das button-array das alle farb-buttons beinhaltet, die geshufflet werden
+        // initialize color button for saving their current states
         btns = new ImageButton[] {btn1, btn2, btn3};
 
-        // durchsucht alle Farben in colors.xml (und weitere) und filtert alle Farben heraus, die im Array "farben" enthalten sind
+        // filtering all colors in colors.xml which appear in the array 'farben'
         try {
             Field[] fields = Class.forName("com.example.konzentrationstest" + ".R$color").getDeclaredFields();
             //Field[] fields = Class.forName();
@@ -84,11 +87,11 @@ public class Aufgabe_waehleUnpassendeFarbe extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        // Setze erste Farbe aus im Array farben angegebenen Farben
+        // sets color for the first field
         int random1 = (int) (Math.random() * farben.length);
         farbText.setText(farben[random1]);
 
-        // Setze zweite Farbe, die unterschiedlich ist von erster Farbe
+        // sets 2nd color which is different from the first one
         int random2;
         do {
             random2 = (int) (Math.random() * farbCodes.length);
@@ -101,7 +104,7 @@ public class Aufgabe_waehleUnpassendeFarbe extends AppCompatActivity {
         btn1.setBackgroundColor(startColor_Btn1);
         btn2.setBackgroundColor(startColor_Btn2);
 
-        // Dritte Farbe unterscheidet sich von den ersten beiden Farben und ist die korrekte Antwort auf die Frage
+        // 3rd color which is different from the 1st and 2nd
         int newColor;
         do {
             newColor = (int) (Math.random() * farbCodes.length);
@@ -109,40 +112,33 @@ public class Aufgabe_waehleUnpassendeFarbe extends AppCompatActivity {
 
         btn3.setBackgroundColor(farbCodes[newColor]);
 
-        // PopUp-Fenster
+        // pop up dialog
         Dialog epicDialog = new Dialog(this);
 
-        // Setzen der max. Sekundenzahl durch ausgewaehlten Schwierigkeitsgrad
         String[] diff = MainActivity.getCurrentDifficultyText();
+        // gets current milliseconds depending on selected difficulty
         int milliSec = Integer.parseInt(String.valueOf(Double.parseDouble(diff[1]) * 1000).split("\\.")[0]);
 
-        // Das Maximum fuer die Zeitleiste setzen
+        // fills maximum of time counter
         timer.setMax((milliSec*9) / ((milliSec / 100) / 5));
 
-        // Die erste Timeline sollte aufgefuellt sein
+        // fills time counter for the first page
         timer.setProgress(timer.getMax());
-        z = new Zeit(timer, punkte);
-
+        z = new Zeit(timer);
 
         //setting preferences
         this.preferences = this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);
         preferencesEditor = preferences.edit();
         preferencesEditor.apply();
 
-        pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
+        pop = new PopUpFenster(this, punkte, newHighscore, epicDialog, preferences, preferencesEditor, KEY);
 
-        // Punktestand wird jedes Mal zurueckgesetzt, wenn die Seite neu betreten wird (besonders wenn auf "Verlassen" geklickt wird)
+        // reset score when page is entered
         punkte = 0;
     }
 
     public static ImageButton[] getButtons() {
         return btns;
-    }
-
-    public void setButtonsDisabled() {
-        for (ImageButton ib: btns) {
-            ib.setEnabled(false);
-        }
     }
 
     @Override
@@ -157,8 +153,12 @@ public class Aufgabe_waehleUnpassendeFarbe extends AppCompatActivity {
     // variable to track event time
     private long mLastClickTime = 0;
 
+    /**
+     * This method handles all button events of this page.
+     * @param view view of the method and the class' xml file.
+     */
     public void check(View view) {
-        // Zeitdifferenz, um zu verhindern, dass 2 Buttons auf einmal geklickt werden
+        // time difference to prevent clicking on two buttons at the same time
         int difference = 150;
         // Preventing multiple clicks, using threshold of 1 second
         if (SystemClock.elapsedRealtime() - mLastClickTime < difference) {
@@ -169,14 +169,14 @@ public class Aufgabe_waehleUnpassendeFarbe extends AppCompatActivity {
         String lastText = farbText.getText().toString();
         int lastColor = farbText.getCurrentTextColor();
 
-        // Prueft ob die angegebene Loesung korrekt ist
+        // checks if clicked button is correct
         boolean ergebnisIstRichtig = true;
 
-        // alter Zaehler wird gestoppt
+        // stops latest counter
         z.running = false;
 
-        // Wieder zuruecksetzen, da neuer Highscore nun normaler Highscore ist
-        pop.setNeuerHighScore(false);
+        // resets new highscore because new score is old highscore now
+        pop.setNewHighscore(false);
 
         ImageButton clickedButton;
         int id = view.getId();
@@ -191,17 +191,18 @@ public class Aufgabe_waehleUnpassendeFarbe extends AppCompatActivity {
 
         int clickedButtonColor = ((ColorDrawable) clickedButton.getBackground()).getColor();
 
-        if ((lastColor == clickedButtonColor) || (farbCodes[Arrays.asList(farben).indexOf(lastText)] == clickedButtonColor)) {     // wenn die Antwort also falsch ist
+        // clicked button is false
+        if ((lastColor == clickedButtonColor) || (farbCodes[Arrays.asList(farben).indexOf(lastText)] == clickedButtonColor)) {
             ergebnisIstRichtig = false;
         }
 
         if (!ergebnisIstRichtig) {
-            // Setzen des neuen Highscores
+            // new highscore
             TopScore.highscore_waehleUnpassendeFarbe = pop.getPunkte();
 
             if (preferences.getInt(KEY, 0) < TopScore.highscore_waehleUnpassendeFarbe) {
                 preferencesEditor.putInt(KEY, TopScore.highscore_waehleUnpassendeFarbe);
-                pop.setNeuerHighScore(true);
+                pop.setNewHighscore(true);
             }
             preferencesEditor.putInt("key", TopScore.highscore_waehleUnpassendeFarbe);
             preferencesEditor.commit();
@@ -209,36 +210,38 @@ public class Aufgabe_waehleUnpassendeFarbe extends AppCompatActivity {
             pop.showPopUpWindow();
 
         } else {
-            // Score um 1 erhoehen
+            // increases score
             pop.increaseScore();
-            // neues Objekt fuer naechste Seite
-            z = new Zeit(timer, pop.getPunkte());
-            // neuen Zaehler srtarten
+
+            // creates new object for new page
+            z = new Zeit(timer);
+
+            // start new counter
             z.laufen(pop);
 
             int randomNumber, randomFarbe;
+            // chooses colors so that text and color are totally different from before
+            do {
+                randomNumber = (int) (Math.random() * farben.length);
+                randomFarbe = (int) (Math.random() * farbCodes.length);
+            } while (farben[randomNumber].equals(lastText) || (farbCodes[randomFarbe] == lastColor) || (randomNumber == randomFarbe));
 
-                // Implementierung, sodass Text und Farbe jedes Mal unterschiedlich zur vorherigen Activity sind + Farbe niemals dem Text entspricht
-                do {
-                    randomNumber = (int) (Math.random() * farben.length);
-                    randomFarbe = (int) (Math.random() * farbCodes.length);
-                } while (farben[randomNumber].equals(lastText) || (farbCodes[randomFarbe] == lastColor) || (randomNumber == randomFarbe));
+            // set text and text color
+            farbText.setText(farben[randomNumber]);
+            farbText.setTextColor(farbCodes[randomFarbe]);
 
-                farbText.setText(farben[randomNumber]);
-                farbText.setTextColor(farbCodes[randomFarbe]);
-
-            // nach jedem Klick die Buttons shufflen, damit richtige Antwort nicht immer an der dritten Stelle ist
+            // shuffle buttons after each click so that 3rd answer isn't always the correct answer
             List<ImageButton> intList = Arrays.asList(btns);
             Collections.shuffle(intList);
             intList.toArray(btns);
 
-            // Setzen der Farben
-            // anhand der Textfarbe
+            // set color
+            // tect color
             btns[0].setBackgroundColor(farbText.getCurrentTextColor());
-            // anhand des Textes
+            // text
             btns[1].setBackgroundColor(farbCodes[Arrays.asList(farben).indexOf(farbText.getText().toString())]);
 
-            // die letzte Farbe unterscheidet sich von den anderen beiden und ist richtig
+            // correct color which is always different from the first and second answer
             int newColor;
             do {
                 newColor = (int) (Math.random() * farbCodes.length);

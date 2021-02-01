@@ -1,6 +1,4 @@
-
 package com.example.konzentrationstest.Modules;
-
 
 import android.app.Dialog;
 import android.content.Context;
@@ -27,31 +25,28 @@ import com.example.konzentrationstest.Zeit;
 
 import java.util.Arrays;
 
-// 3 Möglichkeiten, dies zu gestalten.
-// 1.) Formen wie Rechteck, Kreis etc. hinzeichnen und in die Form das Wort schreiben
-// 2.) Identisches Spiel wie Schlag den Raab. 2 Muster sind gegeben, 5 Antwortmöglichkeiten: 2 zeigen die Form und Farbe an, dabei bleibt eins übrig und das muss angeklickt werden
-// 3.) vermutlich beste und einfachste Idee:
-
+/**
+ * This class handles the shapes module
+ */
 public class Aufgabe_Formen extends AppCompatActivity {
 
     // wichtig: formenText und symbolDateien muessen 1:1 in der gleichen Reihenfolge sein
-    private final String[] formenText = {"Kreis", "Quadrat", "Stern", "Herz", "Dreieck"};
-    private final int []symbolDateien = {R.drawable.kreis, R.drawable.quadrat, R.drawable.stern, R.drawable.herz, R.drawable.dreieck};
+    private final String[] formText = {"Kreis", "Quadrat", "Stern", "Herz", "Dreieck"};
+    private final int []symbolfiles = {R.drawable.kreis, R.drawable.quadrat, R.drawable.stern, R.drawable.herz, R.drawable.dreieck};
 
     private ImageView form;
     private int randomSymbol;
     int symbol;
 
     private int punkte = 0;
-    private final boolean neuerHighScore = false;
     int temp = 0;
 
     private ProgressBar timer;
-    private PopUpFenster pop;
     private Zeit z;
     private TextView textView;
 
-    // Pop-Up-Hilfsmittel
+    // pop up variables
+    private PopUpFenster pop;
     private SharedPreferences preferences;
     private SharedPreferences.Editor preferencesEditor;
     private final String KEY = "speicherPreferences_Formen";
@@ -72,10 +67,12 @@ public class Aufgabe_Formen extends AppCompatActivity {
         down = findViewById(R.id.unwahr3);
         up = findViewById(R.id.wahr3);
 
-        // PopUp-Fenster
+        boolean newHighscore = false;
+
+        // presents pop up window
         Dialog epicDialog = new Dialog(this);
 
-        // Setzen der max. Sekundenzahl durch ausgewaehlten Schwierigkeitsgrad
+        // sets number of seconds for each difficulty
         String[] diff = MainActivity.getCurrentDifficultyText();
         int milliSec;
         Log.d("---", "Diff:" + diff[1]);
@@ -87,31 +84,31 @@ public class Aufgabe_Formen extends AppCompatActivity {
             milliSec = 1000;
         }
 
-        //int milliSec = Integer.parseInt(String.valueOf(Double.parseDouble(diff[1]) * 1000).split("\\.")[0]);
-
-        // Das Maximum fuer die Zeitleiste setzen
+        // set maximum for time counter
         timer.setMax((milliSec*9) / ((milliSec / 100) / 5));
 
-        // Die erste Timeline sollte aufgefuellt sein
+        // fill first time counter
         timer.setProgress(timer.getMax());
-        z = new Zeit(timer, punkte);
+        z = new Zeit(timer);
 
         //setting preferences
         this.preferences = this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);
         preferencesEditor = preferences.edit();
         preferencesEditor.apply();
 
-        // fuer die erste Seite
-        randomSymbol = (int) (Math.random() * symbolDateien.length);
+        // set values for the first page before the actual game begins
+        randomSymbol = (int) (Math.random() * symbolfiles.length);
         temp = randomSymbol;        // sehr wichtig fuer erste If-Anweisung in Methode check (nur fuer den Uebergang vom ersten zum zweiten Bild)
-        symbol = symbolDateien[randomSymbol];
+        symbol = symbolfiles[randomSymbol];
 
-        // Erstellen des Starttextes und der Startform
-        textView.setText(formenText[(int) (Math.random() * formenText.length)]);
-        form.setImageResource(symbolDateien[randomSymbol]);
-        punkte = 0;       // sehr wichtig, da man ins Menue zurueckgehen und das Spiel wieder oeffnen kann
+        // create new start text and new shape
+        textView.setText(formText[(int) (Math.random() * formText.length)]);
+        form.setImageResource(symbolfiles[randomSymbol]);
 
-        pop = new PopUpFenster(this, punkte, preferences.getInt(KEY, 0), neuerHighScore, epicDialog, preferences, preferencesEditor, KEY);
+        // reset points to prevent application from saving points by leaving another game
+        punkte = 0;
+
+        pop = new PopUpFenster(this, punkte, newHighscore, epicDialog, preferences, preferencesEditor, KEY);
 
     }
 
@@ -127,8 +124,12 @@ public class Aufgabe_Formen extends AppCompatActivity {
     // variable to track event time
     private long mLastClickTime = 0;
 
+    /**
+     * This method handles all button events of this page.
+     * @param view view of the method and the class' xml file.
+     */
     public void check (View view) {
-        // Zeitdifferenz, um zu verhindern, dass 2 Buttons auf einmal geklickt werden
+        // time difference to prevent clicking on two buttons at the same time
         int difference = 150;
         // Preventing multiple clicks, using threshold of 1 second
         if (SystemClock.elapsedRealtime() - mLastClickTime < difference) {
@@ -141,12 +142,13 @@ public class Aufgabe_Formen extends AppCompatActivity {
         //int currentSymbol = symbolDateien[randomSymbol];
 
         // alter Zaehler wird gestoppt
+        // stop current time counter
         z.running = false;
 
-        // Wieder zuruecksetzen, da neuer Highscore nun normaler Highscore ist
-        pop.setNeuerHighScore(false);
+        // new highscore is new score now
+        pop.setNewHighscore(false);
 
-        int index = Arrays.asList(formenText).indexOf(lastText);
+        int index = Arrays.asList(formText).indexOf(lastText);
         boolean antwortIstKorrekt = false;
 
         // Ueberpruefung ob Index des Textes mit dem der Form uebereinstimmt
@@ -154,45 +156,50 @@ public class Aufgabe_Formen extends AppCompatActivity {
             antwortIstKorrekt = true;
         }
 
-        // Antwort ist nicht korrekt
+        // selected answer isn't correct
         if (((view.getId() == R.id.unwahr3) && antwortIstKorrekt) || ((view.getId() == R.id.wahr3) && !antwortIstKorrekt)) {
-            // Setzen des neuen Highscores
+            // sets new highscore
             TopScore.highscore_formen = pop.getPunkte();
 
             if (preferences.getInt(KEY, 0) < TopScore.highscore_formen) {
                 preferencesEditor.putInt(KEY, TopScore.highscore_formen);
-                pop.setNeuerHighScore(true);
+                pop.setNewHighscore(true);
             }
             preferencesEditor.putInt("key", TopScore.highscore_formen);
             preferencesEditor.commit();
 
             pop.showPopUpWindow();
 
-        } else { // Antwort ist korrekt
+        } else {
+            // increase score
             pop.increaseScore();
-            z = new Zeit(timer, pop.getPunkte());     // neues Objekt fuer naechste Seite
-            z.laufen(pop);     // neuen Zaehler starten
 
-            // Symbol und Text werden nicht 2 Mal hintereinander gleich sein
+            // timer
+            z = new Zeit(timer);
+
+            // running timer
+            z.laufen(pop);
+
+            // symbol and text are different from before
             do {
-                randomSymbol = (int) (Math.random() * symbolDateien.length);
+                randomSymbol = (int) (Math.random() * symbolfiles.length);
 
                 if (randomSymbol == 0) {
                     //int[] random_array = new int[]{symbolDateien.length - 1, 0, 1};
-                    int [] random_array = new int[]{0, (int) (Math.random() * symbolDateien.length)};
+                    int [] random_array = new int[]{0, (int) (Math.random() * symbolfiles.length)};
                     temp = random_array[(int) (Math.random() * random_array.length)];
-                } else if (randomSymbol == formenText.length - 1) {
+                } else if (randomSymbol == formText.length - 1) {
                     //int[] random_array = new int[]{symbolDateien.length - 1, 0, 1};
-                    int [] random_array = new int[]{symbolDateien.length - 1, (int) (Math.random() * symbolDateien.length)};
+                    int [] random_array = new int[]{symbolfiles.length - 1, (int) (Math.random() * symbolfiles.length)};
                     temp = random_array[(int) (Math.random() * random_array.length)];
                 } else {        // Aeußere sind ausgeschlossen
                     temp = (randomSymbol - 1) + (int) (Math.random() * 3);
                 }
-                symbol = symbolDateien[temp];
-            } while (formenText[randomSymbol].equals(lastText) || (lastSymbol == symbol));
+                symbol = symbolfiles[temp];
+            } while (formText[randomSymbol].equals(lastText) || (lastSymbol == symbol));
 
-            // Setzen des neuen Textes und der neuen Form
-            textView.setText(formenText[randomSymbol]);
+            // set new text and new shape
+            textView.setText(formText[randomSymbol]);
             form.setImageResource(symbol);
 
         }

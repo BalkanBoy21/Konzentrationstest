@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="#3993B6"
     android:orientation="vertical"
-    android:screenOrientation="portrait"
     tools:context=".ModuleMenu">
 
     <LinearLayout
