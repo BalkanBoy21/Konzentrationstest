@@ -24,7 +24,7 @@ Die App ist vollständig in Java implementiert. Für die grafische Benutzeroberf
 <p float='left'>
   <img src="https://user-images.githubusercontent.com/73491052/125687612-4796b970-b61c-4024-8069-07484bc9a3e4.png" width=200 align="left">
   <img src="https://user-images.githubusercontent.com/73491052/125687614-2c6477c4-96ef-4eae-9804-660984548ba3.png" width=200 align="center">
-  <img src="https://user-images.githubusercontent.com/73491052/125688289-26666273-d1a3-4392-8fc4-c32a54be94e2.gif" width=200 align="right">
+  <img src="https://user-images.githubusercontent.com/73491052/125688289-26666273-d1a3-4392-8fc4-c32a54be94e2.gif" width=200 align="center">
 </p>
 
 </br></br>
