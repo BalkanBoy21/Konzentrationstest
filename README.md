@@ -1,23 +1,30 @@
 # Konzentrationstest
 
-Bei diesem Projekt handelt es sich um eine mobile Applikation. Das Ziel ist es, durch Beantworten verschiedener Aufgaben möglichst viele Punkte sammeln.
-Es wird eine Aufgabe angezeigt und der Spieler muss innerhalb einer im Vorhinein selbst ausgewählten Zeitspanne auf den Button mit dem Symbol "Daumen hoch" anklicken, wenn die Aufgabe korrekt ist und "Daumen runter", falls es sich um eine falsche Antwort handelt.
+Bei diesem Projekt handelt es sich um eine mobile Applikation. Das Ziel ist es, durch Klicken des richtigen Buttons möglichst viele Punkte sammeln.
+Es wird eine Aufgabe angezeigt und der Spieler muss innerhalb einer im Vorhinein selbst ausgewählten Zeitspanne auf den Button mit dem Symbol ":thumbsup:" anklicken, wenn die Aufgabe korrekt ist und ":thumbsdown:", falls es sich dabei um eine falsche Antwort handelt.
 
-Die App ist vollständig in Java implementiert. Für die grafische Benutzeroberfläche wurde Android Studio verwendet.
+Die App ist vollständig in Java implementiert. Bei der integrierten Entwicklungsumgebung handelt es sich um Android Studio.
 
 ## Kategorien
 
 ### Start- und Hauptmenü:
 - Im Startmenü wird der Schwierigkeitsgrad und im Hauptmenü das gewünschte Spiel ausgewählt.
+- Es können 3 verschiedene Schwierigkeitsstufen ausgewählt werden.
+- Je nachdem welche Stufe ausgewählt wurde, ergibt sich eine bestimmte Anzahl an Zeit (in Sekunden), die dem Spieler bleibt, um auf einen Button zu klicken.
+
+<b> Leicht -> 2 Sekunden </b> \
+<b> Mittel -> 1,5 Sekunden </b> \
+<b> Schwer -> 1 Sekunde </b>
+
+
 <p float='left'>
-  <img src="https://user-images.githubusercontent.com/73491052/125687381-bda3d237-49df-4970-8413-c71c460ce3f4.png" width=200 align="left">
-  <img src="https://user-images.githubusercontent.com/73491052/125687385-4212c5e3-953c-4bf4-9fd5-eda50d4ddab9.png" width=200 align="center">
+  <img src="https://user-images.githubusercontent.com/73491052/125687381-bda3d237-49df-4970-8413-c71c460ce3f4.png" width=350 align="left">
+  <img src="https://user-images.githubusercontent.com/73491052/125687385-4212c5e3-953c-4bf4-9fd5-eda50d4ddab9.png" width=350 align="center">
 </p>
 
 </br></br>
 
 ### Rechnen:
-<Foto einblenden von Seite am besten mit Video um zu demonstrieren wie es abläuft mit der Zeit>
 - Es wird eine Gleichung angezeigt, die entweder gilt oder nicht gilt.
 - Der Spieler entscheidet durch Klicken der Buttons, ob die Gleichung korrekt ist.
 
@@ -71,7 +78,7 @@ Die App ist vollständig in Java implementiert. Für die grafische Benutzeroberf
 - Man gelangt entweder ins Startmenü oder spielt eine erneute Runde in der aktuellen Kategorie.
 
 <p float='left'>
-  <img src="https://user-images.githubusercontent.com/73491052/125688462-f2878224-cc5f-42a3-9418-9af000df8df9.png" width=200 align="left">
+  <img src="https://user-images.githubusercontent.com/73491052/125688462-f2878224-cc5f-42a3-9418-9af000df8df9.png" width=250 align="center">
 </p>
 
 
