@@ -16,6 +16,7 @@ Die App ist vollständig in Java implementiert. Für die grafische Benutzeroberf
 - Rechnen:
 <Foto einblenden von Seite am besten mit Video um zu demonstrieren wie es abläuft mit der Zeit>
 Es wird eine Gleichung angezeigt, die entweder gilt oder nicht gilt.
+Der Spieler gibt durch Klicken der Buttons an, ob die Gleichung korrekt ist.
 
 <p float='left'>
   <img src="https://user-images.githubusercontent.com/73491052/125644681-ed4f338e-e010-4fd2-847c-5448f31afb6f.jpg" width=300 align="left">
@@ -23,11 +24,9 @@ Es wird eine Gleichung angezeigt, die entweder gilt oder nicht gilt.
 </p>
 
 
-
 - Farbwörter:
 Es wird ein Wort angezeigt, das eine Farbe bezeichnet und in einer Farbe markiert ist.
-Der Spieler muss entscheiden, ob die Farbe des Textes dem Text entspricht, der die Farbe kennzeichnet.
-
+Der Spieler muss entscheiden, ob die Farbe des Textes dem Text entspricht, der die Farbe kennzeichnet, und den entsprechenden Button anklicken.
 
 <p float='left'>
   <img src="https://user-images.githubusercontent.com/73491052/125661259-775964ee-5c01-4090-b716-66cfc88fbb59.jpg" width=300 align="left">
@@ -38,8 +37,7 @@ Der Spieler muss entscheiden, ob die Farbe des Textes dem Text entspricht, der d
 - Formen:
 <Bild einfügen>
 Es werden sowohl eine aus einer gegebenen Menge von Formen zufällig ausgewählte Form und ein Wort.
-Bezeichnet das Wort die Form korrekt, soll der Spieler den Button links (Emoji einfügen mit Daumen hoch am besten) anklicken, ansonsten den Button rechts.
-
+Bezeichnet das Wort die Form korrekt, soll der Spieler den Button :thumbsup: anklicken, ansonsten den Button rechts :thumbsdown:.
 
 <p float='left'>
   <img src="https://user-images.githubusercontent.com/73491052/125661558-13a37dcd-cb3c-4c17-8dc0-676cfc73b6a3.jpg" width=300 align="left">
