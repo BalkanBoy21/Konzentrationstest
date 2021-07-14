@@ -24,7 +24,7 @@ Die App ist vollständig in Java implementiert. Für die grafische Benutzeroberf
 <p float='left'>
   <img src="https://user-images.githubusercontent.com/73491052/125687612-4796b970-b61c-4024-8069-07484bc9a3e4.png" width=300 align="left">
   <img src="https://user-images.githubusercontent.com/73491052/125687614-2c6477c4-96ef-4eae-9804-660984548ba3.png" width=300 align="center">
-  <img src="https://user-images.githubusercontent.com/73491052/125684689-ebe07cf7-4b58-470f-8d25-16cc9801e00b.gif" width=300 align="right">
+  <img src="https://user-images.githubusercontent.com/73491052/125688289-26666273-d1a3-4392-8fc4-c32a54be94e2.gif" width=300 align="right">
 </p>
 
 </br></br>
@@ -36,7 +36,7 @@ Die App ist vollständig in Java implementiert. Für die grafische Benutzeroberf
 <p float='left'>
   <img src="https://user-images.githubusercontent.com/73491052/125687616-65fabe4e-1dc1-460d-81cb-0da610a9d57b.png" width=300 align="left">
   <img src="https://user-images.githubusercontent.com/73491052/125687617-f3290933-7449-49c6-8868-eead643acfd4.png" width=300 align="center">
-  <img src="https://user-images.githubusercontent.com/73491052/125684665-53dc4da6-ca30-4254-9d5e-25dc4fb7bb19.gif" width=300 align="right">
+  <img src="https://user-images.githubusercontent.com/73491052/125688281-6d82afb1-f4b6-4427-96ff-f29f09ce6f83.gif" width=300 align="right">
 </p>
 
 </br></br>
@@ -49,7 +49,7 @@ Die App ist vollständig in Java implementiert. Für die grafische Benutzeroberf
 <p float='left'>
   <img src="https://user-images.githubusercontent.com/73491052/125687620-5fee2c7b-4c55-47c9-b421-77b7c7ab2a23.png" width=300 align="left">
   <img src="https://user-images.githubusercontent.com/73491052/125687623-7e25f746-a65b-4d36-b09b-f24cfa013d2f.png" width=300 align="center">
-  <img src="https://user-images.githubusercontent.com/73491052/125684682-6b91d638-6a37-4f2a-b8bc-45ea4ad18dff.gif" width=300 align="right">
+  <img src="https://user-images.githubusercontent.com/73491052/125688286-d296c556-072d-4ae4-88e9-db66b31ca622.gif" width=300 align="right">
 </p>
 
 </br></br>
@@ -59,9 +59,9 @@ Die App ist vollständig in Java implementiert. Für die grafische Benutzeroberf
 - Des Weiteren werden 3 farbige Buttons am unteren Rand angezeigt. Die Farbe, die weder zum Text noch zur Textfarbe passt, stellt die korrekte Antwort dar.
 
 <p float='left'>
-  <img src="https://user-images.githubusercontent.com/73491052/125644691-9462cec4-a8f9-4ebc-9790-eaec59b61afc.jpg" width=300 align="left">
-  <img src="https://user-images.githubusercontent.com/73491052/125644694-b8c14777-14c1-4609-a12f-5cf52dd87d60.jpg" width=300 align="center">
-  <img src="https://user-images.githubusercontent.com/73491052/125684697-cd48624a-f19b-41ca-a2af-49e0ffbdd735.gif" width=300 align="right">
+  <img src="https://user-images.githubusercontent.com/73491052/125688090-d3ee50ef-6114-485b-b339-dce2a45fbaf5.png" width=300 align="left">
+  <img src="https://user-images.githubusercontent.com/73491052/125688093-b46e82b5-1160-49d5-bd52-47683d67bdb2.png" width=300 align="center">
+  <img src="https://user-images.githubusercontent.com/73491052/125688292-3e13a9b0-4b96-46c6-9be6-11d62b5dd30e.gif" width=300 align="right">
 </p>
 
 </br></br>
@@ -71,12 +71,8 @@ Die App ist vollständig in Java implementiert. Für die grafische Benutzeroberf
 - Man gelangt entweder ins Startmenü oder spielt eine erneute Runde in der aktuellen Kategorie.
 
 <p float='left'>
-  <img src="https://user-images.githubusercontent.com/73491052/125644653-fc098a6b-133b-4030-900d-05f174254636.jpg" width=300 align="left">
+  <img src="https://user-images.githubusercontent.com/73491052/125688462-f2878224-cc5f-42a3-9418-9af000df8df9.png" width=300 align="left">
 </p>
-
-
-
-
 
 
 
