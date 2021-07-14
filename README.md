@@ -37,7 +37,7 @@ Die App ist vollständig in Java implementiert. Bei der integrierten Entwicklung
 </br></br>
 
 ### Farbwörter:
-- Es wird ein Wort angezeigt, das eine Farbe bezeichnet und in einer Farbe markiert ist.
+- Es wird ein Wort angezeigt, das eine Farbe bezeichnet und farblich markiert ist.
 - Der Spieler muss dabei entscheiden, ob die Farbe des Textes dem Text entspricht, der die Farbe kennzeichnet, und den entsprechenden Button anklicken.
 
 <p float='left'>
@@ -49,9 +49,8 @@ Die App ist vollständig in Java implementiert. Bei der integrierten Entwicklung
 </br></br>
 
 ### Formen:
-<Bild einfügen>
-- Es werden sowohl eine aus einer gegebenen Menge von Formen zufällig ausgewählte Form und ein Wort.
-- Bezeichnet das Wort die Form korrekt, soll der Spieler den Button :thumbsup: anklicken, ansonsten den Button rechts :thumbsdown:.
+- Es wird sowohl eine zufällig ausgewählte Form als auch ein Wort ausgewählt.
+- Bezeichnet das Wort die Form korrekt, soll der Spieler den Button ":thumbsup:" anklicken, ansonsten den Button rechts ":thumbsdown:".
 
 <p float='left'>
   <img src="https://user-images.githubusercontent.com/73491052/125687620-5fee2c7b-4c55-47c9-b421-77b7c7ab2a23.png" width=250 align="left">
@@ -63,7 +62,7 @@ Die App ist vollständig in Java implementiert. Bei der integrierten Entwicklung
 
 ### Unpassende Farbe auswählen:
 - Wie in der Kategorie "Farbwörter" wird ein in einer zufällig ausgewählten Farbe markiertes Wort angezeigt.
-- Des Weiteren werden 3 farbige Buttons am unteren Rand angezeigt. Die Farbe, die weder zum Text noch zur Textfarbe passt, stellt die korrekte Antwort dar.
+- Am unteren Rand werden drei farbige Buttons angezeigt. Die Farbe, die weder zum Text noch zur Textfarbe passt, stellt die korrekte Antwort dar.
 
 <p float='left'>
   <img src="https://user-images.githubusercontent.com/73491052/125688090-d3ee50ef-6114-485b-b339-dce2a45fbaf5.png" width=250 align="left">
@@ -74,11 +73,11 @@ Die App ist vollständig in Java implementiert. Bei der integrierten Entwicklung
 </br></br>
 
 ### Pop-Up-Menü:
-- Hier wird der im Spiel erzielte Score und der Highscore für die Kategorie angezeigt.
-- Man gelangt entweder ins Startmenü oder spielt eine erneute Runde in der aktuellen Kategorie.
+- Hier wird der im Spiel erzielte Score und der Highscore für die jeweilige Kategorie angezeigt.
+- Man kann entweder ins Startmenü gelangen oder das Spiel fortführen.
 
 <p float='left'>
-  <img src="https://user-images.githubusercontent.com/73491052/125688462-f2878224-cc5f-42a3-9418-9af000df8df9.png" width=250 align="center">
+  <img src="https://user-images.githubusercontent.com/73491052/125688462-f2878224-cc5f-42a3-9418-9af000df8df9.png" width=300 align="center">
 </p>
 
 
