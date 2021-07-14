@@ -10,8 +10,8 @@ Die App ist vollständig in Java implementiert. Für die grafische Benutzeroberf
 ### Start- und Hauptmenü:
 - Im Startmenü wird der Schwierigkeitsgrad und im Hauptmenü das gewünschte Spiel ausgewählt.
 <p float='left'>
-  <img src="https://user-images.githubusercontent.com/73491052/125643266-828a1663-4e9a-4607-ad7e-97347c454edf.jpg" width=300 align="left">
-  <img src="https://user-images.githubusercontent.com/73491052/125644675-1bb544cb-5eb8-4539-b44e-26a6faf42fe1.jpg" width=300 align="center">
+  <img src="https://user-images.githubusercontent.com/73491052/125687381-bda3d237-49df-4970-8413-c71c460ce3f4.png" width=300 align="left">
+  <img src="https://user-images.githubusercontent.com/73491052/125687385-4212c5e3-953c-4bf4-9fd5-eda50d4ddab9.png" width=300 align="center">
 </p>
 
 </br></br>
@@ -22,8 +22,9 @@ Die App ist vollständig in Java implementiert. Für die grafische Benutzeroberf
 - Der Spieler entscheidet durch Klicken der Buttons, ob die Gleichung korrekt ist.
 
 <p float='left'>
-  <img src="https://user-images.githubusercontent.com/73491052/125644681-ed4f338e-e010-4fd2-847c-5448f31afb6f.jpg" width=300 align="left">
-  <img src="https://user-images.githubusercontent.com/73491052/125644683-eaa21809-7c73-4644-8bbb-1174bd754c51.jpg" width=300 align="center">
+  <img src="https://user-images.githubusercontent.com/73491052/125687612-4796b970-b61c-4024-8069-07484bc9a3e4.png" width=300 align="left">
+  <img src="https://user-images.githubusercontent.com/73491052/125687614-2c6477c4-96ef-4eae-9804-660984548ba3.png" width=300 align="center">
+  <img src="https://user-images.githubusercontent.com/73491052/125684689-ebe07cf7-4b58-470f-8d25-16cc9801e00b.gif" width=300 align="right">
 </p>
 
 </br></br>
@@ -33,8 +34,9 @@ Die App ist vollständig in Java implementiert. Für die grafische Benutzeroberf
 - Der Spieler muss dabei entscheiden, ob die Farbe des Textes dem Text entspricht, der die Farbe kennzeichnet, und den entsprechenden Button anklicken.
 
 <p float='left'>
-  <img src="https://user-images.githubusercontent.com/73491052/125661259-775964ee-5c01-4090-b716-66cfc88fbb59.jpg" width=300 align="left">
-  <img src="https://user-images.githubusercontent.com/73491052/125644686-ab75be62-6ed6-453c-81bf-a51e4fceb236.jpg" width=300 align="center">
+  <img src="https://user-images.githubusercontent.com/73491052/125687616-65fabe4e-1dc1-460d-81cb-0da610a9d57b.png" width=300 align="left">
+  <img src="https://user-images.githubusercontent.com/73491052/125687617-f3290933-7449-49c6-8868-eead643acfd4.png" width=300 align="center">
+  <img src="https://user-images.githubusercontent.com/73491052/125684665-53dc4da6-ca30-4254-9d5e-25dc4fb7bb19.gif" width=300 align="right">
 </p>
 
 </br></br>
@@ -45,8 +47,9 @@ Die App ist vollständig in Java implementiert. Für die grafische Benutzeroberf
 - Bezeichnet das Wort die Form korrekt, soll der Spieler den Button :thumbsup: anklicken, ansonsten den Button rechts :thumbsdown:.
 
 <p float='left'>
-  <img src="https://user-images.githubusercontent.com/73491052/125661558-13a37dcd-cb3c-4c17-8dc0-676cfc73b6a3.jpg" width=300 align="left">
-  <img src="https://user-images.githubusercontent.com/73491052/125644690-7aa0cc37-d1ee-4ba6-91e5-7d6ebb942a04.jpg" width=300 align="center">
+  <img src="https://user-images.githubusercontent.com/73491052/125687620-5fee2c7b-4c55-47c9-b421-77b7c7ab2a23.png" width=300 align="left">
+  <img src="https://user-images.githubusercontent.com/73491052/125687623-7e25f746-a65b-4d36-b09b-f24cfa013d2f.png" width=300 align="center">
+  <img src="https://user-images.githubusercontent.com/73491052/125684682-6b91d638-6a37-4f2a-b8bc-45ea4ad18dff.gif" width=300 align="right">
 </p>
 
 </br></br>
@@ -58,6 +61,7 @@ Die App ist vollständig in Java implementiert. Für die grafische Benutzeroberf
 <p float='left'>
   <img src="https://user-images.githubusercontent.com/73491052/125644691-9462cec4-a8f9-4ebc-9790-eaec59b61afc.jpg" width=300 align="left">
   <img src="https://user-images.githubusercontent.com/73491052/125644694-b8c14777-14c1-4609-a12f-5cf52dd87d60.jpg" width=300 align="center">
+  <img src="https://user-images.githubusercontent.com/73491052/125684697-cd48624a-f19b-41ca-a2af-49e0ffbdd735.gif" width=300 align="right">
 </p>
 
 </br></br>
