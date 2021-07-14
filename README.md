@@ -7,13 +7,14 @@ Die App ist vollständig in Java implementiert. Für die grafische Benutzeroberf
 
 ## Kategorien
 
-- Start:
+### Start- und Hauptmenü:
+- Im Startmenü wird der Schwierigkeitsgrad und im Hauptmenü das gewünschte Spiel ausgewählt.
 <p float='left'>
   <img src="https://user-images.githubusercontent.com/73491052/125643266-828a1663-4e9a-4607-ad7e-97347c454edf.jpg" width=300 align="left">
   <img src="https://user-images.githubusercontent.com/73491052/125644675-1bb544cb-5eb8-4539-b44e-26a6faf42fe1.jpg" width=300 align="center">
 </p>
 
-- Rechnen:
+### Rechnen:
 <Foto einblenden von Seite am besten mit Video um zu demonstrieren wie es abläuft mit der Zeit>
 Es wird eine Gleichung angezeigt, die entweder gilt oder nicht gilt.
 Der Spieler gibt durch Klicken der Buttons an, ob die Gleichung korrekt ist.
@@ -24,7 +25,13 @@ Der Spieler gibt durch Klicken der Buttons an, ob die Gleichung korrekt ist.
 </p>
 
 
-- Farbwörter:
+
+
+
+
+
+
+### Farbwörter:
 Es wird ein Wort angezeigt, das eine Farbe bezeichnet und in einer Farbe markiert ist.
 Der Spieler muss entscheiden, ob die Farbe des Textes dem Text entspricht, der die Farbe kennzeichnet, und den entsprechenden Button anklicken.
 
@@ -34,7 +41,7 @@ Der Spieler muss entscheiden, ob die Farbe des Textes dem Text entspricht, der d
 </p>
 
 
-- Formen:
+### Formen:
 <Bild einfügen>
 Es werden sowohl eine aus einer gegebenen Menge von Formen zufällig ausgewählte Form und ein Wort.
 Bezeichnet das Wort die Form korrekt, soll der Spieler den Button :thumbsup: anklicken, ansonsten den Button rechts :thumbsdown:.
@@ -45,7 +52,7 @@ Bezeichnet das Wort die Form korrekt, soll der Spieler den Button :thumbsup: ank
 </p>
 
 
-- Unpassende Farbe auswählen:
+### Unpassende Farbe auswählen:
 Wie in der Kategorie "Farbwörter" wird ein in einer zufällig ausgewählten Farbe markiertes Wort angezeigt.
 Des Weiteren werden 3 farbige Buttons am unteren Rand angezeigt.
 Die Farbe, die weder zum Text noch zur Textfarbe passt, stellt die korrekte Antwort dar.
