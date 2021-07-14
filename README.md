@@ -8,6 +8,9 @@ Die App ist vollständig in Java implementiert. Für die grafische Benutzeroberf
 ## Kategorien
 
 - Rechnen: 
+
+![alt text](http://url/to/img.png)
+
 <Foto einblenden von Seite am besten mit Video um zu demonstrieren wie es abläuft mit der Zeit>
 Es wird eine Gleichung angezeigt, die entweder gilt oder nicht gilt.
 
