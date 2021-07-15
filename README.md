@@ -26,7 +26,7 @@ Die App ist vollständig in Java implementiert. Bei der integrierten Entwicklung
 
 ### Rechnen:
 - Es wird eine Gleichung angezeigt, die entweder gilt oder nicht gilt.
-- Der Spieler entscheidet durch Klicken der Buttons, ob die Gleichung korrekt ist.
+- Der Spieler entscheidet innerhalb der ausgewählten Zeitspanne durch Klicken der Buttons, ob die Gleichung korrekt ist.
 
 <p float='left'>
   <img src="https://user-images.githubusercontent.com/73491052/125687612-4796b970-b61c-4024-8069-07484bc9a3e4.png" width=250 align="left">
@@ -38,7 +38,7 @@ Die App ist vollständig in Java implementiert. Bei der integrierten Entwicklung
 
 ### Farbwörter:
 - Es wird ein Wort angezeigt, das eine Farbe bezeichnet und farblich markiert ist.
-- Der Spieler muss dabei entscheiden, ob die Farbe des Textes dem Text entspricht, der die Farbe kennzeichnet, und den entsprechenden Button anklicken.
+- Der Spieler muss innerhalb der Zeitspanne dabei entscheiden, ob die Farbe des Textes dem Text entspricht, der die Farbe kennzeichnet, und den entsprechenden Button anklicken.
 
 <p float='left'>
   <img src="https://user-images.githubusercontent.com/73491052/125687616-65fabe4e-1dc1-460d-81cb-0da610a9d57b.png" width=250 align="left">
@@ -62,7 +62,7 @@ Die App ist vollständig in Java implementiert. Bei der integrierten Entwicklung
 
 ### Unpassende Farbe auswählen:
 - Wie in der Kategorie "Farbwörter" wird ein in einer zufällig ausgewählten Farbe markiertes Wort angezeigt.
-- Am unteren Rand werden drei farbige Buttons angezeigt. Die Farbe, die weder zum Text noch zur Textfarbe passt, stellt die korrekte Antwort dar.
+- Am unteren Rand werden drei farbige Buttons angezeigt. Die Farbe, die weder zum Text noch zur Textfarbe passt, stellt die korrekte Antwort dar und muss innerhalb der Zeitspanne angeklickt werden.
 
 <p float='left'>
   <img src="https://user-images.githubusercontent.com/73491052/125688090-d3ee50ef-6114-485b-b339-dce2a45fbaf5.png" width=250 align="left">
